@@ -323,18 +323,22 @@ body {
     height: 100%;
 }
 
-.nav-logo img {
+.nav-logo img,
+.nav-logo svg {
     width: 168px;
     height: 2.125rem; /* 34px - 텍스트 높이와 동일하게 맞춤 */
     max-width: none;
     object-fit: contain; /* 비율 유지하면서 컨테이너에 맞춤 */
     /* hero 영역에서는 흰색으로 표시 */
     filter: brightness(0) invert(1);
+    color: white !important; /* SVG 색상 고정 */
 }
 
 /* blend-mode가 적용될 때는 현재 테마에 따라 색상 변환 */
-.navbar.blend-mode .nav-logo img {
+.navbar.blend-mode .nav-logo img,
+.navbar.blend-mode .nav-logo svg {
     filter: brightness(0) invert(1) !important; /* blend mode에서 자동 반전 */
+    color: white !important; /* SVG 색상 고정 */
 }
 
 /* Figma 디자인 네비게이션 링크 */
@@ -535,7 +539,7 @@ body {
 
 /* Featured Work 섹션 */
 .featured-work-section {
-    padding: 5rem 0;
+    padding: 10rem 0 0 0;
     background-color: var(--bg-primary);
 }
 
@@ -576,7 +580,7 @@ body {
 
 /* What We Do 섹션 */
 .what-we-do-section {
-    padding: 5rem 0;
+    padding: 5rem 0 10rem 0;
     background-color: var(--bg-primary);
     position: relative;
     z-index: 1;
@@ -629,7 +633,7 @@ body {
 
 /* Featured Work Grid 섹션 */
 .featured-work-grid-section {
-    padding: 2rem 0;
+    padding: 2rem 0 10rem 0;
     background-color: var(--bg-primary);
 }
 
@@ -638,7 +642,7 @@ body {
     grid-template-columns: repeat(12, 1fr);
     column-gap: clamp(var(--spacing-05), var(--spacing-05) + (100vw - 1920px) * 0.01, var(--spacing-07)); /* 가로 간격 */
     row-gap: var(--spacing-12); /* 세로 간격 - Figma spacing-12 */
-    margin-bottom: clamp(var(--spacing-08), var(--spacing-08) + (100vw - 1920px) * 0.02, var(--spacing-11));
+    margin-bottom: clamp(var(--spacing-12), var(--spacing-12) + (100vw - 1920px) * 0.02, var(--spacing-15));
     width: 100%;
     box-sizing: border-box;
 }
@@ -891,41 +895,38 @@ body {
     transform: translate3d(0%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
     transform-style: preserve-3d;
     filter: none; /* 기본 필터 제거 */
+    color: var(--schemes-on-background) !important; /* SVG 색상을 on-background로 강제 설정 */
 }
 
 /* All Projects 버튼 아이콘 - 원본 크기 */
 .all-projects-button .button-icon svg {
     transform: scale(1); /* 24px 원본 크기 */
+    color: var(--schemes-on-background) !important; /* 추가 보장을 위한 색상 설정 */
 }
 
-/* All Projects 버튼 아이콘 컨테이너에 새로운 아이콘을 위한 ::before 요소 추가 */
-.all-projects-button .button-icon::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    width: 56px; /* 56px - 컨테이너 안에 완전히 들어가도록 조정 */
-    height: 56px;
-    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23.707 11.293C24.0976 11.6835 24.0976 12.3165 23.707 12.707L16.707 19.707L15.293 18.293L20.5859 13H7V11H20.5859L15.293 5.70703L16.707 4.29297L23.707 11.293Z' fill='currentColor'/%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    opacity: 0;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1;
-}
 
 /* 기존 버튼 호버 효과 - The Grap 스타일 */
 .all-projects-button .button-content:hover .button-icon svg {
     transform: translate3d(100%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+    color: var(--schemes-on-background) !important; /* 호버 시에도 on-background 색상 강제 적용 */
 }
 
-/* All Projects 버튼 호버 시 새로운 아이콘이 나타나는 효과 */
-.all-projects-button .button-content:hover .button-icon::before {
-    transform: translate(-50%, -50%) scale(1); /* 56px 원본 크기 그대로 */
-    opacity: 1;
+/* SVG path의 fill을 color와 독립적으로 제어 - 더 강력한 선택자 */
+.all-projects-button .button-content:hover .button-icon svg path[fill="currentColor"] {
+    fill: var(--schemes-on-background) !important;
 }
+
+/* 다크모드에서 호버 시 아이콘 색상 강제 적용 - 더 구체적인 선택자 */
+[data-theme="dark"] .all-projects-button .button-content:hover .button-icon svg path[fill="currentColor"] {
+    fill: var(--schemes-on-background) !important;
+}
+
+/* 다크모드에서 버튼 배경색 명시적 설정 */
+[data-theme="dark"] .all-projects-button {
+    background-color: var(--schemes-background) !important; /* 검은색 배경 */
+}
+
+
 
 .all-projects-button .button-content:hover::after {
     transform: translate3d(0%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
@@ -939,7 +940,7 @@ body {
 /* Services 섹션 - Figma 디자인 업데이트 */
 .services-section {
     background-color: var(--bg-primary);
-    padding: 3rem 0 6rem 0; /* Figma: pb-24 (96px) */
+    padding: 3rem 0 15rem 0; /* Services와 Footer 사이 간격 추가 */
 }
 
 .services-header h2 {
@@ -1003,6 +1004,13 @@ body {
     transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), margin-bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Envato 스타일 자연스러운 전환 */
 }
 
+/* 활성화된 카드의 텍스트 색상을 on-primary로 설정 */
+.service-item.active .service-title h3,
+.service-item.active .service-text-block h4,
+.service-item.active .service-text-block p {
+    color: var(--schemes-on-primary) !important; /* 다크모드/라이트모드 상관없이 on-primary 색상 사용 */
+}
+
 /* 활성화된 카드의 텍스트 블록 */
 .service-item.active .service-text-block {
     opacity: 1; /* 활성화된 카드의 텍스트는 완전히 보임 */
@@ -1021,6 +1029,13 @@ body {
     background-color: var(--bg-primary) !important; /* #ffffff */
     margin-bottom: 0 !important; /* Figma: 카드들이 겹치지 않음 */
     transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), margin-bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Envato 스타일 자연스러운 전환 */
+}
+
+/* 비활성화된 카드의 텍스트 색상을 기본 텍스트 색상으로 설정 */
+.service-item:not(.active) .service-title h3,
+.service-item:not(.active) .service-text-block h4,
+.service-item:not(.active) .service-text-block p {
+    color: var(--text-primary) !important; /* 기본 텍스트 색상 사용 */
 }
 
 .service-item:not(.active) .service-text-block {
@@ -1124,15 +1139,27 @@ body {
 
 /* Footer 섹션 */
 .footer-section {
-    aspect-ratio: 1600/900;
     background-color: var(--bg-primary);
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+
+.footer-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: clamp(var(--spacing-04), var(--spacing-04) + (100vw - 1920px) * 0.01, var(--spacing-08)) clamp(var(--spacing-08), var(--spacing-08) + (100vw - 1920px) * 0.015, var(--spacing-09));
+    padding-top: 8rem;
+    padding-bottom: 2rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
-    padding: 2rem;
-    position: relative;
-    width: 100%;
+    min-height: 100vh;
 }
 
 .footer-header {
@@ -1290,7 +1317,7 @@ body {
 .footer-content {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 2rem;
     align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
@@ -1303,7 +1330,8 @@ body {
     width: 100%;
 }
 
-.footer-logo img {
+.footer-logo img,
+.footer-logo svg {
     position: absolute;
     bottom: 2.42%;
     left: 0;
@@ -1312,11 +1340,11 @@ body {
     width: 100%;
     height: 100%;
     max-width: none;
+    color: var(--text-primary); /* SVG 색상을 텍스트 색상과 동일하게 */
 }
 
 .footer-bar {
     display: flex;
-    flex-wrap: wrap;
     gap: 2.5rem;
     align-items: center;
     justify-content: flex-start;
@@ -1331,11 +1359,17 @@ body {
     color: var(--text-primary);
     white-space: nowrap;
     margin: 0;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateZ(0) !important;
+    will-change: auto;
+    position: relative;
+    z-index: 1;
 }
 
 .footer-links {
     display: flex;
-    gap: 2.5rem;
+    gap: 1rem;
     align-items: center;
     justify-content: flex-start;
 }
@@ -1706,17 +1740,21 @@ body {
         height: 100%;
     }
     
-    .nav-logo img {
+    .nav-logo img,
+    .nav-logo svg {
         width: 140px;
         height: 2.125rem; /* 34px - 텍스트 높이와 동일하게 맞춤 */
         object-fit: contain; /* 비율 유지하면서 컨테이너에 맞춤 */
         /* hero 영역에서는 흰색으로 표시 */
         filter: brightness(0) invert(1);
+        color: white !important; /* SVG 색상 고정 */
     }
     
     /* 모바일에서도 blend-mode가 적용될 때는 현재 테마에 따라 색상 변환 */
-    .navbar.blend-mode .nav-logo img {
+    .navbar.blend-mode .nav-logo img,
+    .navbar.blend-mode .nav-logo svg {
         filter: brightness(0) invert(1) !important; /* blend mode에서 자동 반전 */
+        color: white !important; /* SVG 색상 고정 */
     }
     
     /* 모바일 히어로 섹션 */
@@ -1869,6 +1907,21 @@ body {
     .service-item {
         will-change: auto; /* 모바일에서는 will-change 비활성화 */
         transform-style: flat; /* 모바일에서는 3D 변환 비활성화 */
+    }
+    
+    /* 모바일 푸터 섹션 */
+    .footer-section {
+        width: 100vw;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .footer-container {
+        padding: 0;
+        padding-top: 5rem;
+        padding-bottom: 2rem;
+        justify-content: space-between;
+        min-height: 100vh;
     }
     
 }
