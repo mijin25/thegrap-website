@@ -539,3 +539,95 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('Custom cursor initialized - optimized single cursor');
 });
+
+// Services 섹션 스크롤 기반 활성화 + 마우스 호버 인터랙션 (Envato Elements 스타일)
+document.addEventListener('DOMContentLoaded', function() {
+    const serviceItems = document.querySelectorAll('.service-item');
+    const serviceListContainer = document.querySelector('.service-list-container');
+    
+    if (serviceItems.length === 0 || !serviceListContainer) return;
+    
+    // 모바일 환경 감지
+    const isMobile = window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // 스크롤 기반 활성화만 사용 (마우스 호버 제거)
+    
+    // 현재 활성화된 아이템 인덱스 (순서: 01, 02, 03)
+    let activeItemIndex = 0; // service-item-01이 기본 활성화
+    
+    // 부드러운 애니메이션을 위한 lerp 함수
+    function lerp(start, end, factor) {
+        return start + (end - start) * factor;
+    }
+    
+    // 스크롤 위치에 따라 활성화된 아이템 감지 및 색상 변경
+    function updateActiveItem() {
+        const windowHeight = window.innerHeight;
+        const viewportCenter = windowHeight / 2; // 뷰포트 중앙
+        
+        let newActiveIndex = 0;
+        let minDistance = Infinity;
+        
+        serviceItems.forEach((item, index) => {
+            const rect = item.getBoundingClientRect();
+            const itemCenter = rect.top + rect.height / 2;
+            
+            // 뷰포트 중앙과 아이템 중앙 사이의 거리 계산
+            const distance = Math.abs(viewportCenter - itemCenter);
+            
+            if (distance < minDistance) {
+                minDistance = distance;
+                newActiveIndex = index;
+            }
+        });
+        
+        // 활성화된 아이템이 변경되었을 때만 색상 업데이트
+        if (newActiveIndex !== activeItemIndex) {
+            activeItemIndex = newActiveIndex;
+            updateItemColors();
+        }
+    }
+    
+    // 아이템 색상 업데이트 (Envato Elements 스타일: 스크롤 기반 활성화)
+    function updateItemColors() {
+        console.log('updateItemColors called - activeItemIndex:', activeItemIndex);
+        
+        serviceItems.forEach((item, index) => {
+            if (index === activeItemIndex) {
+                // 스크롤로 활성화된 아이템
+                item.classList.add('active');
+                console.log('Item', index, 'set to active');
+            } else {
+                // 비활성화된 아이템
+                item.classList.remove('active');
+                console.log('Item', index, 'set to inactive');
+            }
+        });
+    }
+    
+    // Envato Elements 스타일: 스크롤 기반 활성화만 사용 (마우스 움직임 제거)
+    
+    // Envato Elements 스타일: 스크롤 기반 활성화만 사용 (마우스 이벤트 제거)
+    
+    // 스크롤 이벤트로 활성화된 아이템 감지
+    window.addEventListener('scroll', updateActiveItem, { passive: true });
+    
+    // 초기 설정: 스크롤 기반 활성화
+    activeItemIndex = 0; // service-item-01 강제 활성화
+    
+    // 모든 카드의 클래스를 강제로 초기화
+    serviceItems.forEach((item, index) => {
+        item.classList.remove('active');
+    });
+    
+    // 첫 번째 카드만 활성화
+    serviceItems[0].classList.add('active');
+    
+    // 디버깅: 초기 상태 확인
+    console.log('Initial activeItemIndex:', activeItemIndex);
+    console.log('service-item-01 classes:', serviceItems[0].classList.toString());
+    console.log('service-item-02 classes:', serviceItems[1].classList.toString());
+    console.log('service-item-03 classes:', serviceItems[2].classList.toString());
+    
+    console.log('Services section scroll-based activation + mouse interaction initialized - Envato Elements style');
+});

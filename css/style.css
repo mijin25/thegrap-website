@@ -936,19 +936,19 @@ body {
     transform: scale(0.98);
 }
 
-/* Services 섹션 */
+/* Services 섹션 - Figma 디자인 업데이트 */
 .services-section {
     background-color: var(--bg-primary);
-    padding: 3rem 0 8rem 0;
+    padding: 3rem 0 6rem 0; /* Figma: pb-24 (96px) */
 }
 
 .services-header h2 {
-    font-size: var(--display-01-size); /* 80px */
+    font-size: var(--display-01-size); /* 80px - Figma: text-[80px] */
     font-weight: var(--weight-emphasized);
-    line-height: var(--line-height-display);
+    line-height: 1; /* Figma: leading-none */
     font-family: var(--font-family);
     color: var(--text-primary);
-    margin-bottom: 2rem;
+    margin-bottom: 2rem; /* Figma: gap-8 (32px) */
 }
 
 .service-list-container {
@@ -956,27 +956,106 @@ body {
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    padding: 2rem 0 2rem 0;
+    padding: 0; /* 컬러가 완전히 채워지도록 모든 패딩 제거 */
+    width: 100vw; /* 전체 뷰포트 너비 */
+    margin-left: calc(-50vw + 50%); /* 컨테이너 패딩을 상쇄하여 전체 너비로 확장 */
+    margin-right: calc(-50vw + 50%); /* 컨테이너 패딩을 상쇄하여 전체 너비로 확장 */
+    cursor: none; /* 마우스 커서 숨김 (커스텀 커서 사용) */
+    position: relative; /* 마우스 이벤트를 위한 상대 위치 */
 }
 
 .service-item {
     display: flex;
-    gap: 4rem;
+    gap: 4rem; /* Figma: gap-16 (64px) */
     align-items: flex-start;
     justify-content: flex-start;
-    margin-bottom: -2rem;
-    padding: 2rem 2rem 10rem 2rem;
+    margin-bottom: 0; /* Figma: 카드들이 겹치지 않음 */
+    padding: 2rem 2rem 8rem 2rem; /* Figma: pt-8 (32px), pb-32 (128px), px-8 (32px) */
     position: relative;
     width: 100%;
+    will-change: transform; /* 스크롤 애니메이션 성능 최적화 */
+    transform-style: preserve-3d; /* 3D 변환 지원 */
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* 더 부드러운 ease in-out 전환 */
+    z-index: 1; /* 아이템들이 자연스럽게 겹치도록 z-index 설정 */
+    /* overflow: hidden 제거 - 컬러 채움을 방해하지 않도록 */
 }
 
 .service-item-01 {
-    background-color: var(--schemes-primary); /* #ccff00 */
+    background-color: var(--bg-primary); /* 기본 흰색 배경 */
+    z-index: 1; /* 맨 아래 아이템 */
 }
 
-.service-item-02,
+.service-item-02 {
+    background-color: var(--bg-primary);
+    z-index: 2; /* 01을 덮는 아이템 */
+}
+
 .service-item-03 {
     background-color: var(--bg-primary);
+    z-index: 3; /* 02를 덮는 맨 위 아이템 */
+    margin-bottom: 2rem; /* 마지막 카드 하단에 여백 추가 */
+}
+
+/* 활성화된 서비스 아이템 스타일 (Envato Elements 스타일) */
+.service-item.active {
+    background-color: var(--schemes-primary) !important; /* #ccff00 */
+    margin-bottom: 0 !important; /* Figma: 카드들이 겹치지 않음 */
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), margin-bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Envato 스타일 자연스러운 전환 */
+}
+
+/* 활성화된 카드의 텍스트 블록 */
+.service-item.active .service-text-block {
+    opacity: 1; /* 활성화된 카드의 텍스트는 완전히 보임 */
+    transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.service-item.active .service-text-block p {
+    opacity: 1; /* 활성화된 카드의 상세 설명은 완전히 보임 */
+    transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Envato Elements 스타일: 스크롤 기반 활성화만 사용 (호버 스타일 제거) */
+
+/* 비활성화된 서비스 아이템 스타일 (Envato Elements 스타일) */
+.service-item:not(.active) {
+    background-color: var(--bg-primary) !important; /* #ffffff */
+    margin-bottom: 0 !important; /* Figma: 카드들이 겹치지 않음 */
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), margin-bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Envato 스타일 자연스러운 전환 */
+}
+
+.service-item:not(.active) .service-text-block {
+    opacity: 1; /* 비활성화된 카드의 제목은 보임 */
+    gap: 0; /* 상세 설명이 숨겨질 때 gap 제거 */
+    transition: gap 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Envato 스타일 자연스러운 전환 */
+}
+
+/* 활성화된 카드의 텍스트 블록 */
+.service-item.active .service-text-block {
+    gap: 1.5rem; /* 활성화된 카드의 기본 gap 복원 */
+    transition: gap 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Envato 스타일 자연스러운 전환 */
+}
+
+.service-item:not(.active) .service-text-block p {
+    opacity: 0 !important; /* 비활성화된 카드의 상세 설명은 숨김 */
+    visibility: hidden; /* 추가 보장을 위한 visibility 숨김 */
+    max-height: 0 !important; /* max-height를 0으로 설정하여 공간 제거 */
+    margin: 0 !important; /* 마진 제거 */
+    padding: 0 !important; /* 패딩 제거 */
+    overflow: hidden; /* 넘치는 내용 숨김 */
+    transform: translateY(-10px); /* 위로 살짝 이동하여 자연스러운 등장 효과 */
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* 더 부드러운 ease in-out 전환 */
+}
+
+/* 활성화된 카드의 상세 설명은 확실히 보이도록 */
+.service-item.active .service-text-block p {
+    opacity: 1 !important;
+    visibility: visible !important;
+    max-height: 200px !important; /* 충분한 높이로 설정하여 내용 표시 */
+    margin: 0 !important; /* 기본 마진 유지 */
+    padding: 0 !important; /* 기본 패딩 유지 */
+    overflow: visible; /* 내용 표시 */
+    transform: translateY(0); /* 원래 위치로 복원 */
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* 더 부드러운 ease in-out 전환 */
 }
 
 .service-item::before {
@@ -991,14 +1070,25 @@ body {
     pointer-events: none;
 }
 
+/* service-item-01과 service-item-02의 하단 border 제거 */
+.service-item-01::before,
+.service-item-02::before {
+    border-bottom: none;
+}
+
+/* service-item-03만 하단 border 유지 */
+.service-item-03::before {
+    border-bottom: 1px solid var(--text-primary);
+}
+
 .service-title {
     flex: 1;
 }
 
 .service-title h3 {
-    font-size: var(--heading-03-size); /* 40px */
+    font-size: var(--heading-03-size); /* 40px - Figma: text-[40px] */
     font-weight: var(--weight-emphasized);
-    line-height: var(--line-height-heading);
+    line-height: 1.1; /* Figma: leading-[1.1] */
     font-family: var(--font-family);
     color: var(--text-primary);
     margin: 0;
@@ -1008,24 +1098,25 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-07); /* 24px */
+    gap: 1.5rem; /* Figma: gap-6 (24px) */
     align-items: flex-start;
     justify-content: center;
+    padding: 0; /* 하단 패딩 제거 - service-item에서 이미 설정됨 */
 }
 
 .service-text-block h4 {
-    font-size: var(--heading-01-size); /* 64px */
+    font-size: var(--heading-01-size); /* 64px - Figma: text-[64px] */
     font-weight: var(--weight-emphasized);
-    line-height: var(--line-height-heading);
+    line-height: 1.1; /* Figma: leading-[1.1] */
     font-family: var(--font-family);
     color: var(--text-primary);
     margin: 0;
 }
 
 .service-text-block p {
-    font-size: var(--body-06-size); /* 24px */
+    font-size: var(--body-06-size); /* 24px - Figma: text-[24px] */
     font-weight: var(--weight-emphasized);
-    line-height: var(--line-height-heading);
+    line-height: 1.1; /* Figma: leading-[1.1] */
     font-family: var(--font-family);
     color: var(--text-primary);
     margin: 0;
@@ -1746,6 +1837,38 @@ body {
     
     .btn-large {
         gap: var(--spacing-02); /* 8px -> 4px */
+    }
+    
+    /* Services 섹션 모바일 반응형 */
+    .service-list-container {
+        width: 100vw; /* 모바일에서도 전체 너비 유지 */
+        margin-left: 0; /* 모바일에서는 margin 조정 불필요 */
+        margin-right: 0; /* 모바일에서는 margin 조정 불필요 */
+    }
+    
+    .service-item {
+        flex-direction: column; /* 모바일에서는 세로 배치 */
+        gap: 1rem; /* 모바일에서는 간격 축소 */
+        padding: 1rem 1rem 4rem 1rem; /* 모바일에서는 패딩 축소 */
+        margin-bottom: -1rem; /* 모바일에서는 마진 축소 */
+    }
+    
+    .service-text-block h4 {
+        font-size: var(--heading-03-size); /* 64px -> 40px */
+    }
+    
+    .service-text-block p {
+        font-size: var(--body-03-size); /* 24px -> 16px */
+    }
+    
+    .service-text-block {
+        padding: 0 0 2rem 0; /* 모바일에서는 하단 패딩 축소 */
+    }
+    
+    /* 모바일에서 스크롤 애니메이션 성능 최적화 */
+    .service-item {
+        will-change: auto; /* 모바일에서는 will-change 비활성화 */
+        transform-style: flat; /* 모바일에서는 3D 변환 비활성화 */
     }
     
 }
