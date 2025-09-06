@@ -1,0 +1,1199 @@
+/* PP Neue Montreal 웹폰트 정의 (영문용) */
+@font-face {
+    font-family: 'PP Neue Montreal';
+    src: url('../assets/fonts/PPNeueMontreal-Regular.woff2') format('woff2'),
+         url('../assets/fonts/PPNeueMontreal-Regular.woff') format('woff'),
+         url('../assets/fonts/PPNeueMontreal-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'PP Neue Montreal';
+    src: url('../assets/fonts/PPNeueMontreal-Medium.woff2') format('woff2'),
+         url('../assets/fonts/PPNeueMontreal-Medium.woff') format('woff'),
+         url('../assets/fonts/PPNeueMontreal-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Kakao Small Sans 웹폰트 정의 (한글용 - Regular만) */
+@font-face {
+    font-family: 'Kakao Small Sans';
+    src: url('../assets/fonts/KakaoSmallSans-Regular.woff2') format('woff2'),
+         url('../assets/fonts/KakaoSmallSans-Regular.woff') format('woff'),
+         url('../assets/fonts/KakaoSmallSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Kakao Small Sans 두꺼운 버전 (시각적 효과) */
+@font-face {
+    font-family: 'Kakao Small Sans';
+    src: url('../assets/fonts/KakaoSmallSans-Regular.woff2') format('woff2'),
+         url('../assets/fonts/KakaoSmallSans-Regular.woff') format('woff'),
+         url('../assets/fonts/KakaoSmallSans-Regular.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 전역 폰트 스무딩 - 사이트 전반 적용 */
+html, body, * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* 폰트 로딩 상태 관리 */
+.fonts-loading {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.fonts-loaded {
+    font-family: var(--font-family);
+}
+
+/* 한글 폰트 두께 조정 유틸리티 클래스 */
+.korean-medium {
+    font-family: var(--font-family-ko);
+    font-weight: 500; /* Regular 폰트를 500으로 설정하여 중간 두께 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* navbar 요소에 강제 폰트 스무딩 적용 */
+.navbar, .navbar *, .nav-link, .nav-menu, .nav-container {
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    text-rendering: optimizeLegibility !important;
+    font-feature-settings: "kern" 1 !important;
+    font-kerning: normal !important;
+}
+
+body {
+    cursor: none !important; /* 기본 커서 완전히 숨김 */
+}
+
+/* 모든 요소에서 기본 커서 숨김 */
+* {
+    cursor: none !important;
+}
+
+/* 브라우저 기본 커서 완전히 숨김 */
+html, body, * {
+    cursor: none !important;
+}
+
+/* Figma Variables - 실제 Figma에서 가져온 변수들 */
+:root {
+    /* ========================================
+       Figma Variables - Colors (실제 Figma 값)
+       ======================================== */
+    
+    /* Brand Colors */
+    --brand-lime-light: #ccff00;   /* 브랜드 메인 컬러 */
+    
+    /* Schemes - Light Mode */
+    --schemes-primary: var(--brand-lime-light); /* 브랜드 컬러 참조 */
+    --schemes-on-primary: #000000;
+    --schemes-background: #ffffff;
+    --schemes-on-background: #000000;
+    --schemes-surface: #f5f5f5;
+    --schemes-on-surface: #000000;
+    --schemes-secondary: #888888;
+    --schemes-on-secondary: #ffffff;
+    --schemes-outline: #bdbdbd;
+    --schemes-hero: #000000;
+    --schemes-on-hero: #ffffff;
+    
+    /* ========================================
+       Figma Variables - Spacing (실제 Figma 값)
+       ======================================== */
+    
+    /* Spacing Variables - Desktop 기준 */
+    --spacing-01: 0.125rem; /* 2px */
+    --spacing-02: 0.25rem;  /* 4px */
+    --spacing-03: 0.5rem;   /* 8px */
+    --spacing-04: 0.75rem;  /* 12px */
+    --spacing-05: 1rem;     /* 16px */
+    --spacing-06: 1.25rem;  /* 20px */
+    --spacing-07: 1.5rem;   /* 24px */
+    --spacing-08: 2rem;     /* 32px */
+    --spacing-09: 2.5rem;   /* 40px */
+    --spacing-10: 3rem;     /* 48px */
+    --spacing-11: 4rem;     /* 64px */
+    --spacing-12: 5rem;     /* 80px */
+    --spacing-13: 6rem;     /* 96px */
+    --spacing-14: 8rem;     /* 128px */
+    --spacing-15: 10rem;    /* 160px */
+    
+    /* ========================================
+       Figma Variables - Cursor (디자인 시스템)
+       ======================================== */
+    
+    /* 커스텀 커서 변수 */
+    --cursor-size-default: 1rem; /* 16px - 기본 크기 */
+    --cursor-size-hover: 8rem; /* 128px - 호버 크기 */
+    --cursor-color: var(--brand-lime-light); /* 브랜드 컬러 직접 참조 */
+    --cursor-text-color: var(--schemes-on-primary); /* #000000 */
+    --cursor-font-size: var(--spacing-07); /* 24px */
+    --cursor-transition-duration: 0.3s;
+    --cursor-transition-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --cursor-blend-mode-default: difference;
+    --cursor-blend-mode-hover: normal;
+    --cursor-z-index: 9999;
+    
+    /* ========================================
+       Figma Variables - Typography (실제 Figma 값)
+       ======================================== */
+    
+    /* 폰트 패밀리 - 텍스트 유형별 적용 */
+    --font-family: 'PP Neue Montreal', 'Kakao Small Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    
+    /* 영문 전용 폰트 */
+    --font-family-en: 'PP Neue Montreal', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    
+    /* 한글 전용 폰트 */
+    --font-family-ko: 'Kakao Small Sans', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    
+    /* 혼합 텍스트용 폰트 */
+    --font-family-mixed: 'PP Neue Montreal', 'Kakao Small Sans', sans-serif;
+    
+    /* Display 스타일 */
+    --display-05-size: 10rem; /* 160px */
+    --display-03-size: 7.5rem; /* 120px */
+    --display-01-size: 5rem; /* 80px */
+    
+    /* Heading 스타일 */
+    --heading-01-size: 4rem; /* 64px */
+    --heading-02-size: 3rem; /* 48px */
+    --heading-03-size: 2.5rem; /* 40px */
+    --heading-04-size: 2rem; /* 32px */
+    --heading-05-size: 1.5rem; /* 24px */
+    
+    /* Body 스타일 */
+    --body-06-size: 1.5rem; /* 24px */
+    --body-03-size: 1rem; /* 16px */
+    
+    /* Paragraph 스타일 */
+    --paragraph-01-paragraph-03: 1rem; /* 16px */
+    
+    /* 폰트 웨이트 */
+    --weight-emphasized: 500;
+    --weight-regular: 400;
+    
+    /* 라인 높이 */
+    --line-height-display: 1;
+    --line-height-heading: 1.1;
+    --line-height-body: 1.2;
+    --line-height-body-small: 1.3;
+    
+    /* 레터 스페이싱 */
+    --letter-spacing: 0;
+    
+    /* ========================================
+       Figma Variables - Spacing (실제 Figma 값)
+       ======================================== */
+    
+    --space-0: 0;
+    --spacing-02: 0.25rem; /* 4px */
+    --spacing-03: 0.5rem; /* 8px */
+    --spacing-05: 1rem; /* 16px */
+    --spacing-06: 1.25rem; /* 20px */
+    --spacing-07: 1.5rem; /* 24px */
+    --spacing-08: 2rem; /* 32px */
+    --spacing-09: 2.5rem; /* 40px */
+    --spacing-10: 3rem; /* 48px */
+    --spacing-11: 4rem; /* 64px */
+    --spacing-12: 5rem; /* 80px */
+    --spacing-14: 8rem; /* 128px */
+    --spacing-15: 10rem; /* 160px */
+    
+    /* ========================================
+       Legacy Variables (호환성 유지)
+       ======================================== */
+    --bg-primary: var(--schemes-background);
+    --text-primary: var(--schemes-on-background);
+    --text-secondary: var(--schemes-secondary);
+    --text-white: var(--schemes-on-hero);
+    --accent-color: var(--schemes-primary);
+    --border-color: var(--schemes-outline);
+}
+
+/* 다크 모드 색상 */
+[data-theme="dark"] {
+    /* Schemes - Dark Mode */
+    --schemes-primary: var(--brand-lime-light); /* 브랜드 컬러 참조 */
+    --schemes-on-primary: #000000;
+    --schemes-background: #000000;
+    --schemes-on-background: #ffffff;
+    --schemes-surface: #1a1a1a;
+    --schemes-on-surface: #ffffff;
+    --schemes-secondary: #bdbdbd;
+    --schemes-on-secondary: #000000;
+    --schemes-outline: #444444;
+    --schemes-hero: #000000;
+    --schemes-on-hero: #ffffff;
+    
+    /* Legacy Variables (호환성 유지) */
+    --bg-primary: var(--schemes-background);
+    --text-primary: var(--schemes-on-background);
+    --text-secondary: var(--schemes-secondary);
+    --text-white: var(--schemes-on-hero);
+    --accent-color: var(--schemes-primary);
+    --border-color: var(--schemes-outline);
+}
+
+/* 기본 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    overflow-x: hidden;
+}
+
+/* 컨테이너 */
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: clamp(var(--spacing-04), var(--spacing-04) + (100vw - 1920px) * 0.01, var(--spacing-08)) clamp(var(--spacing-08), var(--spacing-08) + (100vw - 1920px) * 0.015, var(--spacing-09));
+}
+
+/* 네비게이션 바 */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: transparent;
+    z-index: 1000;
+    padding: clamp(var(--spacing-06), var(--spacing-06) + (100vw - 1920px) * 0.01, var(--spacing-08)) clamp(var(--spacing-08), var(--spacing-08) + (100vw - 1920px) * 0.015, var(--spacing-09)); /* 반응형 패딩 */
+    transition: all 0.3s ease;
+}
+
+/* hero 영역을 벗어날 때 mix-blend-mode 적용 */
+.navbar.blend-mode {
+    mix-blend-mode: difference;
+}
+
+/* blend mode가 적용될 때는 자동으로 색상이 반전되므로 별도 설정 불필요 */
+
+.nav-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: var(--spacing-08); /* 32px - spacing-08 */
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: clamp(var(--spacing-09), var(--spacing-09) + (100vw - 1920px) * 0.01, var(--spacing-11)); /* 반응형 간격 */
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-09); /* 2.5rem / 40px */
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    height: 2.125rem; /* 34px - 컨테이너 높이와 동일 */
+}
+
+.nav-logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    height: 100%;
+}
+
+.nav-logo img {
+    width: 168px;
+    height: 2.125rem; /* 34px - 텍스트 높이와 동일하게 맞춤 */
+    max-width: none;
+    object-fit: contain; /* 비율 유지하면서 컨테이너에 맞춤 */
+    /* hero 영역에서는 흰색으로 표시 */
+    filter: brightness(0) invert(1);
+}
+
+/* blend-mode가 적용될 때는 현재 테마에 따라 색상 변환 */
+.navbar.blend-mode .nav-logo img {
+    filter: brightness(0) invert(1) !important; /* blend mode에서 자동 반전 */
+}
+
+/* Figma 디자인 네비게이션 링크 */
+.nav-link {
+    font-size: var(--heading-05-size); /* 24px */
+    font-weight: var(--weight-emphasized);
+    line-height: var(--line-height-heading);
+    font-family: var(--font-family);
+    
+    color: var(--schemes-on-hero);
+    text-decoration: none;
+    padding: var(--spacing-02) 0; /* 4px */
+    display: block;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--schemes-on-hero);
+}
+
+/* blend-mode가 적용될 때는 mix-blend-mode: difference가 자동으로 색상 반전 */
+
+/* 기존 nav-icon 스타일 유지 (호환성) */
+.nav-icon {
+    display: flex;
+    align-items: center;
+}
+
+.nav-icon img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1); /* hero 영역에서는 흰색으로 표시 */
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.nav-icon img:hover {
+    opacity: 0.7;
+}
+
+/* blend-mode가 적용될 때는 현재 테마에 따라 색상 변환 */
+.navbar.blend-mode .nav-icon img {
+    filter: brightness(0) invert(1) !important; /* blend mode에서 자동 반전 */
+}
+
+/* 히어로 섹션 */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    will-change: transform;
+    transition: transform 0.05s ease-out;
+    z-index: 0;
+    clip-path: inset(0 0 100% 0);
+    animation: heroDrawDown 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+
+@keyframes heroDrawDown {
+    from {
+        clip-path: inset(0 0 100% 0);
+    }
+    to {
+        clip-path: inset(0 0 0% 0);
+    }
+}
+
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    padding: 2.5rem 2rem; /* py-10 px-8 */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    min-height: 100%;
+}
+
+.hero-main-title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 0;
+    z-index: 2;
+    position: relative;
+}
+
+.hero-top-text-block {
+    height: 8.25rem; /* 132px */
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    z-index: 1;
+}
+
+.hero-top-text-block p {
+    font-size: var(--display-03-size); /* 120px */
+    font-weight: var(--weight-emphasized);
+    line-height: 1; /* leading-none */
+    font-family: var(--font-family);
+    color: white;
+    margin: 0;
+}
+
+.hero-middle-text-block {
+    height: 8.25rem; /* 132px */
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    text-align: right;
+    z-index: 1;
+}
+
+.hero-middle-text-block p {
+    font-size: var(--display-03-size); /* 120px */
+    font-weight: var(--weight-emphasized);
+    line-height: 1; /* leading-none */
+    font-family: var(--font-family);
+    color: white;
+    margin: 0;
+}
+
+.hero-sub-text {
+    display: flex !important;
+    gap: var(--spacing-07); /* 24px */
+    align-items: flex-end;
+    justify-content: flex-start;
+    width: 100%;
+    z-index: 1;
+    margin-top: 2rem; /* 메인 타이틀과의 간격 추가 */
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.hero-sub-text-left {
+    flex: 1;
+    min-width: 0;
+}
+
+.hero-sub-text-right {
+    flex: 1;
+    min-width: 0;
+    text-align: right;
+}
+
+.hero-sub-text p {
+    font-size: var(--heading-04-size); /* 32px */
+    font-weight: var(--weight-emphasized);
+    line-height: 1.1; /* leading-[1.1] */
+    font-family: var(--font-family);
+    color: white !important;
+    margin: 0;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.hero-bottom-text-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.hero-page p {
+    font-size: var(--body-06-size); /* 24px */
+    font-weight: var(--weight-regular);
+    line-height: var(--line-height-body);
+    font-family: var(--font-family);
+    color: white;
+    margin: 0;
+}
+
+/* Featured Work 섹션 */
+.featured-work-section {
+    padding: 5rem 0;
+    background-color: var(--bg-primary);
+}
+
+.parallax-huge-text {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    position: relative;
+    left: 0;
+    right: 0;
+    max-width: none;
+    overflow: hidden;
+}
+
+.huge-text-wrapper {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    position: relative;
+    left: 0;
+    right: 0;
+    max-width: none;
+    overflow: hidden; /* 컨테이너에서 overflow 제어 */
+}
+
+.huge-text {
+    font-size: var(--display-05-size); /* 160px */
+    font-weight: var(--weight-emphasized);
+    line-height: var(--line-height-display);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    white-space: nowrap;
+    min-width: 200vw; /* 충분한 너비로 설정 */
+    letter-spacing: 0.02em;
+    word-spacing: 0.1em;
+    will-change: transform;
+    transform-style: preserve-3d;
+    transition: none; /* The Grap처럼 즉시 반응 */
+}
+
+/* What We Do 섹션 */
+.what-we-do-section {
+    padding: 5rem 0;
+    background-color: var(--bg-primary);
+    position: relative;
+    z-index: 1;
+}
+
+.what-we-do-section .section-header h2 {
+    font-size: var(--display-01-size); /* 80px */
+    font-weight: var(--weight-emphasized);
+    line-height: var(--line-height-display);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+}
+
+.what-we-do-section .body {
+    display: flex;
+    gap: var(--spacing-05); /* 16px */
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+
+.what-we-do-section .spacing {
+    flex: 1;
+}
+
+.what-we-do-section .body-text-en {
+    flex: 1;
+}
+
+.what-we-do-section .body-text-en p {
+    font-size: var(--body-06-size); /* 24px */
+    font-weight: var(--weight-emphasized);
+    line-height: var(--line-height-heading);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+}
+
+.what-we-do-section .body-text-ko {
+    flex: 1;
+}
+
+.what-we-do-section .body-text-ko p {
+    font-size: var(--body-03-size); /* 16px */
+    font-weight: var(--weight-regular);
+    line-height: var(--line-height-body-small);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    letter-spacing: -0.32px;
+}
+
+/* Featured Work Grid 섹션 */
+.featured-work-grid-section {
+    padding: 2rem 0;
+    background-color: var(--bg-primary);
+}
+
+.featured-work-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: clamp(var(--spacing-05), var(--spacing-05) + (100vw - 1920px) * 0.01, var(--spacing-07)); /* 가로 간격 */
+    row-gap: var(--spacing-12); /* 세로 간격 - Figma spacing-12 */
+    margin-bottom: clamp(var(--spacing-08), var(--spacing-08) + (100vw - 1920px) * 0.02, var(--spacing-11));
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.project-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-05); /* 1rem - spacing-05 */
+    grid-column: span 4; /* 4컬럼씩 사용 */
+}
+
+.project-card-large {
+    grid-column: span 6; /* 큰 카드는 6컬럼 사용 */
+}
+
+/* 커스텀 커서 - 디자인 시스템 적용 */
+.custom-cursor {
+    position: fixed;
+    width: var(--cursor-size-default);
+    height: var(--cursor-size-default);
+    background-color: var(--cursor-color);
+    border: none !important;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: var(--cursor-z-index);
+    transform: translate(-50%, -50%);
+    display: block;
+    opacity: 1;
+    box-shadow: none !important;
+    outline: none !important;
+    filter: none !important;
+    font-size: 0;
+    color: transparent;
+    mix-blend-mode: var(--cursor-blend-mode-default);
+    transition: width var(--cursor-transition-duration) var(--cursor-transition-easing), 
+                height var(--cursor-transition-duration) var(--cursor-transition-easing),
+                font-size var(--cursor-transition-duration) var(--cursor-transition-easing),
+                color var(--cursor-transition-duration) var(--cursor-transition-easing),
+                mix-blend-mode var(--cursor-transition-duration) var(--cursor-transition-easing);
+}
+
+/* 선택 가능한 요소 호버 시 커서 확대 */
+.custom-cursor.interactive {
+    width: calc(var(--cursor-size-default) * 1.5); /* 1.5배 확대 */
+    height: calc(var(--cursor-size-default) * 1.5);
+}
+
+/* 기본 상태에서만 보이도록 명시적 설정 */
+.custom-cursor:not(.hover) {
+    background-color: var(--cursor-color);
+    mix-blend-mode: var(--cursor-blend-mode-default);
+}
+
+/* 모든 가상 요소 제거 */
+.custom-cursor::before,
+.custom-cursor::after {
+    display: none !important;
+    content: none !important;
+}
+
+/* 프로젝트 카드 호버 시 커스텀 커서 */
+.custom-cursor.hover {
+    width: var(--cursor-size-hover);
+    height: var(--cursor-size-hover);
+    background-color: var(--cursor-color);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-family);
+    font-size: var(--cursor-font-size);
+    font-weight: 500;
+    color: var(--cursor-text-color);
+    line-height: 1.1;
+    white-space: nowrap;
+    mix-blend-mode: var(--cursor-blend-mode-hover);
+}
+
+
+
+/* 두 번째 카드를 우측으로 정렬 */
+.project-card:nth-child(2) {
+    grid-column: 9 / 13; /* 9번째부터 12번째 컬럼까지 */
+}
+
+.project-cover {
+    aspect-ratio: 900/675;
+    width: 100%;
+    border-radius: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.project-cover:hover .project-image {
+    transform: scale(1.2);
+}
+
+.project-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: var(--heading-04-size);
+    font-weight: var(--weight-emphasized);
+    text-align: center;
+    padding: 1rem;
+}
+
+.project-info {
+    display: flex;
+    gap: var(--spacing-07); /* 24px */
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.project-name-and-tags {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.project-name-and-tags h3 {
+    font-size: var(--body-06-size); /* 24px */
+    font-weight: var(--weight-emphasized);
+    line-height: var(--line-height-heading);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.project-name-and-tags p {
+    font-size: var(--body-06-size); /* 24px */
+    font-weight: var(--weight-regular);
+    line-height: var(--line-height-body);
+    font-family: var(--font-family);
+    color: var(--schemes-secondary);
+    margin: 0;
+}
+
+.project-year p {
+    font-size: var(--body-06-size); /* 24px */
+    font-weight: var(--weight-emphasized);
+    line-height: var(--line-height-heading);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    white-space: nowrap;
+    margin: 0;
+}
+
+.all-projects-button {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    align-items: flex-end;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.button-content {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.button-content span {
+    font-size: var(--heading-01-size); /* 64px */
+    font-weight: var(--weight-emphasized);
+    line-height: var(--line-height-heading);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    text-align: center;
+    white-space: nowrap;
+}
+
+.button-icon {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.25rem 0 0 0;
+}
+
+.button-icon img {
+    width: 4rem; /* 64px */
+    height: 4rem; /* 64px */
+}
+
+/* Services 섹션 */
+.services-section {
+    background-color: var(--bg-primary);
+    padding: 3rem 0 8rem 0;
+}
+
+.services-header h2 {
+    font-size: var(--display-01-size); /* 80px */
+    font-weight: var(--weight-emphasized);
+    line-height: var(--line-height-display);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+}
+
+.service-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 2rem 0 2rem 0;
+}
+
+.service-item {
+    display: flex;
+    gap: 4rem;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: -2rem;
+    padding: 2rem 2rem 10rem 2rem;
+    position: relative;
+    width: 100%;
+}
+
+.service-item-01 {
+    background-color: var(--schemes-primary); /* #ccff00 */
+}
+
+.service-item-02,
+.service-item-03 {
+    background-color: var(--bg-primary);
+}
+
+.service-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-top: 1px solid var(--text-primary);
+    border-bottom: 1px solid var(--text-primary);
+    pointer-events: none;
+}
+
+.service-title {
+    flex: 1;
+}
+
+.service-title h3 {
+    font-size: var(--heading-03-size); /* 40px */
+    font-weight: var(--weight-emphasized);
+    line-height: var(--line-height-heading);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.service-text-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-07); /* 24px */
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.service-text-block h4 {
+    font-size: var(--heading-01-size); /* 64px */
+    font-weight: var(--weight-emphasized);
+    line-height: var(--line-height-heading);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.service-text-block p {
+    font-size: var(--body-06-size); /* 24px */
+    font-weight: var(--weight-emphasized);
+    line-height: var(--line-height-heading);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* Footer 섹션 */
+.footer-section {
+    aspect-ratio: 1600/900;
+    background-color: var(--bg-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 2rem;
+    position: relative;
+    width: 100%;
+}
+
+.footer-header {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.footer-header h2 {
+    font-size: var(--display-01-size); /* 80px */
+    font-weight: var(--weight-emphasized);
+    line-height: var(--line-height-display);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.lets-connect-button {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    align-items: flex-end;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.footer-logo {
+    aspect-ratio: 1600/229;
+    flex: 1;
+    position: relative;
+    width: 100%;
+}
+
+.footer-logo img {
+    position: absolute;
+    bottom: 2.42%;
+    left: 0;
+    right: 0.23%;
+    top: 0.41%;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+}
+
+.footer-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.footer-bar p {
+    font-size: var(--body-06-size); /* 24px */
+    font-weight: var(--weight-emphasized);
+    line-height: var(--line-height-heading);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    white-space: nowrap;
+    margin: 0;
+}
+
+.footer-links {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.footer-links a {
+    font-size: var(--body-06-size); /* 24px */
+    font-weight: var(--weight-emphasized);
+    line-height: var(--line-height-heading);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 0.25rem 0;
+}
+
+.footer-links a:hover {
+    color: var(--text-primary);
+}
+
+/* About 섹션 */
+.about-section {
+    padding: 5rem 0;
+    background-color: var(--bg-primary);
+}
+
+.about-section h2 {
+    font-size: var(--heading-01-size); /* 64px */
+    font-weight: var(--weight-emphasized);
+    line-height: var(--line-height-heading);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+}
+
+.about-section p {
+    font-size: var(--body-06-size); /* 24px */
+    font-weight: var(--weight-regular);
+    line-height: var(--line-height-body);
+    font-family: var(--font-family);
+    color: var(--text-secondary);
+}
+
+/* Work 섹션 */
+.work-section {
+    padding: 5rem 0;
+    background-color: var(--bg-primary);
+}
+
+.work-section h2 {
+    font-size: var(--heading-01-size); /* 64px */
+    font-weight: var(--weight-emphasized);
+    line-height: var(--line-height-heading);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+}
+
+.work-section p {
+    font-size: var(--body-06-size); /* 24px */
+    font-weight: var(--weight-regular);
+    line-height: var(--line-height-body);
+    font-family: var(--font-family);
+    color: var(--text-secondary);
+}
+
+/* Contact 섹션 */
+.contact-section {
+    padding: 5rem 0;
+    background-color: var(--bg-primary);
+}
+
+.contact-section h2 {
+    font-size: var(--heading-01-size); /* 64px */
+    font-weight: var(--weight-emphasized);
+    line-height: var(--line-height-heading);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+}
+
+.contact-section p {
+    font-size: var(--body-06-size); /* 24px */
+    font-weight: var(--weight-regular);
+    line-height: var(--line-height-body);
+    font-family: var(--font-family);
+    color: var(--text-secondary);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 0; /* 패딩 제거 - navbar에서 관리 */
+    }
+    
+    .navbar {
+        padding: 1.25rem 2rem; /* 상하 1.25rem(20px), 좌우 2rem(32px) */
+    }
+    
+    .nav-logo {
+        display: flex;
+        align-items: center;
+        height: 2.125rem; /* 34px - 컨테이너 높이와 동일 */
+    }
+    
+    .nav-logo a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        height: 100%;
+    }
+    
+    .nav-logo img {
+        width: 140px;
+        height: 2.125rem; /* 34px - 텍스트 높이와 동일하게 맞춤 */
+        object-fit: contain; /* 비율 유지하면서 컨테이너에 맞춤 */
+        /* hero 영역에서는 흰색으로 표시 */
+        filter: brightness(0) invert(1);
+    }
+    
+    /* 모바일에서도 blend-mode가 적용될 때는 현재 테마에 따라 색상 변환 */
+    .navbar.blend-mode .nav-logo img {
+        filter: brightness(0) invert(1) !important; /* blend mode에서 자동 반전 */
+    }
+    
+    /* 모바일 히어로 섹션 */
+    .hero-section {
+        height: 100vh;
+        width: 100vw;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .hero-background {
+        background-image: url('assets/hero-background-mobile.jpg');
+    }
+    
+    .hero-top-text-block p,
+    .hero-middle-text-block p {
+        font-size: var(--display-01-size); /* 80px */
+    }
+    
+    .hero-sub-text p {
+        font-size: var(--body-03-size); /* 16px */
+    }
+    
+    .hero-bottom-text-block {
+        width: 100%;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .huge-text {
+        font-size: var(--display-03-size); /* 120px */
+    }
+    
+    /* Featured Work Grid 반응형 */
+    .featured-work-row {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .featured-work-row:first-child {
+        justify-content: flex-start;
+    }
+    
+    .project-card {
+        flex: 0 0 100%; /* 모바일에서 전체 너비 */
+    }
+    
+    .project-card-large {
+        flex: 0 0 100%; /* 모바일에서 전체 너비 */
+    }
+}

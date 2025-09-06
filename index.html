@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Grap - Creative Agency</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- PP Neue Montreal 웹폰트는 CSS @font-face로 로드 -->
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-S9ERC144R8"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-S9ERC144R8');
+    </script>
+</head>
+<body class="fonts-loading">
+    <!-- 커스텀 커서 -->
+    <div class="custom-cursor">View</div>
+    
+    <!-- 네비게이션 바 (컴포넌트로 렌더링) -->
+    <div id="navbar-container"></div>
+
+    <!-- 히어로 섹션 -->
+    <section id="home" class="hero-section">
+        <!-- 배경 이미지 -->
+        <div class="hero-background" style="background-image: url('assets/hero-background-desktop.jpg')"></div>
+        
+        <!-- 메인 콘텐츠 -->
+        <div class="hero-content">
+            <!-- 메인 타이틀 -->
+            <div class="hero-main-title">
+                <div class="hero-top-text-block">
+                    <p>Imagine more</p>
+                </div>
+                <div class="hero-middle-text-block">
+                    <p>create better</p>
+                </div>
+            </div>
+            
+            <!-- 서브 텍스트 -->
+            <div class="hero-sub-text">
+                <div class="hero-sub-text-left">
+                    <p>Every detail matters, every interaction counts.</p>
+                </div>
+                <div class="hero-sub-text-right">
+                    <p>1 / 4</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What We Do 섹션 -->
+    <section class="what-we-do-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>We design with purpose, creating experiences that move hearts and inspire change. Every detail is an opportunity to connect and create meaning.</h2>
+            </div>
+            <div class="body">
+                <div class="spacing"></div>
+                <div class="body-text-en">
+                    <p>We provide a diverse range of services, including brand identity and strategy, UI/UX design, web publishing, motion design, campaign planning, and creative direction. Every project is designed to showcase your brand's essence and engage your audience in meaningful ways.</p>
+                </div>
+                <div class="body-text-ko">
+                    <p>우리는 브랜드 아이덴티티와 전략, UI/UX 디자인, 웹 퍼블리싱, 모션 디자인, 캠페인 기획, 크리에이티브 디렉션 등 폭넓은 서비스를 제공합니다. 모든 프로젝트는 브랜드의 본질을 효과적으로 드러내고, 고객과의 깊이 있는 소통을 추구합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Work 섹션 -->
+    <section class="featured-work-section">
+        <div class="parallax-huge-text">
+            <div class="huge-text-wrapper">
+                <div class="huge-text">Featured Work Featured Work Featured Work Featured Work Featured Work Featured Work</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Work Grid 섹션 -->
+    <section class="featured-work-grid-section">
+        <div class="container">
+            <div class="featured-work-grid" id="project-grid">
+                <!-- Project cards will be rendered here by JavaScript -->
+            </div>
+            <div class="all-projects-button">
+                <div class="button-content">
+                    <span>All Projects</span>
+                    <div class="button-icon">
+                        <img src="assets/icon_arrow-right.svg" alt="Arrow">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services 섹션 -->
+    <section class="services-section">
+        <div class="container">
+            <div class="services-header">
+                <h2>Services</h2>
+            </div>
+            <div class="service-list-container">
+                <div class="service-item service-item-01">
+                    <div class="service-title">
+                        <h3>Digital Experience</h3>
+                    </div>
+                    <div class="service-text-block">
+                        <h4>Intuitive and Seamless Experiences</h4>
+                        <p>We design intuitive interfaces and seamless user experiences by deeply analyzing user behavior and needs, all based on proven design principles. Our work maximizes usability, satisfaction, and engagement.</p>
+                    </div>
+                </div>
+                <div class="service-item service-item-02">
+                    <div class="service-title">
+                        <h3>Performance Business</h3>
+                    </div>
+                    <div class="service-text-block">
+                        <h4>Connecting Artists and Fans</h4>
+                        <p>We plan and execute K-POP concerts, fan meetings, and brand collaborations across Asia. By partnering with local promoters, media, and venues, we ensure flawless on-site execution. Our team also expands performance IP through metaverse events and digital platforms, creating sensory connections between artists and fans.</p>
+                    </div>
+                </div>
+                <div class="service-item service-item-03">
+                    <div class="service-title">
+                        <h3>Creative Visuals</h3>
+                    </div>
+                    <div class="service-text-block">
+                        <h4>Visualizing Brand Identity</h4>
+                        <p>Through various media like logos, album designs, packaging, and digital content, we clearly visualize a brand's unique character and emotions. Our designs are built on a foundation of solid structure, aesthetic quality, and compelling storytelling to craft a distinct brand image.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer 섹션 -->
+    <section class="footer-section">
+        <div class="container">
+            <div class="footer-header">
+                <h2>We shape moments,<br>build connections,<br>and create what matters.</h2>
+                <div class="lets-connect-button">
+                    <div class="button-content">
+                        <span>Let's connect</span>
+                        <div class="button-icon">
+                            <img src="assets/icon_arrow-right.svg" alt="Arrow">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="assets/logo.svg" alt="The Grap Logo">
+                </div>
+                <div class="footer-bar">
+                    <p>©2025. All right reserved</p>
+                    <div class="footer-links">
+                        <a href="#">Instagram</a>
+                        <a href="#">Behance</a>
+                        <a href="#">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
