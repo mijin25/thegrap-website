@@ -9,7 +9,7 @@
     --text-sm: 0.875rem;     /* 14px */
     --text-base: 1rem;       /* 16px */
     --text-lg: 1.125rem;     /* 18px */
-    --text-xl: 1.25rem;      /* 20px */
+    --text-xl: clamp(1.125rem, 0.5vw + 1rem, 1.25rem);      /* 18px~20px - 피그마 디자인 */
     --text-2xl: clamp(1.25rem, 1vw + 1.125rem, 1.5rem);    /* 20px~24px */
     --text-3xl: 1.875rem;    /* 30px */
     --text-4xl: clamp(1.75rem, 1.5vw + 1.25rem, 2.25rem);     /* 28px~36px - 피그마 디자인 */

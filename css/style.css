@@ -2064,7 +2064,7 @@ body {
     
     .footer-bar p,
     .footer-links a {
-        font-size: var(--text-lg); /* 18px - 피그마 기준 Tailwind text-lg */
+        font-size: var(--text-xl); /* 20px 데스크탑, 18px 모바일 - 16px 이상 보장 */
         opacity: 1 !important;
         visibility: visible !important;
     }
