@@ -1,0 +1,1861 @@
+[
+  {
+    "Color theme": {
+      "modes": {
+        "Light": {
+          "Schemes": {
+            "Primary": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#ccff00"
+            },
+            "On Primary": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#000000"
+            },
+            "Background": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#ffffff"
+            },
+            "On Background": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#000000"
+            },
+            "Surface": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#f5f5f5"
+            },
+            "On Surface": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#000000"
+            },
+            "Secondary": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#888888"
+            },
+            "On Secondary": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#ffffff"
+            },
+            "Outline": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#bdbdbd"
+            },
+            "Hero": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#000000"
+            },
+            "On Hero": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#ffffff"
+            }
+          }
+        },
+        "Dark": {
+          "Schemes": {
+            "Primary": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#ccff00"
+            },
+            "On Primary": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#000000"
+            },
+            "Background": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#000000"
+            },
+            "On Background": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#ffffff"
+            },
+            "Surface": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#1a1a1a"
+            },
+            "On Surface": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#ffffff"
+            },
+            "Secondary": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#bdbdbd"
+            },
+            "On Secondary": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#000000"
+            },
+            "Outline": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#444444"
+            },
+            "Hero": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#000000"
+            },
+            "On Hero": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "color",
+              "$value": "#ffffff"
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "Font theme": {
+      "modes": {
+        "Baseline": {
+          "Static": {
+            "font": {
+              "brand": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$value": "PP Neue Montreal"
+              }
+            },
+            "weight": {
+              "regular": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$value": "Regular"
+              },
+              "medium": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$value": "Medium"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "Spacing": {
+      "modes": {
+        "Desktop": {
+          "spacing-0": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 0
+          },
+          "spacing-1": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 4
+          },
+          "spacing-2": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 8
+          },
+          "spacing-3": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 12
+          },
+          "spacing-4": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 16
+          },
+          "spacing-5": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 20
+          },
+          "spacing-6": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 24
+          },
+          "spacing-7": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 28
+          },
+          "spacing-8": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 32
+          },
+          "spacing-9": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 36
+          },
+          "spacing-10": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 40
+          },
+          "spacing-11": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 44
+          },
+          "spacing-12": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 48
+          },
+          "spacing-14": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 56
+          },
+          "spacing-16": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 64
+          },
+          "spacing-20": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 80
+          },
+          "spacing-24": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 96
+          },
+          "spacing-28": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 112
+          },
+          "spacing-32": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 128
+          },
+          "spacing-36": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 144
+          },
+          "spacing-40": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 160
+          }
+        },
+        "Mobile": {
+          "spacing-0": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 0
+          },
+          "spacing-1": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 4
+          },
+          "spacing-2": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 8
+          },
+          "spacing-3": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 8
+          },
+          "spacing-4": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 8
+          },
+          "spacing-5": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 12
+          },
+          "spacing-6": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 12
+          },
+          "spacing-7": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 16
+          },
+          "spacing-8": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 16
+          },
+          "spacing-9": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 20
+          },
+          "spacing-10": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 20
+          },
+          "spacing-11": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 24
+          },
+          "spacing-12": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 24
+          },
+          "spacing-14": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 32
+          },
+          "spacing-16": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 32
+          },
+          "spacing-20": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 40
+          },
+          "spacing-24": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 48
+          },
+          "spacing-28": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 56
+          },
+          "spacing-32": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 64
+          },
+          "spacing-36": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 72
+          },
+          "spacing-40": {
+            "$scopes": [
+              "CORNER_RADIUS",
+              "WIDTH_HEIGHT",
+              "GAP"
+            ],
+            "$type": "float",
+            "$value": 80
+          }
+        }
+      }
+    }
+  },
+  {
+    "Typescale": {
+      "modes": {
+        "Desktop": {
+          "font": {
+            "$scopes": [
+              "FONT_FAMILY"
+            ],
+            "$type": "string",
+            "$libraryName": "",
+            "$collectionName": "Font theme",
+            "$value": "{Static.font.brand}"
+          },
+          "weight": {
+            "$scopes": [
+              "FONT_STYLE"
+            ],
+            "$type": "string",
+            "$libraryName": "",
+            "$collectionName": "Font theme",
+            "$value": "{Static.weight.regular}"
+          },
+          "weight-emphasized": {
+            "$scopes": [
+              "FONT_STYLE"
+            ],
+            "$type": "string",
+            "$libraryName": "",
+            "$collectionName": "Font theme",
+            "$value": "{Static.weight.medium}"
+          },
+          "size": {
+            "$scopes": [
+              "FONT_SIZE",
+              "FONT_VARIATIONS"
+            ],
+            "$type": "float",
+            "$value": 12
+          },
+          "Typescale": {
+            "text-xs": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 12
+              }
+            },
+            "text-sm": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 14
+              }
+            },
+            "text-base": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 16
+              }
+            },
+            "text-lg": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 18
+              }
+            },
+            "text-xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 20
+              }
+            },
+            "text-2xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 24
+              }
+            },
+            "text-3xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 30
+              }
+            },
+            "text-4xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 36
+              }
+            },
+            "text-5xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 48
+              }
+            },
+            "text-6xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 60
+              }
+            },
+            "text-7xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 72
+              }
+            },
+            "text-8xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 96
+              }
+            },
+            "text-9xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 128
+              }
+            },
+            "text-10xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 160
+              }
+            },
+            "text-11xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 192
+              }
+            },
+            "text-12xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 224
+              }
+            }
+          }
+        },
+        "Mobile": {
+          "font": {
+            "$scopes": [
+              "FONT_FAMILY"
+            ],
+            "$type": "string",
+            "$libraryName": "",
+            "$collectionName": "Font theme",
+            "$value": "{Static.font.brand}"
+          },
+          "weight": {
+            "$scopes": [
+              "FONT_STYLE"
+            ],
+            "$type": "string",
+            "$libraryName": "",
+            "$collectionName": "Font theme",
+            "$value": "{Static.weight.regular}"
+          },
+          "weight-emphasized": {
+            "$scopes": [
+              "FONT_STYLE"
+            ],
+            "$type": "string",
+            "$libraryName": "",
+            "$collectionName": "Font theme",
+            "$value": "{Static.weight.medium}"
+          },
+          "size": {
+            "$scopes": [
+              "FONT_SIZE",
+              "FONT_VARIATIONS"
+            ],
+            "$type": "float",
+            "$value": 6
+          },
+          "Typescale": {
+            "text-xs": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 12
+              }
+            },
+            "text-sm": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 12
+              }
+            },
+            "text-base": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 14
+              }
+            },
+            "text-lg": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 16
+              }
+            },
+            "text-xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 18
+              }
+            },
+            "text-2xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 20
+              }
+            },
+            "text-3xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 24
+              }
+            },
+            "text-4xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 28
+              }
+            },
+            "text-5xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 36
+              }
+            },
+            "text-6xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 44
+              }
+            },
+            "text-7xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 48
+              }
+            },
+            "text-8xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 56
+              }
+            },
+            "text-9xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 64
+              }
+            },
+            "text-10xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 80
+              }
+            },
+            "text-11xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 96
+              }
+            },
+            "text-12xl": {
+              "font": {
+                "$scopes": [
+                  "FONT_FAMILY"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.font.brand}"
+              },
+              "weight": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.regular}"
+              },
+              "weight-emphasized": {
+                "$scopes": [
+                  "FONT_STYLE"
+                ],
+                "$type": "string",
+                "$libraryName": "",
+                "$collectionName": "Font theme",
+                "$value": "{Static.weight.medium}"
+              },
+              "size": {
+                "$scopes": [
+                  "FONT_SIZE",
+                  "FONT_VARIATIONS"
+                ],
+                "$type": "float",
+                "$value": 112
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+]

@@ -1,3 +1,6 @@
+/* Typography System Import */
+@import url('./typography.css');
+
 /* PP Neue Montreal 웹폰트 정의 (영문용) */
 @font-face {
     font-family: 'PP Neue Montreal';
@@ -140,8 +143,28 @@ html, body, * {
     --cursor-z-index: 9999;
     
     /* ========================================
-       Figma Variables - Typography (실제 Figma 값)
+       Typography System - Figma 기준 Tailwind 스타일 통합
        ======================================== */
+    
+    /* Tailwind CSS 표준 타이포그래피 스케일 */
+    --text-xs: 0.75rem;      /* 12px - Tailwind text-xs */
+    --text-sm: 0.875rem;     /* 14px - Tailwind text-sm */
+    --text-base: 1rem;       /* 16px - Tailwind text-base */
+    --text-lg: 1.125rem;     /* 18px - Tailwind text-lg */
+    --text-xl: 1.25rem;      /* 20px - Tailwind text-xl */
+    --text-2xl: 1.5rem;      /* 24px - Tailwind text-2xl */
+    --text-3xl: 1.875rem;    /* 30px - Tailwind text-3xl */
+    --text-4xl: 2.25rem;     /* 36px - Tailwind text-4xl */
+    --text-5xl: 3rem;        /* 48px - Tailwind text-5xl */
+    --text-6xl: 3.75rem;     /* 60px - Tailwind text-6xl */
+    --text-7xl: 4.5rem;      /* 72px - Tailwind text-7xl */
+    --text-8xl: 6rem;        /* 96px - Tailwind text-8xl */
+    --text-9xl: 8rem;        /* 128px - Tailwind text-9xl */
+    
+    /* Figma 특수 크기 - Tailwind 스케일 확장 */
+    --text-hero-sub: 1.375rem;    /* 22px - Figma Hero 서브텍스트 */
+    --text-section-title: 2.5rem; /* 40px - Figma 섹션 제목 */
+    --text-service-title: 2rem;   /* 32px - Figma 서비스 제목 */
     
     /* 폰트 패밀리 - 텍스트 유형별 적용 */
     --font-family: 'PP Neue Montreal', 'Kakao Small Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -156,20 +179,18 @@ html, body, * {
     --font-family-mixed: 'PP Neue Montreal', 'Kakao Small Sans', sans-serif;
     
     /* Display 스타일 */
-    --display-05-size: 10rem; /* 160px */
-    --display-03-size: 7.5rem; /* 120px */
-    --display-01-size: 5rem; /* 80px */
+    /* Display 변수들은 typography.css에서 관리됨 */
     
-    /* Heading 스타일 */
-    --heading-01-size: 4rem; /* 64px */
-    --heading-02-size: 3rem; /* 48px */
-    --heading-03-size: 2.5rem; /* 40px */
-    --heading-04-size: 2rem; /* 32px */
-    --heading-05-size: 1.5rem; /* 24px */
+    /* Heading 크기 - Figma 기준 Tailwind 매핑 */
+    --heading-01-size: var(--text-4xl);     /* 36px */
+    --heading-02-size: var(--text-3xl);     /* 30px */
+    --heading-03-size: var(--text-section-title); /* 40px */
+    --heading-04-size: var(--text-service-title); /* 32px */
+    --heading-05-size: var(--text-2xl);     /* 24px */
     
-    /* Body 스타일 */
-    --body-06-size: 1.5rem; /* 24px */
-    --body-03-size: 1rem; /* 16px */
+    /* Body 크기 - Figma 기준 Tailwind 매핑 */
+    --body-06-size: var(--text-2xl);        /* 24px */
+    --body-03-size: var(--text-base);       /* 16px */
     
     /* Paragraph 스타일 */
     --paragraph-01-paragraph-03: 1rem; /* 16px */
@@ -243,6 +264,7 @@ body {
     right: 0;
     background: transparent;
     z-index: 1000;
+    height: 78px;
     transition: all 0.3s ease;
 }
 
@@ -309,7 +331,7 @@ body {
 
 /* Figma 디자인 네비게이션 링크 */
 .nav-link {
-    font-size: var(--heading-05-size); /* 24px */
+    font-size: var(--text-2xl); /* 24px - 피그마 데스크톱 기준 */
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-heading);
     font-family: var(--font-family);
@@ -334,7 +356,7 @@ body {
 }
 
 /* 데스크톱에서 햄버거 메뉴 아이콘 숨기기 */
-@media (min-width: 769px) {
+@media (min-width: 768px) {
     .nav-icon.nav-menu-icon {
         display: none !important;
     }
@@ -358,7 +380,7 @@ body {
 }
 
 /* 데스크톱에서 햄버거 메뉴 아이콘 SVG 숨기기 */
-@media (min-width: 769px) {
+@media (min-width: 768px) {
     .nav-icon.nav-menu-icon svg {
         display: none;
     }
@@ -441,7 +463,7 @@ body {
 }
 
 .hero-top-text-block p {
-    font-size: var(--display-03-size); /* 120px - 원래 데스크톱 크기 */
+    font-size: var(--display-3-size); /* 128px 데스크톱, 60px 모바일 - display-3 스타일 */
     font-weight: var(--weight-emphasized);
     line-height: 1; /* leading-none */
     font-family: var(--font-family);
@@ -461,7 +483,7 @@ body {
 }
 
 .hero-middle-text-block p {
-    font-size: var(--display-03-size); /* 120px - 원래 데스크톱 크기 */
+    font-size: var(--display-3-size); /* 128px 데스크톱, 60px 모바일 - display-3 스타일 */
     font-weight: var(--weight-emphasized);
     line-height: 1; /* leading-none */
     font-family: var(--font-family);
@@ -493,7 +515,7 @@ body {
 }
 
 .hero-sub-text p {
-    font-size: var(--heading-04-size); /* 32px */
+    font-size: var(--heading-2-size); /* 36px 데스크톱, 24px 모바일 - heading-2 스타일 */
     font-weight: var(--weight-emphasized);
     line-height: 1.1; /* leading-[1.1] */
     font-family: var(--font-family);
@@ -532,7 +554,7 @@ body {
 }
 
 .huge-text {
-    font-size: var(--display-05-size); /* 160px - 원래 데스크톱 크기 */
+    font-size: var(--display-2-size); /* 160px 데스크톱, 72px 모바일 - display-2 스타일 */
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-display);
     font-family: var(--font-family);
@@ -555,7 +577,7 @@ body {
 }
 
 .what-we-do-section .section-header h2 {
-    font-size: var(--display-01-size); /* 80px */
+    font-size: var(--display-5-size); /* 72px 데스크톱, 36px 모바일 - display-5 스타일 */
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-display);
     font-family: var(--font-family);
@@ -565,21 +587,21 @@ body {
 
 .what-we-do-section .body {
     display: flex;
-    gap: var(--spacing-4); /* 16px */
+    gap: var(--spacing-5); /* 20px - 피그마 gap-5 */
     align-items: flex-start;
     justify-content: flex-end;
 }
 
 .what-we-do-section .spacing {
-    flex: 1;
+    flex: 0 0 25%; /* 4컬럼 (25%) - 웹 환경에 맞는 비율 */
 }
 
 .what-we-do-section .body-text-en {
-    flex: 1;
+    flex: 0 0 45%; /* 5.4컬럼 (45%) - 웹 환경에 맞는 비율 */
 }
 
 .what-we-do-section .body-text-en p {
-    font-size: var(--body-06-size); /* 24px */
+    font-size: var(--heading-3-size); /* 30px 데스크톱, 20px 모바일 - heading-3 스타일 */
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-heading);
     font-family: var(--font-family);
@@ -587,11 +609,12 @@ body {
 }
 
 .what-we-do-section .body-text-ko {
-    flex: 1;
+    flex: 0 0 30%; /* 3.6컬럼 (30%) - 한글 텍스트에 적합한 크기 */
+    min-width: 0;
 }
 
 .what-we-do-section .body-text-ko p {
-    font-size: var(--body-03-size); /* 16px */
+    font-size: var(--body-lg-size); /* 18px - 데스크톱에서 더 크게 */
     font-weight: var(--weight-regular);
     line-height: var(--line-height-body-small);
     font-family: var(--font-family);
@@ -796,16 +819,31 @@ body {
 /* Services 섹션 - Figma 디자인 업데이트 */
 .services-section {
     background-color: var(--schemes-background);
-    padding: 3rem 0 15rem 0; /* Services와 Footer 사이 간격 추가 */
+    padding: 0; /* 피그마: 패딩 없음 */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-7); /* Figma: gap-7 (28px) */
+    position: relative;
+}
+
+.services-header {
+    padding: var(--spacing-20) var(--spacing-8) 0 var(--spacing-8); /* Figma: pt-20 px-8 (80px 상단, 32px 좌우) */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8); /* Figma: gap-8 (32px) */
+    width: 100%;
+    z-index: 2;
 }
 
 .services-header h2 {
-    font-size: var(--display-01-size); /* 80px - Figma: text-[80px] */
+    font-size: var(--text-6xl); /* 60px - Figma 디자인 */
     font-weight: var(--weight-emphasized);
     line-height: 1; /* Figma: leading-none */
     font-family: var(--font-family);
     color: var(--schemes-on-background);
-    margin-bottom: 2rem; /* Figma: gap-8 (32px) */
+    margin: 0;
+    text-align: left;
+    width: 100%;
 }
 
 .service-list-container {
@@ -813,32 +851,67 @@ body {
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    padding: 0; /* 컬러가 완전히 채워지도록 모든 패딩 제거 */
-    width: 100vw; /* 전체 뷰포트 너비 */
-    margin-left: calc(-50vw + 50%); /* 컨테이너 패딩을 상쇄하여 전체 너비로 확장 */
-    margin-right: calc(-50vw + 50%); /* 컨테이너 패딩을 상쇄하여 전체 너비로 확장 */
-    position: relative; /* 마우스 이벤트를 위한 상대 위치 */
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    border-bottom: 1px solid var(--schemes-on-background);
 }
+
 
 .service-item {
     display: flex;
-    gap: 4rem; /* Figma: gap-16 (64px) */
+    gap: var(--spacing-11); /* Figma: gap-11 (44px) */
     align-items: flex-start;
     justify-content: flex-start;
-    margin-bottom: 0; /* Figma: 카드들이 겹치지 않음 */
-    padding: 2rem 2rem 8rem 2rem; /* Figma: pt-8 (32px), pb-32 (128px), px-8 (32px) */
+    padding: var(--spacing-8) var(--spacing-8) var(--spacing-16) var(--spacing-8); /* Figma: pt-8 pb-16 px-8 (32px 상단, 64px 하단, 32px 좌우) */
     position: relative;
     width: 100%;
-    will-change: transform; /* 스크롤 애니메이션 성능 최적화 */
-    transform-style: preserve-3d; /* 3D 변환 지원 */
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* 더 부드러운 ease in-out 전환 */
-    z-index: 1; /* 아이템들이 자연스럽게 겹치도록 z-index 설정 */
-    /* overflow: hidden 제거 - 컬러 채움을 방해하지 않도록 */
+    background-color: var(--schemes-background);
+    transition: background-color 0.3s ease;
+}
+
+
+/* 서비스 아이템 텍스트 스타일 - 피그마 디자인 */
+.service-item h3 {
+    font-size: var(--heading-2-size); /* 피그마 heading-2 */
+    font-weight: var(--weight-emphasized);
+    line-height: var(--line-height-heading);
+    font-family: var(--font-family);
+    color: var(--schemes-on-background);
+    margin: 0;
+    flex: 1;
+}
+
+.service-text-block h4 {
+    font-size: var(--display-6-size); /* 피그마 display-6 */
+    font-weight: var(--weight-emphasized);
+    line-height: var(--line-height-display);
+    font-family: var(--font-family);
+    color: var(--schemes-on-background);
+    margin: 0;
+    width: 100%;
+}
+
+.service-text-block p {
+    font-size: var(--text-2xl); /* 24px - 피그마 디자인 */
+    font-weight: var(--weight-emphasized);
+    line-height: 1.1;
+    font-family: var(--font-family);
+    color: var(--schemes-on-background);
+    margin: 0;
+    width: 100%;
+}
+
+.service-text-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6); /* Figma: gap-6 (24px) */
+    flex: 1;
 }
 
 .service-item-01 {
-    background-color: var(--schemes-background); /* 기본 흰색 배경 */
-    z-index: 1; /* 맨 아래 아이템 */
+    background-color: var(--schemes-primary); /* Figma: #ccff00 */
+    z-index: 1;
 }
 
 .service-item-02 {
@@ -928,26 +1001,20 @@ body {
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* 더 부드러운 ease in-out 전환 */
 }
 
+
+/* 서비스 아이템 border 정의 - 각 아이템에 상단 border만 */
 .service-item::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    border-top: 1px solid var(--schemes-on-background);
-    border-bottom: 1px solid var(--schemes-on-background);
     pointer-events: none;
+    border-top: 1px solid var(--schemes-on-background);
 }
 
-/* service-item-01과 service-item-02의 하단 border 제거 */
-.service-item-01::before,
-.service-item-02::before {
-    border-bottom: none;
-}
-
-/* service-item-03만 하단 border 유지 */
-.service-item-03::before {
+/* 활성화된 마지막 아이템에 하단 border 추가 */
+.service-item.active:last-child::before {
     border-bottom: 1px solid var(--schemes-on-background);
 }
 
@@ -974,14 +1041,6 @@ body {
     padding: 0; /* 하단 패딩 제거 - service-item에서 이미 설정됨 */
 }
 
-.service-text-block h4 {
-    font-size: var(--heading-01-size); /* 64px - Figma: text-[64px] */
-    font-weight: var(--weight-emphasized);
-    line-height: 1.1; /* Figma: leading-[1.1] */
-    font-family: var(--font-family);
-    color: var(--schemes-on-background);
-    margin: 0;
-}
 
 .service-text-block p {
     font-size: var(--body-06-size); /* 24px - Figma: text-[24px] */
@@ -1027,7 +1086,7 @@ body {
 }
 
 .footer-header h2 {
-    font-size: var(--display-01-size); /* 80px */
+    font-size: var(--display-3-size); /* 128px 데스크톱, 60px 모바일 - display-3 스타일 */
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-display);
     font-family: var(--font-family);
@@ -1078,7 +1137,7 @@ body {
 }
 
 .footer-bar p {
-    font-size: var(--body-06-size) !important; /* 24px */
+    font-size: var(--text-xl) !important; /* 20px - Figma 업데이트 반영 */
     font-weight: var(--weight-emphasized) !important;
     line-height: var(--line-height-heading) !important;
     font-family: var(--font-family) !important;
@@ -1105,7 +1164,7 @@ body {
 }
 
 .footer-links a {
-    font-size: var(--body-06-size); /* 24px */
+    font-size: var(--text-xl); /* 20px - Figma 업데이트 반영 */
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-heading);
     font-family: var(--font-family);
@@ -1192,7 +1251,47 @@ body {
    버튼 디자인 시스템 (Figma 기반)
    ======================================== */
 
-/* 버튼 기본 스타일 */
+/* ========================================
+   Button Design System
+   ======================================== */
+
+:root {
+    /* 버튼 크기 변수 - 피그마 디자인 기준 */
+    --btn-small-text: var(--heading-5-size);     /* 20px */
+    --btn-small-icon: 1.5rem;                   /* 24px */
+    --btn-small-gap: var(--spacing-0);          /* 0px */
+
+    --btn-medium-text: var(--heading-3-size);   /* 30px */
+    --btn-medium-icon: 1.875rem;                /* 30px */
+    --btn-medium-gap: var(--spacing-0);         /* 0px */
+
+    --btn-large-text: var(--heading-1-size);    /* 48px */
+    --btn-large-icon: 3rem;                     /* 48px */
+    --btn-large-gap: var(--spacing-0);          /* 0px */
+
+    /* 버튼 패딩 변수 - 피그마 디자인 기준 */
+    --btn-small-padding-y: var(--spacing-1);    /* 4px - py-1 */
+    --btn-medium-padding-y: var(--spacing-0);   /* 0px */
+    --btn-large-padding-y: var(--spacing-1);    /* 4px - pt-1 */
+    --btn-padding-x: 0;                         /* 0px */
+
+    /* 버튼 보더 변수 */
+    --btn-border-width: 1px;
+    --btn-border-radius: 0;
+
+    /* 버튼 전환 변수 */
+    --btn-transition: all 0.2s ease-in-out;
+    --btn-transform-hover: scale(0.98);
+    --btn-transform-active: scale(0.95);
+    /* 버튼 색상 변수 */
+    --btn-color-primary: var(--schemes-primary);
+    --btn-color-secondary: var(--schemes-secondary);
+    --btn-color-outline: var(--schemes-outline);
+    --btn-bg-hover: var(--schemes-on-background);
+    --btn-color-hover: var(--schemes-background);
+}
+
+/* 기본 버튼 스타일 */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -1209,7 +1308,7 @@ body {
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     white-space: nowrap;
     position: relative;
-    overflow: hidden; /* 하단 라인 애니메이션을 위한 오버플로우 숨김 */
+    overflow: hidden; /* 버튼 영역 밖으로 나가는 요소 숨김 */
 }
 
 /* 버튼 텍스트 스타일 */
@@ -1249,7 +1348,7 @@ body {
     transform-style: preserve-3d;
 }
 
-/* 버튼 하단 라인 */
+/* 버튼 하단 라인 - 버튼 영역에만 제한 */
 .btn::after {
     content: '';
     position: absolute;
@@ -1262,6 +1361,9 @@ body {
     transform-style: preserve-3d;
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     opacity: 0;
+    /* 버튼 영역에만 제한 */
+    box-sizing: border-box;
+    max-width: 100%;
 }
 
 /* 버튼 호버 시 하단 라인 나타남 */
@@ -1270,20 +1372,27 @@ body {
     opacity: 1;
 }
 
-/* Small 버튼 (24px 텍스트, 24px 아이콘) */
+/* Small 버튼 (20px 텍스트, 24px 아이콘) - 피그마 디자인 */
 .btn-small {
-    gap: var(--spacing-1); /* 4px */
-    padding: var(--spacing-1) 0; /* 4px 상하 */
+    gap: var(--spacing-0); /* 0px - 피그마 디자인 */
+    padding: var(--spacing-1) 0; /* 4px 상하 - py-1 */
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    width: auto; /* 콘텐츠에 맞게 자동 조정 */
+    height: auto; /* 콘텐츠에 맞게 자동 조정 */
 }
 
 .btn-small .btn-text {
-    font-size: var(--heading-05-size); /* 24px */
+    font-size: var(--heading-5-size); /* 20px - 피그마 디자인 */
+    flex-shrink: 0;
 }
 
 .btn-small .btn-icon {
-    width: 1.5rem; /* 24px */
-    height: 1.5rem; /* 24px */
-    position: relative; /* ::before 아이콘의 기준점 설정 */
+    width: 1.5rem; /* 24px - size-6 */
+    height: 1.5rem; /* 24px - size-6 */
+    position: relative;
+    flex-shrink: 0;
 }
 
 /* Small 버튼 아이콘 - 원본 크기 (24px) */
@@ -1292,21 +1401,32 @@ body {
     transform: scale(1); /* 24px 원본 크기 */
 }
 
-/* Medium 버튼 (40px 텍스트, 40px 아이콘) - Small 버튼 구조 기반 */
+/* Medium 버튼 (30px 텍스트, 30px 아이콘) - 피그마 디자인 */
 .btn-medium {
-    gap: var(--spacing-1); /* 4px - Small과 동일한 간격 */
-    padding: 0; /* Small과 동일한 패딩 */
+    gap: var(--spacing-0); /* 0px - 피그마 디자인 */
+    padding: 0; /* 패딩 없음 */
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    width: auto; /* 콘텐츠에 맞게 자동 조정 */
+    height: auto; /* 콘텐츠에 맞게 자동 조정 */
 }
 
 .btn-medium .btn-text {
-    font-size: var(--heading-03-size); /* 40px */
+    font-size: var(--heading-3-size); /* 30px - 피그마 디자인 */
+    flex-shrink: 0;
+    position: relative;
 }
 
 .btn-medium .btn-icon {
-    width: 2.5rem; /* 40px */
-    height: 2.5rem; /* 40px */
-    padding: var(--spacing-1) 0 0 0; /* 4px 상단 패딩 - Small과 동일한 구조 */
-    position: relative; /* ::before 아이콘의 기준점 설정 */
+    width: 1.875rem; /* 30px - size-[30px] */
+    height: 1.875rem; /* 30px - size-[30px] */
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 /* Medium 버튼 아이콘 - 원본 크기 (24px) */
@@ -1316,20 +1436,34 @@ body {
 }
 
 /* Large 버튼 (64px 텍스트, 64px 아이콘) - Small 버튼 구조 기반 */
+/* Large 버튼 (48px 텍스트, 48px 아이콘) - 피그마 디자인 */
 .btn-large {
-    gap: var(--spacing-2); /* 8px - Small보다 약간 큰 간격 */
-    padding: 0; /* Small과 동일한 패딩 */
+    gap: var(--spacing-0); /* 0px - 피그마 디자인 */
+    padding: var(--spacing-1) 0 0 0; /* 4px 상단만 - pt-1 */
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    width: auto; /* 콘텐츠에 맞게 자동 조정 */
+    height: auto; /* 콘텐츠에 맞게 자동 조정 */
 }
 
 .btn-large .btn-text {
-    font-size: var(--heading-01-size); /* 64px */
+    font-size: var(--heading-1-size); /* 48px - 피그마 디자인 */
+    flex-shrink: 0;
+    position: relative;
+    text-align: center;
 }
 
 .btn-large .btn-icon {
-    width: 4rem; /* 64px */
-    height: 4rem; /* 64px */
-    padding: var(--spacing-1) 0 0 0; /* 4px 상단 패딩 - Small과 동일한 구조 */
-    position: relative; /* ::before 아이콘의 기준점 설정 */
+    width: 3rem; /* 48px - size-12 */
+    height: 3rem; /* 48px - size-12 */
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: var(--spacing-1) 0 0 0; /* 4px 상단 패딩 */
 }
 
 /* Large 버튼 아이콘 - 원본 크기 (24px) */
@@ -1365,15 +1499,15 @@ body {
 /* Medium 버튼의 ::before 아이콘 크기 조정 - 기존 아이콘과 동일 */
 .btn-medium .btn-icon::before {
     transform: translate(-50%, -50%) scale(0);
-    width: 40px; /* 40px - Medium 버튼 아이콘 컨테이너 크기와 동일 */
-    height: 40px;
+    width: 30px; /* 30px - Medium 버튼 아이콘 컨테이너 크기와 동일 */
+    height: 30px;
 }
 
 /* Large 버튼의 ::before 아이콘 크기 조정 - 기존 아이콘과 동일 */
 .btn-large .btn-icon::before {
     transform: translate(-50%, -50%) scale(0);
-    width: 64px; /* 64px - Large 버튼 아이콘 컨테이너 크기와 동일 */
-    height: 64px;
+    width: 48px; /* 48px - Large 버튼 아이콘 컨테이너 크기와 동일 */
+    height: 48px;
 }
 
 /* 버튼 호버 효과 - The Grap 스타일 인터랙션 */
@@ -1462,9 +1596,31 @@ body {
     color: var(--schemes-background);
 }
 
-/* 반응형 디자인 */
-/* 데스크탑 전용 navbar 패딩 - clamp() 함수 적용 */
-@media (min-width: 769px) {
+/* 모바일 버튼 크기 조정 */
+@media only screen and (max-width: 767px) {
+    :root {
+        --btn-small-text: var(--heading-5-size);     /* 20px */
+        --btn-small-icon: 1.125rem;                 /* 18px */
+        --btn-small-gap: var(--spacing-0);          /* 0px */
+        
+        --btn-medium-text: var(--heading-3-size);   /* 24px */
+        --btn-medium-icon: 1.5rem;                  /* 24px */
+        --btn-medium-gap: var(--spacing-0);         /* 0px */
+        
+        --btn-large-text: var(--heading-1-size);    /* 36px */
+        --btn-large-icon: 2rem;                     /* 36px */
+        --btn-large-gap: var(--spacing-0);          /* 0px */
+    }
+}
+
+/* 반응형 디자인 - Tailwind CSS v2 breakpoints 기준 */
+/* sm: 640px 이상 */
+@media (min-width: 640px) {
+    /* 태블릿 스타일 */
+}
+
+/* md: 768px 이상 */
+@media (min-width: 768px) {
     .navbar {
         padding: clamp(var(--spacing-5), var(--spacing-5) + (100vw - 1920px) * 0.01, var(--spacing-8)) clamp(var(--spacing-8), var(--spacing-8) + (100vw - 1920px) * 0.015, var(--spacing-10)); /* 반응형 패딩 */
     }
@@ -1476,15 +1632,30 @@ body {
     }
 }
 
-@media only screen and (max-width: 768px) {
-    /* 모바일 Spacing Variables - Figma와 일치 */
+/* lg: 1024px 이상 */
+@media (min-width: 1024px) {
+    /* 랩톱 스타일 */
+}
+
+/* xl: 1280px 이상 */
+@media (min-width: 1280px) {
+    /* 데스크톱 스타일 */
+}
+
+/* 2xl: 1536px 이상 */
+@media (min-width: 1536px) {
+    /* 대형 데스크톱 스타일 */
+}
+
+@media only screen and (max-width: 767px) {
+    /* 모바일 Spacing Variables - Tailwind CSS v2 breakpoints 기준 */
     :root {
         --spacing-3: 0.5rem;    /* 8px Mobile */
         --spacing-4: 0.5rem;    /* 8px Mobile */
         --spacing-5: 0.75rem;   /* 12px Mobile */
         --spacing-6: 0.75rem;   /* 12px Mobile */
         --spacing-7: 1rem;      /* 16px Mobile */
-        --spacing-8: 1rem;      /* 16px Mobile */
+        --spacing-8: 1rem;      /* 16px Mobile - Figma Variables 기준 */
         --spacing-9: 1.25rem;   /* 20px Mobile */
         --spacing-10: 1.25rem;  /* 20px Mobile */
         --spacing-11: 1.5rem;   /* 24px Mobile */
@@ -1497,6 +1668,11 @@ body {
         --spacing-32: 4rem;     /* 64px Mobile */
         --spacing-36: 4.5rem;   /* 72px Mobile */
         --spacing-40: 5rem;     /* 80px Mobile */
+        
+        /* 모바일 타이포그래피 - Figma 기준 */
+        --text-hero-sub: 1.375rem;    /* 22px - 모바일에서도 동일 */
+        --text-section-title: 2.5rem; /* 40px - 모바일에서도 동일 */
+        --text-service-title: 2rem;   /* 32px - 모바일에서도 동일 */
     }
     /* Figma 모바일 navbar 완전 재구성 */
     body {
@@ -1641,8 +1817,8 @@ body {
     }
     
     .hero-content {
-        padding: var(--spacing-5) var(--spacing-4); /* Figma: py-5 px-4 (20px 16px) */
-        gap: var(--spacing-6); /* Figma: gap-6 (24px) */
+        padding: var(--spacing-9) var(--spacing-8); /* Figma: py-9 px-8 (36px 32px) */
+        gap: var(--spacing-11); /* Figma: gap-11 (44px) */
     }
     
     .hero-main-title {
@@ -1650,48 +1826,45 @@ body {
     }
     
     .hero-sub-text {
-        font-size: 1.375rem; /* 22px - Figma 디자인에 맞춤 */
+        font-size: var(--text-4xl); /* 28px - 피그마 모바일 text-4xl */
         padding: var(--spacing-10) 0; /* py-10 - Figma 디자인에 맞춤 */
-        gap: var(--spacing-7); /* 16px - Figma gap-7에 맞춤 */
+        gap: var(--spacing-7); /* 28px - Figma gap-7에 맞춤 */
     }
     
-    .hero-top-text-block p,
-    .hero-middle-text-block p {
-        font-size: 4rem; /* Figma: text-[64px] */
-    }
+    /* Hero 메인 텍스트는 typography.css에서 자동으로 반응형 처리됨 */
     
-    .hero-sub-text {
-        font-size: 1.375rem; /* Figma: text-[22px] */
-        padding: var(--spacing-5) 0; /* Figma: py-5 (20px) */
-        gap: var(--spacing-4); /* Figma: gap-4 (16px) */
-    }
     
     /* Figma 모바일 What We Do 섹션 */
     .what-we-do-section {
-        padding: var(--spacing-6) var(--spacing-4); /* Figma: py-6 px-4 (24px 16px) */
-        gap: var(--spacing-5); /* Figma: gap-5 (20px) */
+        padding: var(--spacing-12) 0; /* 모바일에 적합한 크기 (48px 0) - 좌우 패딩 제거 */
     }
     
-    .what-we-do-section h2 {
-        font-size: 2.5rem; /* Figma: text-[40px] */
-        line-height: 1.1;
+    .what-we-do-section .section-header {
+        margin-bottom: var(--spacing-12); /* Figma: gap-12 (48px) */
+    }
+    
+    .what-we-do-section .section-header h2 {
         margin-bottom: var(--spacing-8); /* Figma: gap-8 (32px) */
     }
     
-    .what-we-do-section p {
-        font-size: 1.125rem; /* Figma: text-[18px] */
-        line-height: 1.1;
-        margin-bottom: var(--spacing-3); /* Figma: gap-3 (12px) */
+    .what-we-do-section .body {
+        flex-direction: column; /* 모바일에서 세로 배치 */
+        gap: var(--spacing-6); /* Figma: gap-6 (24px) */
     }
     
-    .what-we-do-section .korean-text {
-        font-size: 1rem; /* Figma: text-[16px] */
+    .what-we-do-section .body-text-en p {
+        font-size: var(--heading-4-size); /* 24px - 피그마 모바일 기준 */
+        line-height: 1.1;
+    }
+    
+    .what-we-do-section .body-text-ko p {
+        font-size: var(--body-md-size); /* 16px - 모바일에서 더 크게 */
         line-height: 1.3;
     }
     
     
     .huge-text {
-        font-size: 6rem; /* Figma: text-[96px] */
+        font-size: var(--display-2-size); /* 72px - display-2 모바일 크기 */
     }
     
     /* Featured Work Grid 반응형 - 모바일 최적화 */
@@ -1722,15 +1895,17 @@ body {
     }
     
     .project-name-and-tags p {
-        font-size: 0.875rem; /* 14px - 모바일 최적화 */
+        font-size: var(--text-sm); /* 14px - Tailwind text-sm */
     }
     
     .project-year p {
-        font-size: 1rem; /* 16px - 모바일 최적화 */
+        font-size: var(--text-base); /* 16px - Tailwind text-base */
     }
     
     
     /* 버튼 디자인 시스템 반응형 */
+    /* 모바일 버튼 스타일은 typography.css에서 관리됩니다 */
+    /* 기존 모바일 버튼 CSS - typography.css로 이동됨
     /* Small 버튼 모바일 */
     .btn-small .btn-text {
         font-size: var(--body-06-size); /* 24px -> 24px 유지 */
@@ -1764,13 +1939,13 @@ body {
     
     /* Large 버튼 모바일 - Small 버튼 구조 기반 */
     .btn-large .btn-text {
-        font-size: 2rem; /* Figma: text-[32px] */
+        font-size: var(--heading-1-size); /* 48px - 피그마 디자인 유지 */
     }
     
     .btn-large .btn-icon {
-        width: 2.5rem; /* 64px -> 40px */
-        height: 2.5rem; /* 64px -> 40px */
-        position: relative; /* ::before 아이콘의 기준점 설정 */
+        width: 2.25rem; /* 36px - 피그마 모바일 기준 */
+        height: 2.25rem; /* 36px - 피그마 모바일 기준 */
+        position: relative;
     }
     
     .btn-large .btn-icon svg {
@@ -1779,13 +1954,13 @@ body {
     
     /* 모바일에서 ::before 아이콘 크기 조정 - 기존 아이콘과 동일 */
     .btn-medium .btn-icon::before {
-        width: 32px; /* 32px - 모바일 Medium 버튼 아이콘 컨테이너 크기와 동일 */
-        height: 32px;
+        width: 30px; /* 30px - 모바일 Medium 버튼 아이콘 컨테이너 크기와 동일 */
+        height: 30px;
     }
     
     .btn-large .btn-icon::before {
-        width: 40px; /* 40px - 모바일 Large 버튼 아이콘 컨테이너 크기와 동일 */
-        height: 40px;
+        width: 36px; /* 36px - 모바일 Large 버튼 아이콘 컨테이너 크기와 동일 */
+        height: 36px;
     }
     
     /* 버튼 간격 조정 */
@@ -1800,6 +1975,7 @@ body {
     .btn-large {
         gap: var(--spacing-1); /* 8px -> 4px */
     }
+    */
     
     /* Figma 모바일 Services 섹션 */
     .services-section {
@@ -1812,7 +1988,7 @@ body {
     }
     
     .services-header h2 {
-        font-size: 2.5rem; /* Figma: text-[40px] */
+        font-size: var(--text-section-title); /* Figma: text-[40px] - Tailwind 확장 */
     }
     
     .service-list-container {
@@ -1828,21 +2004,16 @@ body {
     
     /* Figma 모바일 Services 텍스트 */
     .service-item h3 {
-        font-size: 1.5rem; /* Figma: text-[24px] */
+        font-size: var(--heading-2-size); /* 피그마 heading-2 */
     }
     
     .service-text-block h4 {
-        font-size: 2rem; /* Figma: text-[32px] */
+        font-size: var(--display-6-size); /* 피그마 display-6 */
     }
     
     .service-text-block p {
-        font-size: 1.125rem; /* Figma: text-[18px] */
+        font-size: var(--text-2xl); /* 24px - 피그마 디자인 유지 */
         line-height: 1.1;
-    }
-    
-    
-    .service-text-block p {
-        font-size: var(--body-03-size); /* 24px -> 16px */
     }
     
     .service-text-block {
@@ -1876,13 +2047,13 @@ body {
     
     /* Footer 텍스트 모바일 최적화 */
     .footer-header h2 {
-        font-size: 2.5rem; /* Figma: text-[40px] */
+        font-size: var(--text-section-title); /* Figma: text-[40px] - Tailwind 확장 */
         line-height: 1.1;
     }
     
     .footer-bar p,
     .footer-links a {
-        font-size: 0.875rem; /* 14px - 모바일 최적화 */
+        font-size: var(--text-lg); /* 18px - Figma 기준 Tailwind text-lg */
     }
     
 }
