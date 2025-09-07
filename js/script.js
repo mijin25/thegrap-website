@@ -1,3 +1,40 @@
+// 공통 스크롤 인터랙션 클래스
+class ScrollReveal {
+    constructor(options = {}) {
+        this.options = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px',
+            ...options
+        };
+        this.init();
+    }
+
+    init() {
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, this.options);
+
+        // 모든 scroll-reveal 요소 관찰 시작
+        document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale').forEach(el => {
+            this.observer.observe(el);
+        });
+    }
+
+    // 새로운 요소 추가
+    observe(element) {
+        this.observer.observe(element);
+    }
+
+    // 요소 관찰 중단
+    unobserve(element) {
+        this.observer.unobserve(element);
+    }
+}
+
 // Navbar 컴포넌트 자동 초기화
 document.addEventListener('DOMContentLoaded', function() {
     // navbar-container가 있으면 컴포넌트로 렌더링
@@ -43,7 +80,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 });
                 
-                console.log('Font smoothing applied to navbar');
             }
         }
         
@@ -58,11 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 Promise.allSettled(fontPromises).then((results) => {
                     results.forEach((result, index) => {
-                        if (result.status === 'fulfilled') {
-                            console.log(`${fontsToCheck[index]} font loaded successfully`);
-                        } else {
-                            console.log(`${fontsToCheck[index]} font failed to load, using fallback`);
-                        }
+                        // 폰트 로딩 상태 확인 (디버깅용 로그 제거)
                     });
                     
                     document.body.classList.remove('fonts-loading');
@@ -82,7 +114,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         waitForFonts();
         
-        console.log('Navbar component rendered and initialized');
     }
     
     // 기존 navbar가 있으면 자동으로 초기화 (하위 호환성)
@@ -273,14 +304,10 @@ class Navbar {
                 const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
                 const scrollY = window.scrollY;
                 
-                console.log(`Scroll: ${scrollY}, Hero Bottom: ${heroBottom}`);
-                
                 if (scrollY > heroBottom) {
                     navbar.classList.add('blend-mode');
-                    console.log('✅ Blend mode activated - navbar elements should be visible on white background');
                 } else {
                     navbar.classList.remove('blend-mode');
-                    console.log('⚪ Blend mode deactivated - navbar elements are white in hero section');
                 }
             }
             
@@ -386,7 +413,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }).join('');
         
         projectGrid.innerHTML = allCards;
-        console.log('Project cards rendered successfully');
     }
 });
 
@@ -457,10 +483,7 @@ window.addEventListener('resize', optimizedResizeHandler);
 
 // 히어로 섹션은 CSS 애니메이션만 사용 (JavaScript 인터랙션 제거됨)
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded - hero section uses CSS animation only');
-
     const hugeText = document.querySelector('.huge-text');
-    console.log('Huge text found:', hugeText);
 
     // 휠 스크롤로 텍스트 이동 애니메이션 (The Grap 스타일)
     if (hugeText) {
@@ -495,9 +518,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 초기 위치 설정
         updateTextPosition();
-        console.log('The Grap style scroll-based text interaction initialized');
-    } else {
-        console.log('Huge text not found!');
     }
 });
 
@@ -544,8 +564,6 @@ document.addEventListener('DOMContentLoaded', function() {
         customCursor.classList.remove('hover');
         customCursor.classList.remove('interactive');
     });
-    
-    console.log('Custom cursor initialized - optimized single cursor');
 });
 
 // Services 섹션 스크롤 기반 활성화 + 마우스 호버 인터랙션 (Envato Elements 스타일)
@@ -598,24 +616,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 아이템 색상 업데이트 (Envato Elements 스타일: 스크롤 기반 활성화)
     function updateItemColors() {
-        console.log('updateItemColors called - activeItemIndex:', activeItemIndex);
-        
         serviceItems.forEach((item, index) => {
             if (index === activeItemIndex) {
                 // 스크롤로 활성화된 아이템
                 item.classList.add('active');
-                console.log('Item', index, 'set to active');
             } else {
                 // 비활성화된 아이템
                 item.classList.remove('active');
-                console.log('Item', index, 'set to inactive');
             }
         });
     }
     
-    // Envato Elements 스타일: 스크롤 기반 활성화만 사용 (마우스 움직임 제거)
-    
-    // Envato Elements 스타일: 스크롤 기반 활성화만 사용 (마우스 이벤트 제거)
+    // Envato Elements 스타일: 스크롤 기반 활성화만 사용
     
     // 스크롤 이벤트로 활성화된 아이템 감지
     window.addEventListener('scroll', updateActiveItem, { passive: true });
@@ -631,13 +643,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // 첫 번째 카드만 활성화
     serviceItems[0].classList.add('active');
     
-    // 디버깅: 초기 상태 확인
-    console.log('Initial activeItemIndex:', activeItemIndex);
-    console.log('service-item-01 classes:', serviceItems[0].classList.toString());
-    console.log('service-item-02 classes:', serviceItems[1].classList.toString());
-    console.log('service-item-03 classes:', serviceItems[2].classList.toString());
-    
-    console.log('Services section scroll-based activation + mouse interaction initialized - Envato Elements style');
-    
-    console.log('Test with: testBackground()');
+    // 스크롤 인터랙션 자동 초기화
+    const scrollReveal = new ScrollReveal();
 });

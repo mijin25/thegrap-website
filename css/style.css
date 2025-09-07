@@ -806,136 +806,8 @@ body {
     margin: 0;
 }
 
-/* 기존 버튼 스타일 - 새로운 디자인 시스템과 통합 */
-.all-projects-button {
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
-    align-items: flex-end;
-    justify-content: flex-start;
-    width: 100%;
-}
-
-.all-projects-button .button-content {
-    /* 새로운 버튼 디자인 시스템 적용 */
-    display: inline-flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: var(--spacing-03); /* 8px */
-    font-family: var(--font-family);
-    font-weight: var(--weight-emphasized);
-    line-height: var(--line-height-heading);
-    color: var(--text-primary);
-    text-decoration: none;
-    border: none;
-    background: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-    position: relative;
-}
-
-.all-projects-button .button-content span {
-    font-size: var(--heading-01-size); /* 64px */
-    font-weight: var(--weight-emphasized);
-    line-height: var(--line-height-heading);
-    font-family: var(--font-family);
-    color: inherit;
-    text-align: center;
-    white-space: nowrap;
-    margin: 0;
-}
-
-.all-projects-button .button-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 4rem; /* 64px */
-    height: 4rem; /* 64px */
-    padding: var(--spacing-02) 0 0 0; /* 4px 상단 패딩 */
-    position: relative; /* ::before 아이콘의 기준점 설정 */
-}
-
-.all-projects-button .button-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transition: transform 0.3s ease;
-}
-
-/* 기존 버튼에 The Grap 스타일 인터랙션 적용 */
-.all-projects-button .button-content {
-    overflow: hidden; /* 하단 라인 애니메이션을 위한 오버플로우 숨김 */
-}
-
-.all-projects-button .button-content::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--text-primary);
-    transform: translate3d(-100%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
-    transform-style: preserve-3d;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    opacity: 0;
-}
-
-.all-projects-button .button-icon {
-    overflow: hidden; /* 화살표 슬라이드 애니메이션을 위한 오버플로우 숨김 */
-}
-
-.all-projects-button .button-icon svg {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    transform: translate3d(0%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
-    transform-style: preserve-3d;
-    filter: none; /* 기본 필터 제거 */
-    color: var(--schemes-on-background) !important; /* SVG 색상을 on-background로 강제 설정 */
-}
-
-/* All Projects 버튼 아이콘 - 원본 크기 */
-.all-projects-button .button-icon svg {
-    transform: scale(1); /* 24px 원본 크기 */
-    color: var(--schemes-on-background) !important; /* 추가 보장을 위한 색상 설정 */
-}
 
 
-/* 기존 버튼 호버 효과 - The Grap 스타일 */
-.all-projects-button .button-content:hover .button-icon svg {
-    transform: translate3d(100%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
-    color: var(--schemes-on-background) !important; /* 호버 시에도 on-background 색상 강제 적용 */
-}
-
-/* SVG path의 fill을 color와 독립적으로 제어 - 더 강력한 선택자 */
-.all-projects-button .button-content:hover .button-icon svg path[fill="currentColor"] {
-    fill: var(--schemes-on-background) !important;
-}
-
-/* 다크모드에서 호버 시 아이콘 색상 강제 적용 - 더 구체적인 선택자 */
-[data-theme="dark"] .all-projects-button .button-content:hover .button-icon svg path[fill="currentColor"] {
-    fill: var(--schemes-on-background) !important;
-}
-
-/* 다크모드에서 버튼 배경색 명시적 설정 */
-[data-theme="dark"] .all-projects-button {
-    background-color: var(--schemes-background) !important; /* 검은색 배경 */
-}
-
-
-
-.all-projects-button .button-content:hover::after {
-    transform: translate3d(0%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
-    opacity: 1;
-}
-
-.all-projects-button .button-content:active {
-    transform: scale(0.98);
-}
 
 /* Services 섹션 - Figma 디자인 업데이트 */
 .services-section {
@@ -1180,139 +1052,6 @@ body {
     margin: 0;
 }
 
-/* Footer Let's connect 버튼 - 새로운 디자인 시스템과 통합 */
-.lets-connect-button {
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
-    align-items: flex-end;
-    justify-content: flex-start;
-    width: 100%;
-}
-
-.lets-connect-button .button-content {
-    /* 새로운 버튼 디자인 시스템 적용 */
-    display: inline-flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: var(--spacing-03); /* 8px */
-    font-family: var(--font-family);
-    font-weight: var(--weight-emphasized);
-    line-height: var(--line-height-heading);
-    color: var(--text-primary);
-    text-decoration: none;
-    border: none;
-    background: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-    position: relative;
-}
-
-.lets-connect-button .button-content span {
-    font-size: var(--heading-01-size); /* 64px */
-    font-weight: var(--weight-emphasized);
-    line-height: var(--line-height-heading);
-    font-family: var(--font-family);
-    color: inherit;
-    text-align: center;
-    white-space: nowrap;
-    margin: 0;
-}
-
-.lets-connect-button .button-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 4rem; /* 64px */
-    height: 4rem; /* 64px */
-    padding: var(--spacing-02) 0 0 0; /* 4px 상단 패딩 */
-    position: relative; /* ::before 아이콘의 기준점 설정 */
-}
-
-.lets-connect-button .button-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transition: transform 0.3s ease;
-}
-
-/* Footer 버튼에 The Grap 스타일 인터랙션 적용 */
-.lets-connect-button .button-content {
-    overflow: hidden; /* 하단 라인 애니메이션을 위한 오버플로우 숨김 */
-}
-
-.lets-connect-button .button-content::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--text-primary);
-    transform: translate3d(-100%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
-    transform-style: preserve-3d;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    opacity: 0;
-}
-
-.lets-connect-button .button-icon {
-    overflow: hidden; /* 화살표 슬라이드 애니메이션을 위한 오버플로우 숨김 */
-}
-
-.lets-connect-button .button-icon svg {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    transform: translate3d(0%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
-    transform-style: preserve-3d;
-    filter: none; /* 기본 필터 제거 */
-}
-
-/* Let's connect 버튼 아이콘 - 원본 크기 */
-.lets-connect-button .button-icon svg {
-    transform: scale(1); /* 24px 원본 크기 */
-}
-
-/* Let's connect 버튼 아이콘 컨테이너에 새로운 아이콘을 위한 ::before 요소 추가 */
-.lets-connect-button .button-icon::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    width: 56px; /* 56px - 컨테이너 안에 완전히 들어가도록 조정 */
-    height: 56px;
-    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23.707 11.293C24.0976 11.6835 24.0976 12.3165 23.707 12.707L16.707 19.707L15.293 18.293L20.5859 13H7V11H20.5859L15.293 5.70703L16.707 4.29297L23.707 11.293Z' fill='currentColor'/%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    opacity: 0;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1;
-}
-
-/* Footer 버튼 호버 효과 - The Grap 스타일 */
-.lets-connect-button .button-content:hover .button-icon svg {
-    transform: translate3d(100%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
-}
-
-/* Let's connect 버튼 호버 시 새로운 아이콘이 나타나는 효과 */
-.lets-connect-button .button-content:hover .button-icon::before {
-    transform: translate(-50%, -50%) scale(1); /* 56px 원본 크기 그대로 */
-    opacity: 1;
-}
-
-.lets-connect-button .button-content:hover::after {
-    transform: translate3d(0%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
-    opacity: 1;
-}
-
-.lets-connect-button .button-content:active {
-    transform: scale(0.98);
-}
 
 .footer-content {
     display: flex;
@@ -1519,7 +1258,7 @@ body {
     transform-style: preserve-3d;
 }
 
-/* 버튼 하단 라인 - The Grap 스타일 */
+/* 버튼 하단 라인 */
 .btn::after {
     content: '';
     position: absolute;
@@ -1618,13 +1357,18 @@ body {
     transform: translate(-50%, -50%) scale(0);
     width: 24px;
     height: 24px;
-    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23.707 11.293C24.0976 11.6835 24.0976 12.3165 23.707 12.707L16.707 19.707L15.293 18.293L20.5859 13H7V11H20.5859L15.293 5.70703L16.707 4.29297L23.707 11.293Z' fill='currentColor'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23.707 11.293C24.0976 11.6835 24.0976 12.3165 23.707 12.707L16.707 19.707L15.293 18.293L20.5859 13H7V11H20.5859L15.293 5.70703L16.707 4.29297L23.707 11.293Z' fill='%23000000'/%3E%3C/svg%3E");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     opacity: 0;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1;
+}
+
+/* 다크모드에서 ::before 요소의 아이콘 색상 변경 */
+[data-theme="dark"] .btn-icon::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23.707 11.293C24.0976 11.6835 24.0976 12.3165 23.707 12.707L16.707 19.707L15.293 18.293L20.5859 13H7V11H20.5859L15.293 5.70703L16.707 4.29297L23.707 11.293Z' fill='%23ffffff'/%3E%3C/svg%3E");
 }
 
 /* Medium 버튼의 ::before 아이콘 크기 조정 - 기존 아이콘과 동일 */
@@ -1669,6 +1413,16 @@ body {
     transform: translate(-50%, -50%) scale(1); /* 64px 원본 크기 그대로 */
     opacity: 1;
 }
+
+/* 디자인 시스템 버튼들 호버 시 아이콘 색상 제어 - All Projects 버튼과 동일한 방식 */
+.btn:hover .btn-icon svg path[fill="currentColor"] {
+    fill: var(--schemes-on-background) !important;
+}
+
+[data-theme="dark"] .btn:hover .btn-icon svg path[fill="currentColor"] {
+    fill: var(--schemes-on-background) !important;
+}
+
 
 
 /* 버튼 활성 상태 */
@@ -1924,4 +1678,84 @@ body {
         min-height: 100vh;
     }
     
+}
+
+/* ========================================
+   공통 스크롤 인터랙션 클래스
+   ======================================== */
+
+/* 기본 스크롤 리빌 효과 - 위에서 아래로 그려지는 효과 */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.3s; /* 초기 딜레이 추가 */
+}
+
+.scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0s; /* revealed 상태에서는 딜레이 제거 */
+}
+
+/* 지연 효과를 위한 변형들 */
+.scroll-reveal-delay-1 {
+    transition-delay: 0.1s;
+}
+
+.scroll-reveal-delay-2 {
+    transition-delay: 0.2s;
+}
+
+.scroll-reveal-delay-3 {
+    transition-delay: 0.3s;
+}
+
+.scroll-reveal-delay-4 {
+    transition-delay: 0.4s;
+}
+
+.scroll-reveal-delay-5 {
+    transition-delay: 0.5s;
+}
+
+/* 다른 방향의 애니메이션 */
+.scroll-reveal-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.3s; /* 초기 딜레이 추가 */
+}
+
+.scroll-reveal-left.revealed {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0s; /* revealed 상태에서는 딜레이 제거 */
+}
+
+.scroll-reveal-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.3s; /* 초기 딜레이 추가 */
+}
+
+.scroll-reveal-right.revealed {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0s; /* revealed 상태에서는 딜레이 제거 */
+}
+
+/* 스케일 애니메이션 */
+.scroll-reveal-scale {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.3s; /* 초기 딜레이 추가 */
+}
+
+.scroll-reveal-scale.revealed {
+    opacity: 1;
+    transform: scale(1);
+    transition-delay: 0s; /* revealed 상태에서는 딜레이 제거 */
 }
