@@ -10,10 +10,10 @@
     --text-base: 1rem;       /* 16px */
     --text-lg: 1.125rem;     /* 18px */
     --text-xl: 1.25rem;      /* 20px */
-    --text-2xl: 1.5rem;      /* 24px */
+    --text-2xl: clamp(1.25rem, 1vw + 1.125rem, 1.5rem);    /* 20px~24px */
     --text-3xl: 1.875rem;    /* 30px */
-    --text-4xl: clamp(2.25rem, 3vw + 1rem, 2.25rem);     /* 36px~36px (피그마 디자인 유지) */
-    --text-5xl: 3rem;        /* 48px */
+    --text-4xl: clamp(1.75rem, 1.5vw + 1.25rem, 2.25rem);     /* 28px~36px - 피그마 디자인 */
+    --text-5xl: clamp(2.25rem, 0.75vw + 1.5rem, 3rem); /* 36px~48px - 피그마 디자인 */
     --text-6xl: 3.75rem;     /* 60px */
     --text-7xl: 4.5rem;      /* 72px */
     --text-8xl: 6rem;        /* 96px */
@@ -37,11 +37,11 @@
     --display-3-size: var(--text-9xl);      /* 128px */
     --display-4-size: var(--text-8xl);      /* 96px */
     --display-5-size: var(--text-7xl);      /* 72px */
-    --display-6-size: clamp(1.875rem, 4vw + 1rem, 3.75rem);      /* 30px~60px */
+    --display-6-size: clamp(2.75rem, 4vw + 1rem, 3.75rem);      /* 44px~60px */
     
     /* Heading 크기 - 피그마 변수 기반 자동 스케일링 */
     --heading-1-size: clamp(2.25rem, 4vw + 1rem, 3rem);      /* 36px~48px */
-    --heading-2-size: clamp(1.75rem, 3vw + 1rem, 2.25rem);   /* 28px~36px */
+    --heading-2-size: clamp(1.5rem, 3vw + 1rem, 2.25rem);    /* 24px~36px */
     --heading-3-size: clamp(1.5rem, 2.5vw + 1rem, 1.875rem); /* 24px~30px */
     --heading-4-size: clamp(1.25rem, 2vw + 1rem, 1.5rem);    /* 20px~24px */
     --heading-5-size: clamp(1.125rem, 1.5vw + 1rem, 1.25rem); /* 18px~20px */

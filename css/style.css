@@ -246,6 +246,7 @@ body {
     color: var(--schemes-on-background);
     background-color: var(--schemes-background);
     overflow-x: hidden;
+    word-break: keep-all; /* 한글 줄바꿈을 단어 단위로 적용 */
     position: relative; /* navbar 고정을 위한 상대 위치 */
 }
 
@@ -529,7 +530,7 @@ body {
 
 /* Featured Work 섹션 */
 .featured-work-section {
-    padding: 10rem 0 0 0;
+    padding: var(--spacing-20) 0 0 0; /* 80px 상단 패딩 */
     background-color: var(--schemes-background);
 }
 
@@ -624,7 +625,7 @@ body {
 
 /* Featured Work Grid 섹션 */
 .featured-work-grid-section {
-    padding: 2rem 0 10rem 0;
+    padding: 2rem var(--spacing-8) 10rem var(--spacing-8); /* 데스크탑: 위쪽 32px, 아래쪽 160px, 좌우 32px */
     background-color: var(--schemes-background);
 }
 
@@ -640,6 +641,7 @@ body {
     margin-top: var(--spacing-8); /* 4rem */
 }
 
+/* 기본 Featured Work Grid - 데스크탑 우선 */
 .featured-work-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -650,11 +652,12 @@ body {
     box-sizing: border-box;
 }
 
+
 .project-card {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-4); /* 1rem - spacing-4 */
-    grid-column: span 4; /* 4컬럼씩 사용 */
+    gap: var(--spacing-4); /* 16px - 피그마 gap-4 */
+    grid-column: span 4; /* 데스크탑 기본값 - 4컬럼 */
     text-decoration: none;
     color: inherit;
 }
@@ -662,6 +665,11 @@ body {
 /* 첫 번째 카드는 6컬럼 사용 */
 .project-card:nth-child(1) {
     grid-column: span 6;
+}
+
+/* 두 번째 카드를 우측으로 정렬 */
+.project-card:nth-child(2) {
+    grid-column: 9 / 13; /* 9번째부터 12번째 컬럼까지 */
 }
 
 
@@ -710,6 +718,13 @@ body {
     content: none !important;
 }
 
+/* 모바일에서 커스텀 커서 숨기기 */
+@media only screen and (max-width: 767px) {
+    .custom-cursor {
+        display: none !important;
+    }
+}
+
 /* 프로젝트 카드 호버 시 커스텀 커서 */
 .custom-cursor.hover {
     width: var(--cursor-size-hover);
@@ -730,10 +745,6 @@ body {
 
 
 
-/* 두 번째 카드를 우측으로 정렬 */
-.project-card:nth-child(2) {
-    grid-column: 9 / 13; /* 9번째부터 12번째 컬럼까지 */
-}
 
 .project-cover {
     aspect-ratio: 900/675;
@@ -773,7 +784,7 @@ body {
 
 .project-info {
     display: flex;
-    gap: var(--spacing-6); /* 24px */
+    gap: var(--spacing-7); /* 28px - 피그마 gap-7 */
     align-items: flex-start;
     justify-content: space-between;
 }
@@ -786,27 +797,27 @@ body {
 }
 
 .project-name-and-tags h3 {
-    font-size: var(--body-06-size); /* 24px */
+    font-size: var(--text-2xl); /* 24px - 피그마 디자인 업데이트 */
     font-weight: var(--weight-emphasized);
-    line-height: var(--line-height-heading);
+    line-height: 1.1; /* 피그마 line-height */
     font-family: var(--font-family);
     color: var(--schemes-on-background) !important;
     margin: 0;
 }
 
 .project-name-and-tags p {
-    font-size: var(--body-06-size); /* 24px */
+    font-size: var(--text-2xl); /* 24px - 피그마 디자인 업데이트 */
     font-weight: var(--weight-regular);
-    line-height: var(--line-height-body);
+    line-height: 1.1; /* 피그마 line-height */
     font-family: var(--font-family);
     color: var(--schemes-secondary);
     margin: 0;
 }
 
 .project-year p {
-    font-size: var(--body-06-size); /* 24px */
+    font-size: var(--text-2xl); /* 24px - 피그마 디자인 업데이트 */
     font-weight: var(--weight-emphasized);
-    line-height: var(--line-height-heading);
+    line-height: 1.1; /* 피그마 line-height */
     font-family: var(--font-family);
     color: var(--schemes-on-background) !important;
     white-space: nowrap;
@@ -854,7 +865,6 @@ body {
     width: 100%;
     position: relative;
     z-index: 1;
-    border-bottom: 1px solid var(--schemes-on-background);
 }
 
 
@@ -868,6 +878,11 @@ body {
     width: 100%;
     background-color: var(--schemes-background);
     transition: background-color 0.3s ease;
+    border-top: 1px solid var(--schemes-on-background);
+}
+
+.service-item:last-child {
+    border-bottom: 1px solid var(--schemes-on-background);
 }
 
 
@@ -993,7 +1008,7 @@ body {
 .service-item.active .service-text-block p {
     opacity: 1;
     visibility: visible;
-    max-height: 200px; /* 충분한 높이로 설정하여 내용 표시 */
+    max-height: none; /* 높이 제한 제거 */
     margin: 0; /* 기본 마진 유지 */
     padding: 0; /* 기본 패딩 유지 */
     overflow: visible; /* 내용 표시 */
@@ -1002,21 +1017,6 @@ body {
 }
 
 
-/* 서비스 아이템 border 정의 - 각 아이템에 상단 border만 */
-.service-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    pointer-events: none;
-    border-top: 1px solid var(--schemes-on-background);
-}
-
-/* 활성화된 마지막 아이템에 하단 border 추가 */
-.service-item.active:last-child::before {
-    border-bottom: 1px solid var(--schemes-on-background);
-}
 
 .service-title {
     flex: 1;
@@ -1086,7 +1086,7 @@ body {
 }
 
 .footer-header h2 {
-    font-size: var(--display-3-size); /* 128px 데스크톱, 60px 모바일 - display-3 스타일 */
+    font-size: var(--display-5-size); /* 72px 데스크톱, 36px 모바일 - display-5 스타일 */
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-display);
     font-family: var(--font-family);
@@ -1172,6 +1172,9 @@ body {
     text-decoration: none;
     white-space: nowrap;
     padding: 0.25rem 0;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: inline-block !important;
 }
 
 .footer-links a:hover {
@@ -1449,7 +1452,7 @@ body {
 }
 
 .btn-large .btn-text {
-    font-size: var(--heading-1-size); /* 48px - 피그마 디자인 */
+    font-size: var(--text-4xl); /* 36px 데스크탑, 28px 모바일 - 레이아웃 밸런스 고려 */
     flex-shrink: 0;
     position: relative;
     text-align: center;
@@ -1867,49 +1870,57 @@ body {
         font-size: var(--display-2-size); /* 72px - display-2 모바일 크기 */
     }
     
-    /* Featured Work Grid 반응형 - 모바일 최적화 */
+    
     .featured-work-grid {
-        grid-template-columns: 1fr; /* 단일 컬럼 */
-        column-gap: 0;
-        row-gap: var(--spacing-4); /* Figma: gap-4 (16px) */
-        padding: 0 var(--spacing-4); /* Figma: px-4 (16px) */
+        grid-template-columns: 1fr !important; /* 모바일에서 강제로 단일 컬럼 */
+        column-gap: 0 !important;
+        row-gap: var(--spacing-20) !important; /* Figma: gap-20 (80px) - 카드 간 간격 */
+        padding: 0 !important; /* 좌우 패딩 제거 - 섹션 패딩 사용 */
+        margin-bottom: 0 !important;
     }
     
     .featured-work-grid-section {
-        padding: var(--spacing-4) 0 var(--spacing-10) 0; /* Figma: pt-4 pb-10 (16px 40px) */
+        padding: var(--spacing-8) var(--spacing-8) var(--spacing-40) var(--spacing-8); /* Figma: pt-8 pb-40 px-8 (32px 160px 32px) */
     }
     
     .project-card {
-        grid-column: span 1; /* 모든 카드가 1컬럼 차지 */
-        width: 100%;
+        grid-column: span 1 !important; /* 모든 카드가 1컬럼 차지 */
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important; /* 모바일에서 세로 배치 */
     }
     
     /* 첫 번째 카드도 모바일에서는 1컬럼 */
     .project-card:nth-child(1) {
-        grid-column: span 1;
+        grid-column: span 1 !important;
     }
     
-    /* 프로젝트 카드 텍스트 모바일 최적화 */
+    /* 두 번째 카드도 모바일에서는 1컬럼 */
+    .project-card:nth-child(2) {
+        grid-column: span 1 !important;
+    }
+    
+    /* 프로젝트 카드 텍스트 모바일 최적화 - 피그마 디자인 업데이트 */
     .project-name-and-tags h3 {
-        font-size: 1.125rem; /* 18px - 모바일 최적화 */
+        font-size: var(--text-xl); /* 20px - 피그마 모바일 디자인 */
+        line-height: 1.1;
     }
     
     .project-name-and-tags p {
-        font-size: var(--text-sm); /* 14px - Tailwind text-sm */
+        font-size: var(--text-xl); /* 20px - 피그마 모바일 디자인 */
+        line-height: 1.1;
     }
     
     .project-year p {
-        font-size: var(--text-base); /* 16px - Tailwind text-base */
+        font-size: var(--text-xl); /* 20px - 피그마 모바일 디자인 */
+        line-height: 1.1;
     }
     
     
     /* 버튼 디자인 시스템 반응형 */
     /* 모바일 버튼 스타일은 typography.css에서 관리됩니다 */
     /* 기존 모바일 버튼 CSS - typography.css로 이동됨
-    /* Small 버튼 모바일 */
-    .btn-small .btn-text {
-        font-size: var(--body-06-size); /* 24px -> 24px 유지 */
-    }
+    /* Small 버튼 모바일 - 텍스트는 clamp() 함수로 자동 스케일링 */
     
     .btn-small .btn-icon {
         width: 1.5rem; /* 24px 유지 */
@@ -1922,10 +1933,7 @@ body {
         transform: scale(1); /* 24px 원본 크기 */
     }
     
-    /* Medium 버튼 모바일 - Small 버튼 구조 기반 */
-    .btn-medium .btn-text {
-        font-size: var(--heading-04-size); /* 40px -> 32px */
-    }
+    /* Medium 버튼 모바일 - 텍스트는 clamp() 함수로 자동 스케일링 */
     
     .btn-medium .btn-icon {
         width: 2rem; /* 40px -> 32px */
@@ -1937,10 +1945,7 @@ body {
         transform: scale(1); /* 24px 원본 크기 */
     }
     
-    /* Large 버튼 모바일 - Small 버튼 구조 기반 */
-    .btn-large .btn-text {
-        font-size: var(--heading-1-size); /* 48px - 피그마 디자인 유지 */
-    }
+    /* Large 버튼 모바일 - 텍스트는 clamp() 함수로 자동 스케일링 */
     
     .btn-large .btn-icon {
         width: 2.25rem; /* 36px - 피그마 모바일 기준 */
@@ -1984,7 +1989,7 @@ body {
     }
     
     .services-header {
-        padding: 0 var(--spacing-4); /* Figma: px-4 (16px) */
+        padding: 0 var(--spacing-8); /* Figma: px-8 (32px) */
     }
     
     .services-header h2 {
@@ -1998,7 +2003,7 @@ body {
     .service-item {
         flex-direction: column; /* 모바일에서는 세로 배치 */
         gap: var(--spacing-6); /* Figma: gap-6 (24px) */
-        padding: var(--spacing-5) var(--spacing-4); /* Figma: py-5 px-4 (20px 16px) */
+        padding: var(--spacing-8) var(--spacing-8); /* Figma: py-8 px-8 (32px 32px) */
         margin-bottom: 0; /* 마진 제거 */
     }
     
@@ -2032,28 +2037,88 @@ body {
         width: 100%;
         margin-left: 0;
         margin-right: 0;
-        padding: var(--spacing-4); /* Figma: p-[16px] */
-        height: 732px; /* Figma: h-[732px] */
+        padding: var(--spacing-8); /* Figma: spacing-8 (32px) */
+        min-height: 100vh; /* 데스크탑처럼 세로 꽉 차도록 */
         gap: var(--spacing-8); /* Figma: gap-8 (32px) */
     }
     
     .footer-container {
         padding: 0;
-        padding-top: 1.5rem; /* 24px - 간격 축소 */
-        padding-bottom: 1rem; /* 16px */
+        padding-top: 8rem; /* 128px - navbar(78px) + 충분한 여백 */
         justify-content: space-between;
-        min-height: auto; /* 높이 자동 조정 */
+        min-height: 100vh; /* 데스크탑처럼 세로 꽉 차도록 */
     }
     
     /* Footer 텍스트 모바일 최적화 */
     .footer-header h2 {
-        font-size: var(--text-section-title); /* Figma: text-[40px] - Tailwind 확장 */
-        line-height: 1.1;
+        font-size: var(--display-5-size); /* 72px 데스크톱, 36px 모바일 - display-5 스타일 */
+        line-height: 1; /* 피그마: leading-none */
+    }
+    
+    .footer-bar {
+        display: flex !important;
+        flex-direction: column !important; /* 피그마: 세로 배치 */
+        gap: var(--spacing-4) !important; /* 16px - 피그마 gap-4 */
+        align-items: flex-start !important;
     }
     
     .footer-bar p,
     .footer-links a {
-        font-size: var(--text-lg); /* 18px - Figma 기준 Tailwind text-lg */
+        font-size: var(--text-lg); /* 18px - 피그마 기준 Tailwind text-lg */
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    /* 모바일 푸터 하단 레이아웃 변경 - 데스크탑과 다르게 */
+    .footer-content {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: var(--spacing-8) !important;
+        align-items: center !important;
+        text-align: center !important;
+    }
+    
+    .footer-logo {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        width: 100% !important;
+        height: auto !important;
+        position: relative !important;
+    }
+    
+    .footer-logo svg {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    .footer-bar {
+        flex-direction: column !important;
+        gap: var(--spacing-4) !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+    }
+    
+    .footer-links {
+        display: flex !important;
+        flex-direction: row !important; /* 링크들 가로 배치 */
+        gap: var(--spacing-4) !important; /* 16px - 가로 배치에 적합한 간격 */
+        align-items: flex-start !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    .footer-links .btn {
+        text-align: left !important;
+        justify-content: flex-start !important;
+    }
+    
+    .footer-links .btn .btn-text {
+        text-align: left !important;
     }
     
 }
