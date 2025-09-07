@@ -83,7 +83,7 @@
         
         /* 모바일에서 Body 크기 조정 */
         --body-lg-size: var(--text-base);       /* 16px - 모바일 적합 */
-        --body-md-size: var(--text-sm);         /* 14px - 모바일 적합 */
+        --body-md-size: var(--text-base);       /* 16px - 모바일 16px 이상 보장 */
         --body-sm-size: var(--text-xs);         /* 12px - 모바일 적합 */
         --body-xs-size: var(--text-xs);         /* 12px - 모바일 적합 */
         
