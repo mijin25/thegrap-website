@@ -282,6 +282,12 @@ class Navbar {
                         <div class="nav-icon">
                             <img src="assets/icon_dark-mode.svg" alt="Theme Toggle" id="theme-toggle">
                         </div>
+                        <div class="nav-icon nav-menu-icon">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 11H30" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M2 21H30" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </nav>

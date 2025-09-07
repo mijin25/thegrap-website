@@ -100,22 +100,28 @@ html, body, * {
        Figma Variables - Spacing (실제 Figma 값)
        ======================================== */
     
-    /* Spacing Variables - Desktop 기준 */
-    --spacing-01: 0.125rem; /* 2px */
-    --spacing-02: 0.25rem;  /* 4px */
-    --spacing-03: 0.5rem;   /* 8px */
-    --spacing-04: 0.75rem;  /* 12px */
-    --spacing-05: 1rem;     /* 16px */
-    --spacing-06: 1.25rem;  /* 20px */
-    --spacing-07: 1.5rem;   /* 24px */
-    --spacing-08: 2rem;     /* 32px */
-    --spacing-09: 2.5rem;   /* 40px */
-    --spacing-10: 3rem;     /* 48px */
-    --spacing-11: 4rem;     /* 64px */
-    --spacing-12: 5rem;     /* 80px */
-    --spacing-13: 6rem;     /* 96px */
-    --spacing-14: 8rem;     /* 128px */
-    --spacing-15: 10rem;    /* 160px */
+    /* Spacing Variables - Figma Tailwind CSS 표준 */
+    --spacing-0: 0;
+    --spacing-1: 0.25rem;   /* 4px */
+    --spacing-2: 0.5rem;    /* 8px */
+    --spacing-3: 0.75rem;   /* 12px */
+    --spacing-4: 1rem;      /* 16px */
+    --spacing-5: 1.25rem;   /* 20px */
+    --spacing-6: 1.5rem;    /* 24px */
+    --spacing-7: 1.75rem;   /* 28px */
+    --spacing-8: 2rem;      /* 32px */
+    --spacing-9: 2.25rem;   /* 36px */
+    --spacing-10: 2.5rem;   /* 40px */
+    --spacing-11: 2.75rem;  /* 44px */
+    --spacing-12: 3rem;     /* 48px */
+    --spacing-14: 3.5rem;   /* 56px */
+    --spacing-16: 4rem;     /* 64px */
+    --spacing-20: 5rem;     /* 80px */
+    --spacing-24: 6rem;     /* 96px */
+    --spacing-28: 7rem;     /* 112px */
+    --spacing-32: 8rem;     /* 128px */
+    --spacing-36: 9rem;     /* 144px */
+    --spacing-40: 10rem;    /* 160px */
     
     /* ========================================
        Figma Variables - Cursor (디자인 시스템)
@@ -186,18 +192,6 @@ html, body, * {
        ======================================== */
     
     --space-0: 0;
-    --spacing-02: 0.25rem; /* 4px */
-    --spacing-03: 0.5rem; /* 8px */
-    --spacing-05: 1rem; /* 16px */
-    --spacing-06: 1.25rem; /* 20px */
-    --spacing-07: 1.5rem; /* 24px */
-    --spacing-08: 2rem; /* 32px */
-    --spacing-09: 2.5rem; /* 40px */
-    --spacing-10: 3rem; /* 48px */
-    --spacing-11: 4rem; /* 64px */
-    --spacing-12: 5rem; /* 80px */
-    --spacing-14: 8rem; /* 128px */
-    --spacing-15: 10rem; /* 160px */
     
 }
 
@@ -231,13 +225,14 @@ body {
     color: var(--schemes-on-background);
     background-color: var(--schemes-background);
     overflow-x: hidden;
+    position: relative; /* navbar 고정을 위한 상대 위치 */
 }
 
 /* 컨테이너 */
 .container {
     width: 100%;
     margin: 0 auto;
-    padding: clamp(var(--spacing-04), var(--spacing-04) + (100vw - 1920px) * 0.01, var(--spacing-08)) clamp(var(--spacing-08), var(--spacing-08) + (100vw - 1920px) * 0.015, var(--spacing-09));
+    padding: clamp(var(--spacing-3), var(--spacing-3) + (100vw - 1920px) * 0.01, var(--spacing-8)) clamp(var(--spacing-8), var(--spacing-8) + (100vw - 1920px) * 0.015, var(--spacing-10));
 }
 
 /* 네비게이션 바 */
@@ -248,9 +243,9 @@ body {
     right: 0;
     background: transparent;
     z-index: 1000;
-    padding: clamp(var(--spacing-06), var(--spacing-06) + (100vw - 1920px) * 0.01, var(--spacing-08)) clamp(var(--spacing-08), var(--spacing-08) + (100vw - 1920px) * 0.015, var(--spacing-09)); /* 반응형 패딩 */
     transition: all 0.3s ease;
 }
+
 
 /* hero 영역을 벗어날 때 mix-blend-mode 적용 */
 .navbar.blend-mode {
@@ -266,19 +261,19 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-height: var(--spacing-08); /* 32px - spacing-08 */
+    min-height: var(--spacing-8); /* 32px - spacing-8 */
 }
 
 .nav-right {
     display: flex;
     align-items: center;
-    gap: clamp(var(--spacing-09), var(--spacing-09) + (100vw - 1920px) * 0.01, var(--spacing-11)); /* 반응형 간격 */
+    gap: clamp(var(--spacing-10), var(--spacing-10) + (100vw - 1920px) * 0.01, var(--spacing-16)); /* 반응형 간격 */
 }
 
 .nav-menu {
     display: flex;
     align-items: center;
-    gap: var(--spacing-09); /* 2.5rem / 40px */
+    gap: var(--spacing-10); /* 2.5rem / 40px */
 }
 
 .nav-logo {
@@ -321,7 +316,7 @@ body {
     
     color: var(--schemes-on-hero);
     text-decoration: none;
-    padding: var(--spacing-02) 0; /* 4px */
+    padding: var(--spacing-1) 0; /* 4px */
     display: block;
     transition: color 0.3s ease;
 }
@@ -334,14 +329,21 @@ body {
 
 /* 기존 nav-icon 스타일 유지 (호환성) */
 .nav-icon {
-    display: flex;
+    display: flex; /* 데스크톱에서는 다크모드/라이트모드 아이콘 표시 */
     align-items: center;
+}
+
+/* 데스크톱에서 햄버거 메뉴 아이콘 숨기기 */
+@media (min-width: 769px) {
+    .nav-icon.nav-menu-icon {
+        display: none !important;
+    }
 }
 
 .nav-icon img {
     width: 24px;
     height: 24px;
-    filter: brightness(0) invert(1); /* hero 영역에서는 흰색으로 표시 */
+    filter: brightness(0) invert(1); /* 히어로 영역에서는 on-hero 컬러(흰색) */
     transition: opacity 0.3s ease;
     cursor: pointer;
 }
@@ -352,7 +354,14 @@ body {
 
 /* blend-mode가 적용될 때는 현재 테마에 따라 색상 변환 */
 .navbar.blend-mode .nav-icon img {
-    filter: brightness(0) invert(1) !important; /* blend mode에서 자동 반전 */
+    filter: brightness(0) invert(1) !important; /* blend mode에서도 흰색 유지 - mix-blend-mode가 자동 반전 */
+}
+
+/* 데스크톱에서 햄버거 메뉴 아이콘 SVG 숨기기 */
+@media (min-width: 769px) {
+    .nav-icon.nav-menu-icon svg {
+        display: none;
+    }
 }
 
 /* 히어로 섹션 */
@@ -369,6 +378,7 @@ body {
     will-change: transform;
     transition: transform 0.05s ease-out;
     z-index: 0;
+    background-color: #000; /* 배경색 추가 - 이미지 로드 실패 시 대비 */
     clip-path: inset(0 0 100% 0);
     animation: heroDrawDown 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -379,6 +389,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
+    background-color: #000; /* 배경색 추가 */
+    background-image: url('../assets/hero-background-desktop.jpg'); /* 데스크톱 기본 이미지 */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -429,7 +441,7 @@ body {
 }
 
 .hero-top-text-block p {
-    font-size: var(--display-03-size); /* 120px */
+    font-size: var(--display-03-size); /* 120px - 원래 데스크톱 크기 */
     font-weight: var(--weight-emphasized);
     line-height: 1; /* leading-none */
     font-family: var(--font-family);
@@ -449,7 +461,7 @@ body {
 }
 
 .hero-middle-text-block p {
-    font-size: var(--display-03-size); /* 120px */
+    font-size: var(--display-03-size); /* 120px - 원래 데스크톱 크기 */
     font-weight: var(--weight-emphasized);
     line-height: 1; /* leading-none */
     font-family: var(--font-family);
@@ -459,7 +471,7 @@ body {
 
 .hero-sub-text {
     display: flex !important;
-    gap: var(--spacing-07); /* 24px */
+    gap: var(--spacing-6); /* 24px */
     align-items: flex-end;
     justify-content: flex-start;
     width: 100%;
@@ -520,7 +532,7 @@ body {
 }
 
 .huge-text {
-    font-size: var(--display-05-size); /* 160px */
+    font-size: var(--display-05-size); /* 160px - 원래 데스크톱 크기 */
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-display);
     font-family: var(--font-family);
@@ -553,7 +565,7 @@ body {
 
 .what-we-do-section .body {
     display: flex;
-    gap: var(--spacing-05); /* 16px */
+    gap: var(--spacing-4); /* 16px */
     align-items: flex-start;
     justify-content: flex-end;
 }
@@ -596,21 +608,21 @@ body {
 /* 프로젝트 카드 컨테이너 */
 .project-cards-container {
     position: relative;
-    margin-bottom: var(--spacing-12); /* 8rem */
+    margin-bottom: var(--spacing-20); /* 8rem */
 }
 
 /* All Projects 버튼 컨테이너 */
 .all-projects-button-container {
     position: relative;
-    margin-top: var(--spacing-08); /* 4rem */
+    margin-top: var(--spacing-8); /* 4rem */
 }
 
 .featured-work-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    column-gap: clamp(var(--spacing-05), var(--spacing-05) + (100vw - 1920px) * 0.01, var(--spacing-07)); /* 가로 간격 */
-    row-gap: var(--spacing-12); /* 세로 간격 - Figma spacing-12 */
-    margin-bottom: clamp(var(--spacing-12), var(--spacing-12) + (100vw - 1920px) * 0.02, var(--spacing-15));
+    column-gap: clamp(var(--spacing-4), var(--spacing-4) + (100vw - 1920px) * 0.01, var(--spacing-6)); /* 가로 간격 */
+    row-gap: var(--spacing-20); /* 세로 간격 - Tailwind spacing-20 */
+    margin-bottom: clamp(var(--spacing-20), var(--spacing-20) + (100vw - 1920px) * 0.02, var(--spacing-40));
     width: 100%;
     box-sizing: border-box;
 }
@@ -618,7 +630,7 @@ body {
 .project-card {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-05); /* 1rem - spacing-05 */
+    gap: var(--spacing-4); /* 1rem - spacing-4 */
     grid-column: span 4; /* 4컬럼씩 사용 */
     text-decoration: none;
     color: inherit;
@@ -738,7 +750,7 @@ body {
 
 .project-info {
     display: flex;
-    gap: var(--spacing-07); /* 24px */
+    gap: var(--spacing-6); /* 24px */
     align-items: flex-start;
     justify-content: space-between;
 }
@@ -995,7 +1007,7 @@ body {
 .footer-container {
     width: 100%;
     margin: 0 auto;
-    padding: clamp(var(--spacing-04), var(--spacing-04) + (100vw - 1920px) * 0.01, var(--spacing-08)) clamp(var(--spacing-08), var(--spacing-08) + (100vw - 1920px) * 0.015, var(--spacing-09));
+    padding: clamp(var(--spacing-3), var(--spacing-3) + (100vw - 1920px) * 0.01, var(--spacing-8)) clamp(var(--spacing-8), var(--spacing-8) + (100vw - 1920px) * 0.015, var(--spacing-10));
     padding-top: 8rem;
     padding-bottom: 2rem;
     display: flex;
@@ -1185,7 +1197,7 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: flex-start;
-    gap: var(--spacing-02); /* 4px - 기본 간격 */
+        gap: var(--spacing-1); /* 4px - 기본 간격 */
     font-family: var(--font-family);
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-heading);
@@ -1260,8 +1272,8 @@ body {
 
 /* Small 버튼 (24px 텍스트, 24px 아이콘) */
 .btn-small {
-    gap: var(--spacing-02); /* 4px */
-    padding: var(--spacing-02) 0; /* 4px 상하 */
+    gap: var(--spacing-1); /* 4px */
+    padding: var(--spacing-1) 0; /* 4px 상하 */
 }
 
 .btn-small .btn-text {
@@ -1282,7 +1294,7 @@ body {
 
 /* Medium 버튼 (40px 텍스트, 40px 아이콘) - Small 버튼 구조 기반 */
 .btn-medium {
-    gap: var(--spacing-02); /* 4px - Small과 동일한 간격 */
+    gap: var(--spacing-1); /* 4px - Small과 동일한 간격 */
     padding: 0; /* Small과 동일한 패딩 */
 }
 
@@ -1293,7 +1305,7 @@ body {
 .btn-medium .btn-icon {
     width: 2.5rem; /* 40px */
     height: 2.5rem; /* 40px */
-    padding: var(--spacing-02) 0 0 0; /* 4px 상단 패딩 - Small과 동일한 구조 */
+    padding: var(--spacing-1) 0 0 0; /* 4px 상단 패딩 - Small과 동일한 구조 */
     position: relative; /* ::before 아이콘의 기준점 설정 */
 }
 
@@ -1305,7 +1317,7 @@ body {
 
 /* Large 버튼 (64px 텍스트, 64px 아이콘) - Small 버튼 구조 기반 */
 .btn-large {
-    gap: var(--spacing-03); /* 8px - Small보다 약간 큰 간격 */
+    gap: var(--spacing-2); /* 8px - Small보다 약간 큰 간격 */
     padding: 0; /* Small과 동일한 패딩 */
 }
 
@@ -1316,7 +1328,7 @@ body {
 .btn-large .btn-icon {
     width: 4rem; /* 64px */
     height: 4rem; /* 64px */
-    padding: var(--spacing-02) 0 0 0; /* 4px 상단 패딩 - Small과 동일한 구조 */
+    padding: var(--spacing-1) 0 0 0; /* 4px 상단 패딩 - Small과 동일한 구조 */
     position: relative; /* ::before 아이콘의 기준점 설정 */
 }
 
@@ -1441,7 +1453,7 @@ body {
 .btn-outline {
     color: var(--schemes-on-background);
     border: 1px solid var(--schemes-outline);
-    padding: var(--spacing-03) var(--spacing-05);
+    padding: var(--spacing-2) var(--spacing-4);
     border-radius: 0;
 }
 
@@ -1451,13 +1463,112 @@ body {
 }
 
 /* 반응형 디자인 */
-@media (max-width: 768px) {
-    .nav-container {
-        padding: 0; /* 패딩 제거 - navbar에서 관리 */
+/* 데스크탑 전용 navbar 패딩 - clamp() 함수 적용 */
+@media (min-width: 769px) {
+    .navbar {
+        padding: clamp(var(--spacing-5), var(--spacing-5) + (100vw - 1920px) * 0.01, var(--spacing-8)) clamp(var(--spacing-8), var(--spacing-8) + (100vw - 1920px) * 0.015, var(--spacing-10)); /* 반응형 패딩 */
+    }
+    
+    /* 데스크톱에서 데스크톱 이미지 강제 적용 */
+    .hero-section .hero-background {
+        background-image: url('../assets/hero-background-desktop.jpg') !important;
+        background-color: #000 !important;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    /* 모바일 Spacing Variables - Figma와 일치 */
+    :root {
+        --spacing-3: 0.5rem;    /* 8px Mobile */
+        --spacing-4: 0.5rem;    /* 8px Mobile */
+        --spacing-5: 0.75rem;   /* 12px Mobile */
+        --spacing-6: 0.75rem;   /* 12px Mobile */
+        --spacing-7: 1rem;      /* 16px Mobile */
+        --spacing-8: 1rem;      /* 16px Mobile */
+        --spacing-9: 1.25rem;   /* 20px Mobile */
+        --spacing-10: 1.25rem;  /* 20px Mobile */
+        --spacing-11: 1.5rem;   /* 24px Mobile */
+        --spacing-12: 1.5rem;   /* 24px Mobile */
+        --spacing-14: 2rem;     /* 32px Mobile */
+        --spacing-16: 2rem;     /* 32px Mobile */
+        --spacing-20: 2.5rem;   /* 40px Mobile */
+        --spacing-24: 3rem;     /* 48px Mobile */
+        --spacing-28: 3.5rem;   /* 56px Mobile */
+        --spacing-32: 4rem;     /* 64px Mobile */
+        --spacing-36: 4.5rem;   /* 72px Mobile */
+        --spacing-40: 5rem;     /* 80px Mobile */
+    }
+    /* Figma 모바일 navbar 완전 재구성 */
+    body {
+        overflow-x: visible !important; /* 모바일에서 navbar가 뷰포트를 벗어나지 않도록 */
     }
     
     .navbar {
-        padding: 1.25rem 2rem; /* 상하 1.25rem(20px), 좌우 2rem(32px) */
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 1000 !important;
+        padding: var(--spacing-8) !important; /* Figma: p-[16px] = spacing-8 (모바일에서 16px) */
+        background: transparent !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+    }
+    
+    .nav-container {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important; /* Figma: 로고와 햄버거 메뉴 양쪽 배치 */
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        min-height: var(--spacing-5) !important; /* 모바일: 20px */
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .nav-right {
+        display: flex !important;
+        align-items: center !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .nav-left {
+        display: flex !important;
+        align-items: center !important;
+        flex-shrink: 0 !important;
+    }
+    
+    /* 모바일에서 데스크톱 메뉴 숨기기 */
+    .nav-menu {
+        display: none; /* 데스크톱 메뉴 숨김 */
+    }
+    
+    /* 모바일에서 햄버거 메뉴 아이콘만 표시 */
+    .nav-icon {
+        display: none; /* 기본적으로 모든 아이콘 숨김 */
+    }
+    
+    /* Figma 모바일 햄버거 메뉴 아이콘 */
+    .nav-icon.nav-menu-icon {
+        display: flex !important; /* Figma: 햄버거 메뉴 아이콘 표시 */
+        align-items: center !important;
+        justify-content: center !important;
+        width: var(--spacing-16) !important; /* spacing-16 (32px) */
+        height: var(--spacing-16) !important; /* spacing-16 (32px) */
+    }
+    
+    /* Figma 모바일 햄버거 메뉴 아이콘 SVG */
+    .nav-icon.nav-menu-icon svg {
+        width: 32px !important; /* 원본 SVG 파일 크기 (32x32) */
+        height: 32px !important; /* 원본 SVG 파일 크기 (32x32) */
+        color: white !important; /* 히어로 영역에서 흰색 */
+        stroke: currentColor !important; /* SVG stroke 색상을 currentColor로 설정 */
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
     
     .nav-logo {
@@ -1484,50 +1595,138 @@ body {
     }
     
     /* 모바일에서도 blend-mode가 적용될 때는 현재 테마에 따라 색상 변환 */
+    .navbar.blend-mode {
+        mix-blend-mode: difference; /* 모바일에서도 블렌드 모드 적용 */
+    }
+    
     .navbar.blend-mode .nav-logo img,
     .navbar.blend-mode .nav-logo svg {
         filter: brightness(0) invert(1) !important; /* blend mode에서 자동 반전 */
         color: white !important; /* SVG 색상 고정 */
     }
     
-    /* 모바일 히어로 섹션 */
-    .hero-section {
-        height: 100vh;
-        width: 100vw;
-        margin-left: 0;
-        margin-right: 0;
+    /* 모바일 햄버거 메뉴 아이콘 blend-mode */
+    .navbar.blend-mode .nav-icon.nav-menu-icon svg {
+        color: white; /* blend mode에서 흰색으로 설정 - mix-blend-mode가 자동 반전 */
+        stroke: currentColor; /* SVG stroke 색상도 currentColor로 설정 */
     }
     
-    .hero-background {
-        background-image: url('assets/hero-background-mobile.jpg');
+    /* 모바일 히어로 섹션 */
+    .hero-section {
+        height: 100vh; /* 모바일에서도 전체 뷰포트 높이 사용 */
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0;
+        clip-path: none;
+        animation: none;
+        transform: none;
+        box-sizing: border-box;
+    }
+    
+    .hero-section .hero-background {
+        background-image: url('../assets/hero-background-mobile.jpg') !important; /* 모바일 전용 이미지 */
+        background-color: transparent !important; /* 배경색 제거 */
+        height: 100vh; /* 모바일에서도 전체 뷰포트 높이 사용 */
+        width: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: absolute;
+        z-index: -1;
+        background-size: cover !important; /* hero 영역을 완전히 채우도록 cover 사용 */
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+    }
+    
+    .hero-content {
+        padding: var(--spacing-5) var(--spacing-4); /* Figma: py-5 px-4 (20px 16px) */
+        gap: var(--spacing-6); /* Figma: gap-6 (24px) */
+    }
+    
+    .hero-main-title {
+        margin-bottom: 0;
+    }
+    
+    .hero-sub-text {
+        font-size: 1.375rem; /* 22px - Figma 디자인에 맞춤 */
+        padding: var(--spacing-10) 0; /* py-10 - Figma 디자인에 맞춤 */
+        gap: var(--spacing-7); /* 16px - Figma gap-7에 맞춤 */
     }
     
     .hero-top-text-block p,
     .hero-middle-text-block p {
-        font-size: var(--display-01-size); /* 80px */
+        font-size: 4rem; /* Figma: text-[64px] */
     }
     
-    .hero-sub-text p {
-        font-size: var(--body-03-size); /* 16px */
+    .hero-sub-text {
+        font-size: 1.375rem; /* Figma: text-[22px] */
+        padding: var(--spacing-5) 0; /* Figma: py-5 (20px) */
+        gap: var(--spacing-4); /* Figma: gap-4 (16px) */
+    }
+    
+    /* Figma 모바일 What We Do 섹션 */
+    .what-we-do-section {
+        padding: var(--spacing-6) var(--spacing-4); /* Figma: py-6 px-4 (24px 16px) */
+        gap: var(--spacing-5); /* Figma: gap-5 (20px) */
+    }
+    
+    .what-we-do-section h2 {
+        font-size: 2.5rem; /* Figma: text-[40px] */
+        line-height: 1.1;
+        margin-bottom: var(--spacing-8); /* Figma: gap-8 (32px) */
+    }
+    
+    .what-we-do-section p {
+        font-size: 1.125rem; /* Figma: text-[18px] */
+        line-height: 1.1;
+        margin-bottom: var(--spacing-3); /* Figma: gap-3 (12px) */
+    }
+    
+    .what-we-do-section .korean-text {
+        font-size: 1rem; /* Figma: text-[16px] */
+        line-height: 1.3;
     }
     
     
     .huge-text {
-        font-size: var(--display-03-size); /* 120px */
+        font-size: 6rem; /* Figma: text-[96px] */
     }
     
-    /* Featured Work Grid 반응형 */
-    .featured-work-row {
-        flex-direction: column;
-        gap: 1rem;
+    /* Featured Work Grid 반응형 - 모바일 최적화 */
+    .featured-work-grid {
+        grid-template-columns: 1fr; /* 단일 컬럼 */
+        column-gap: 0;
+        row-gap: var(--spacing-4); /* Figma: gap-4 (16px) */
+        padding: 0 var(--spacing-4); /* Figma: px-4 (16px) */
     }
     
-    .featured-work-row:first-child {
-        justify-content: flex-start;
+    .featured-work-grid-section {
+        padding: var(--spacing-4) 0 var(--spacing-10) 0; /* Figma: pt-4 pb-10 (16px 40px) */
     }
     
     .project-card {
-        flex: 0 0 100%; /* 모바일에서 전체 너비 */
+        grid-column: span 1; /* 모든 카드가 1컬럼 차지 */
+        width: 100%;
+    }
+    
+    /* 첫 번째 카드도 모바일에서는 1컬럼 */
+    .project-card:nth-child(1) {
+        grid-column: span 1;
+    }
+    
+    /* 프로젝트 카드 텍스트 모바일 최적화 */
+    .project-name-and-tags h3 {
+        font-size: 1.125rem; /* 18px - 모바일 최적화 */
+    }
+    
+    .project-name-and-tags p {
+        font-size: 0.875rem; /* 14px - 모바일 최적화 */
+    }
+    
+    .project-year p {
+        font-size: 1rem; /* 16px - 모바일 최적화 */
     }
     
     
@@ -1565,7 +1764,7 @@ body {
     
     /* Large 버튼 모바일 - Small 버튼 구조 기반 */
     .btn-large .btn-text {
-        font-size: var(--heading-03-size); /* 64px -> 40px */
+        font-size: 2rem; /* Figma: text-[32px] */
     }
     
     .btn-large .btn-icon {
@@ -1591,34 +1790,56 @@ body {
     
     /* 버튼 간격 조정 */
     .btn-small {
-        gap: var(--spacing-01); /* 4px -> 2px */
+        gap: var(--spacing-0); /* 4px -> 2px */
     }
     
     .btn-medium {
-        gap: var(--spacing-01); /* 4px -> 2px */
+        gap: var(--spacing-0); /* 4px -> 2px */
     }
     
     .btn-large {
-        gap: var(--spacing-02); /* 8px -> 4px */
+        gap: var(--spacing-1); /* 8px -> 4px */
     }
     
-    /* Services 섹션 모바일 반응형 */
+    /* Figma 모바일 Services 섹션 */
+    .services-section {
+        padding: var(--spacing-5) 0 var(--spacing-8) 0; /* Figma: pt-5 pb-8 (20px 32px) */
+        gap: var(--spacing-4); /* Figma: gap-4 (16px) */
+    }
+    
+    .services-header {
+        padding: 0 var(--spacing-4); /* Figma: px-4 (16px) */
+    }
+    
+    .services-header h2 {
+        font-size: 2.5rem; /* Figma: text-[40px] */
+    }
+    
     .service-list-container {
-        width: 100vw; /* 모바일에서도 전체 너비 유지 */
-        margin-left: 0; /* 모바일에서는 margin 조정 불필요 */
-        margin-right: 0; /* 모바일에서는 margin 조정 불필요 */
+        width: 100%;
     }
     
     .service-item {
         flex-direction: column; /* 모바일에서는 세로 배치 */
-        gap: 1rem; /* 모바일에서는 간격 축소 */
-        padding: 1rem 1rem 4rem 1rem; /* 모바일에서는 패딩 축소 */
-        margin-bottom: -1rem; /* 모바일에서는 마진 축소 */
+        gap: var(--spacing-6); /* Figma: gap-6 (24px) */
+        padding: var(--spacing-5) var(--spacing-4); /* Figma: py-5 px-4 (20px 16px) */
+        margin-bottom: 0; /* 마진 제거 */
+    }
+    
+    /* Figma 모바일 Services 텍스트 */
+    .service-item h3 {
+        font-size: 1.5rem; /* Figma: text-[24px] */
     }
     
     .service-text-block h4 {
-        font-size: var(--heading-03-size); /* 64px -> 40px */
+        font-size: 2rem; /* Figma: text-[32px] */
     }
+    
+    .service-text-block p {
+        font-size: 1.125rem; /* Figma: text-[18px] */
+        line-height: 1.1;
+    }
+    
     
     .service-text-block p {
         font-size: var(--body-03-size); /* 24px -> 16px */
@@ -1634,19 +1855,34 @@ body {
         transform-style: flat; /* 모바일에서는 3D 변환 비활성화 */
     }
     
-    /* 모바일 푸터 섹션 */
+    /* 모바일 푸터 섹션 - 모바일 최적화 */
+    /* Figma 모바일 Footer 섹션 */
     .footer-section {
-        width: 100vw;
+        width: 100%;
         margin-left: 0;
         margin-right: 0;
+        padding: var(--spacing-4); /* Figma: p-[16px] */
+        height: 732px; /* Figma: h-[732px] */
+        gap: var(--spacing-8); /* Figma: gap-8 (32px) */
     }
     
     .footer-container {
         padding: 0;
-        padding-top: 5rem;
-        padding-bottom: 2rem;
+        padding-top: 1.5rem; /* 24px - 간격 축소 */
+        padding-bottom: 1rem; /* 16px */
         justify-content: space-between;
-        min-height: 100vh;
+        min-height: auto; /* 높이 자동 조정 */
+    }
+    
+    /* Footer 텍스트 모바일 최적화 */
+    .footer-header h2 {
+        font-size: 2.5rem; /* Figma: text-[40px] */
+        line-height: 1.1;
+    }
+    
+    .footer-bar p,
+    .footer-links a {
+        font-size: 0.875rem; /* 14px - 모바일 최적화 */
     }
     
 }
@@ -1839,7 +2075,7 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-05); /* 1rem - spacing-05 */
+    gap: var(--spacing-4); /* 1rem - spacing-4 */
     height: 100%;
 }
 
