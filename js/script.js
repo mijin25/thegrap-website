@@ -19,7 +19,7 @@ class ScrollReveal {
         }, this.options);
 
         // 모든 scroll-reveal 요소 관찰 시작
-        document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale').forEach(el => {
+        document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale, .scroll-reveal-down').forEach(el => {
             this.observer.observe(el);
         });
     }
@@ -30,6 +30,41 @@ class ScrollReveal {
     }
 
     // 요소 관찰 중단
+    unobserve(element) {
+        this.observer.unobserve(element);
+    }
+}
+
+// 공통 리빌 인터랙션 클래스 (위에서 아래로)
+class RevealUp {
+    constructor(options = {}) {
+        this.options = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px',
+            ...options
+        };
+        this.init();
+    }
+
+    init() {
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, this.options);
+
+        // 모든 reveal-up 요소들을 관찰
+        document.querySelectorAll('.reveal-up').forEach(el => {
+            this.observer.observe(el);
+        });
+    }
+
+    observe(element) {
+        this.observer.observe(element);
+    }
+
     unobserve(element) {
         this.observer.unobserve(element);
     }
@@ -332,16 +367,21 @@ class ProjectCard {
     
     render() {
         const placeholderGradient = this.generateColorPlaceholder();
+        const delayClass = `reveal-up-delay-${(this.data.index % 4) + 1}`;
         
         return `
-            <div class="project-card ${this.data.isLarge ? 'project-card-large' : ''}">
+            <a href="#" class="project-card hover-link-block reveal-up ${delayClass}">
+                <div class="hover-content-wrapper">
                 <div class="project-cover">
-                    <img src="${this.data.image}" alt="${this.data.title}" class="project-image" 
+                        <div class="hover-image-wrapper">
+                            <img src="${this.data.image}" alt="${this.data.title}" class="project-image hover-image" 
                          onload="this.nextElementSibling.style.display='none';" 
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div class="project-placeholder" style="background: ${placeholderGradient};">
                         <span>${this.data.title}</span>
                     </div>
+                        </div>
+                        <div class="image-revealer"></div>
                 </div>
                 <div class="project-info">
                     <div class="project-name-and-tags">
@@ -353,6 +393,7 @@ class ProjectCard {
                     </div>
                 </div>
             </div>
+            </a>
         `;
     }
 }
@@ -360,43 +401,43 @@ class ProjectCard {
 // 프로젝트 데이터 (Figma 디자인 기반)
 const projectsData = [
     {
+        index: 0,
         title: "SKON 2.0 App",
         tags: "UI/UX, App, Groupware, Illustation",
         year: "2023",
         image: "assets/work/sk-skon_00-hero.webp",
-        isLarge: true,
         placeholderColors: ["#4A90E2", "#7B68EE", "#FF6B6B"]
     },
     {
+        index: 1,
         title: "Entertainment Website Builder",
         tags: "Entertainment, CMS, AI",
         year: "2025",
         image: "assets/work/ent-website-builder_00-hero.webp",
-        isLarge: false,
         placeholderColors: ["#FF9A9E", "#FECFEF", "#FECFEF"]
     },
     {
+        index: 2,
         title: "2025 LEE GIKWANG SOLO CONCERT [OBSESSED] IN HONGKONG",
         tags: "Kpop Agency, Show, Performance",
         year: "2025",
         image: "assets/work/2025-lee-gikwang-solo-concert-hk_00-hero.jpg",
-        isLarge: false,
         placeholderColors: ["#667eea", "#764ba2", "#f093fb"]
     },
     {
+        index: 3,
         title: "Ophily Brand Website",
         tags: "Shopping Mall, Cafe 24",
         year: "2024",
         image: "assets/work/opily-website_00-hero.webp",
-        isLarge: false,
         placeholderColors: ["#4facfe", "#00f2fe", "#43e97b"]
     },
     {
+        index: 4,
         title: "Samsung EPP Referral Program",
         tags: "Visual Identity, Advertising",
         year: "2024",
         image: "assets/work/samsung-referral-program_00-hero.webp",
-        isLarge: false,
         placeholderColors: ["#fa709a", "#fee140", "#ffecd2"]
     }
 ];
@@ -413,6 +454,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }).join('');
         
         projectGrid.innerHTML = allCards;
+        
+        // 프로젝트 카드에 그리기 효과 적용
+        // 각 프로젝트 카드를 개별적으로 관찰
+        const projectCards = projectGrid.querySelectorAll('.project-card');
+        projectCards.forEach(card => {
+            if (window.revealUpInstance) {
+                window.revealUpInstance.observe(card);
+            }
+        });
+        
+        // 디버깅: 관찰된 카드 수 확인
+        console.log(`관찰된 프로젝트 카드 수: ${projectCards.length}`);
     }
 });
 
@@ -644,5 +697,12 @@ document.addEventListener('DOMContentLoaded', function() {
     serviceItems[0].classList.add('active');
     
     // 스크롤 인터랙션 자동 초기화
-    const scrollReveal = new ScrollReveal();
+    window.scrollRevealInstance = new ScrollReveal();
+    window.revealUpInstance = new RevealUp();
+    
+    // Hero 영역 즉시 표시
+    const heroContent = document.querySelector('.hero-content.reveal-up');
+    if (heroContent) {
+        heroContent.classList.add('revealed');
+    }
 });

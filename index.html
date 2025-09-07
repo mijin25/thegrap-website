@@ -29,7 +29,7 @@
         <div class="hero-background" style="background-image: url('assets/hero-background-desktop.jpg')"></div>
         
         <!-- 메인 콘텐츠 -->
-        <div class="hero-content">
+        <div class="hero-content reveal-up">
             <!-- 메인 타이틀 -->
             <div class="hero-main-title">
                 <div class="hero-top-text-block">
@@ -82,18 +82,25 @@
     <!-- Featured Work Grid 섹션 -->
     <section class="featured-work-grid-section">
         <div class="container">
+            <!-- 프로젝트 카드 컨테이너 -->
+            <div class="project-cards-container">
             <div class="featured-work-grid" id="project-grid">
                 <!-- Project cards will be rendered here by JavaScript -->
+                </div>
             </div>
-            <div style="display: flex; justify-content: flex-end;">
-                <button class="btn btn-large">
-                    <span class="btn-text">All Projects</span>
-                    <div class="btn-icon">
+            
+            <!-- All Projects 버튼 -->
+            <div class="all-projects-button-container">
+                <div style="display: flex; justify-content: flex-end;" class="scroll-reveal scroll-reveal-delay-5">
+                    <button class="btn btn-large">
+                        <span class="btn-text">All Projects</span>
+                        <div class="btn-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M23.707 11.293C24.0976 11.6835 24.0976 12.3165 23.707 12.707L16.707 19.707L15.293 18.293L20.5859 13H7V11H20.5859L15.293 5.70703L16.707 4.29297L23.707 11.293Z" fill="currentColor"/>
+                                <path d="M23.707 11.293C24.0976 11.6835 24.0976 12.3165 23.707 12.707L16.707 19.707L15.293 18.293L20.5859 13H7V11H20.5859L15.293 5.70703L16.707 4.29297L23.707 11.293Z" fill="currentColor"/>
                         </svg>
                     </div>
-                </button>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -101,11 +108,11 @@
     <!-- Services 섹션 -->
     <section class="services-section">
         <div class="container">
-            <div class="services-header">
+            <div class="services-header scroll-reveal">
                 <h2>Services</h2>
             </div>
             <div class="service-list-container">
-                <div class="service-item service-item-01">
+                <div class="service-item service-item-01 scroll-reveal scroll-reveal-delay-1">
                     <div class="service-title">
                         <h3>Digital Experience</h3>
                     </div>
@@ -114,7 +121,7 @@
                         <p>We design intuitive interfaces and seamless user experiences by deeply analyzing user behavior and needs, all based on proven design principles. Our work maximizes usability, satisfaction, and engagement.</p>
                     </div>
                 </div>
-                <div class="service-item service-item-02">
+                <div class="service-item service-item-02 scroll-reveal scroll-reveal-delay-2">
                     <div class="service-title">
                         <h3>Performance Business</h3>
                     </div>
@@ -123,7 +130,7 @@
                         <p>We plan and execute K-POP concerts, fan meetings, and brand collaborations across Asia. By partnering with local promoters, media, and venues, we ensure flawless on-site execution. Our team also expands performance IP through metaverse events and digital platforms, creating sensory connections between artists and fans.</p>
                     </div>
                 </div>
-                <div class="service-item service-item-03">
+                <div class="service-item service-item-03 scroll-reveal scroll-reveal-delay-3">
                     <div class="service-title">
                         <h3>Creative Visuals</h3>
                     </div>
@@ -140,8 +147,8 @@
     <section class="footer-section">
         <div class="footer-container">
             <div class="footer-header">
-                <h2>We shape moments,<br>build connections,<br>and create what matters.</h2>
-                <div style="display: flex; justify-content: flex-end; width: 100%;">
+                <h2 class="reveal-up">We shape moments,<br>build connections,<br>and create what matters.</h2>
+                <div style="display: flex; justify-content: flex-end; width: 100%;" class="reveal-up reveal-up-delay-1">
                     <button class="btn btn-large">
                         <span class="btn-text">Let's connect</span>
                         <div class="btn-icon">
@@ -153,7 +160,7 @@
                 </div>
             </div>
             <div class="footer-content">
-                <div class="footer-logo">
+                <div class="footer-logo scroll-reveal-down scroll-reveal-delay-2">
                     <svg width="126" height="18" viewBox="0 0 126 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M125.713 9.06025C125.713 10.0469 125.509 10.9349 125.101 11.7243C124.693 12.5136 124.14 13.1911 123.443 13.7568C122.759 14.3225 121.983 14.7566 121.115 15.0592C120.246 15.3486 119.345 15.4933 118.411 15.4933C117.938 15.4933 117.444 15.4473 116.931 15.3552C116.431 15.2762 115.945 15.1578 115.471 15C115.01 14.829 114.596 14.6251 114.228 14.3883C114.228 14.3883 114.221 14.3883 114.208 14.3883C114.208 14.3883 114.201 14.3883 114.188 14.3883C114.188 14.3883 114.188 14.3948 114.188 14.408V17.5653H107.361C107.361 16.7497 107.361 15.9406 107.361 15.1381C107.361 14.3225 107.361 13.5134 107.361 12.7109C107.361 11.8953 107.361 11.0862 107.361 10.2837C107.361 9.46807 107.361 8.65901 107.361 7.85652C107.361 7.04087 107.361 6.23181 107.361 5.42932C107.361 4.61367 107.361 3.79145 107.361 2.96265H114.188C114.188 3.6599 114.188 4.34398 114.188 5.01492C114.188 5.68585 114.188 6.35678 114.188 7.02772C114.188 7.69865 114.188 8.38932 114.188 9.09972C114.188 9.34967 114.254 9.56674 114.386 9.75092C114.517 9.93509 114.695 10.0864 114.918 10.2048C115.142 10.3232 115.392 10.4153 115.668 10.4811C115.958 10.5337 116.247 10.56 116.537 10.56C117.05 10.56 117.471 10.4876 117.799 10.3429C118.142 10.1982 118.391 10.014 118.549 9.79038C118.72 9.56674 118.806 9.33652 118.806 9.09972C118.806 8.88923 118.76 8.69847 118.668 8.52745C118.576 8.34327 118.438 8.18541 118.253 8.05385C118.069 7.90914 117.832 7.79732 117.543 7.71838C117.254 7.63945 116.918 7.59998 116.537 7.59998C115.984 7.59998 115.491 7.69865 115.057 7.89598C114.636 8.09332 114.353 8.41563 114.208 8.86292L115.787 2.96265C116.221 2.85741 116.648 2.78505 117.069 2.74558C117.49 2.69296 117.905 2.66665 118.313 2.66665C119.115 2.66665 119.885 2.75874 120.621 2.94292C121.371 3.12709 122.049 3.39678 122.654 3.75198C123.272 4.10718 123.812 4.5479 124.272 5.07412C124.732 5.58718 125.088 6.17918 125.338 6.85012C125.588 7.50789 125.713 8.24461 125.713 9.06025Z" fill="currentColor"/>
                         <path d="M91.504 3.94239C92.4644 3.50826 93.5037 3.18595 94.6219 2.97546C95.7533 2.75181 96.8846 2.63999 98.016 2.63999C99.1211 2.63999 100.187 2.74523 101.213 2.95572C102.239 3.16621 103.153 3.48852 103.956 3.92266C104.771 4.35679 105.416 4.89617 105.89 5.54079C106.363 6.18541 106.6 6.94186 106.6 7.81012C106.6 9.08621 106.6 10.3623 106.6 11.6384C106.6 12.9145 106.6 14.1906 106.6 15.4667C106.14 15.4667 105.679 15.4667 105.219 15.4667C104.758 15.4667 104.298 15.4667 103.837 15.4667C103.377 15.4667 102.916 15.4667 102.456 15.4667C101.996 15.4667 101.535 15.4667 101.075 15.4667C100.614 15.4667 100.154 15.4667 99.6934 15.4667C99.6934 14.7694 99.6934 14.0787 99.6934 13.3947C99.6934 12.6974 99.6934 12.0067 99.6934 11.3227C99.6934 11.0859 99.6144 10.8951 99.4566 10.7504C99.2987 10.6057 99.1079 10.507 98.8843 10.4544C98.6606 10.3886 98.437 10.3557 98.2133 10.3557C97.7134 10.3557 97.3319 10.4544 97.0688 10.6517C96.8189 10.8491 96.6939 11.0727 96.6939 11.3227C96.6939 11.5726 96.8254 11.8028 97.0886 12.0133C97.3517 12.2107 97.7266 12.3093 98.2133 12.3093C98.4501 12.3093 98.7198 12.2633 99.0224 12.1712C99.325 12.0791 99.5552 11.8423 99.7131 11.4608C99.4368 12.1054 99.154 12.75 98.8646 13.3947C98.5883 14.0393 98.312 14.6839 98.0358 15.3285C97.5621 15.5653 97.0622 15.7298 96.536 15.8219C96.023 15.9271 95.5099 15.9797 94.9968 15.9797C94.3785 15.9797 93.7799 15.8942 93.2011 15.7232C92.6354 15.5653 92.1223 15.3285 91.6619 15.0128C91.2146 14.6971 90.8594 14.3024 90.5963 13.8288C90.3332 13.3552 90.2016 12.8027 90.2016 12.1712C90.2016 11.7897 90.2674 11.4147 90.399 11.0464C90.5305 10.678 90.7278 10.3294 90.991 10.0005C91.2541 9.67163 91.5829 9.38221 91.9776 9.13226C92.3854 8.8823 92.8656 8.69155 93.4182 8.55999C93.9707 8.41528 94.6021 8.34292 95.3126 8.34292C95.773 8.34292 96.2203 8.38239 96.6544 8.46132C97.0886 8.5271 97.4964 8.63235 97.8779 8.77706C98.2726 8.92177 98.6212 9.09937 98.9238 9.30986C99.2395 9.52035 99.496 9.75714 99.6934 10.0203C99.6934 9.99395 99.6934 9.97421 99.6934 9.96106C99.6934 9.93475 99.6934 9.91501 99.6934 9.90186C99.6934 9.87555 99.6934 9.85581 99.6934 9.84266C99.6934 9.43484 99.5881 9.08621 99.3776 8.79679C99.1803 8.49421 98.904 8.25083 98.5488 8.06666C98.2068 7.86932 97.8055 7.72461 97.3451 7.63252C96.8978 7.54044 96.4242 7.49439 95.9243 7.49439C95.1481 7.49439 94.3654 7.59306 93.576 7.79039C92.7867 7.98772 92.096 8.27715 91.504 8.65866V3.94239Z" fill="currentColor"/>

@@ -41,7 +41,7 @@
     font-display: swap;
 }
 
-/* 전역 폰트 스무딩 - 사이트 전반 적용 */
+/* 폰트 스무딩 - 사이트 전반 적용 */
 html, body, * {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -56,13 +56,6 @@ html, body, * {
     font-family: var(--font-family);
 }
 
-/* 한글 폰트 두께 조정 유틸리티 클래스 */
-.korean-medium {
-    font-family: var(--font-family-ko);
-    font-weight: 500; /* Regular 폰트를 500으로 설정하여 중간 두께 */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
 
 /* navbar 요소에 강제 폰트 스무딩 적용 */
 .navbar, .navbar *, .nav-link, .nav-menu, .nav-container {
@@ -73,17 +66,8 @@ html, body, * {
     font-kerning: normal !important;
 }
 
-body {
-    cursor: none !important; /* 기본 커서 완전히 숨김 */
-}
-
-/* 모든 요소에서 기본 커서 숨김 */
+/* 커서 숨김 - 모든 요소에 적용 */
 * {
-    cursor: none !important;
-}
-
-/* 브라우저 기본 커서 완전히 숨김 */
-html, body, * {
     cursor: none !important;
 }
 
@@ -108,6 +92,9 @@ html, body, * {
     --schemes-outline: #bdbdbd;
     --schemes-hero: #000000;
     --schemes-on-hero: #ffffff;
+    
+    /* Border Colors */
+    --border-primary: #e5e5e5;
     
     /* ========================================
        Figma Variables - Spacing (실제 Figma 값)
@@ -212,15 +199,6 @@ html, body, * {
     --spacing-14: 8rem; /* 128px */
     --spacing-15: 10rem; /* 160px */
     
-    /* ========================================
-       Legacy Variables (호환성 유지)
-       ======================================== */
-    --bg-primary: var(--schemes-background);
-    --text-primary: var(--schemes-on-background);
-    --text-secondary: var(--schemes-secondary);
-    --text-white: var(--schemes-on-hero);
-    --accent-color: var(--schemes-primary);
-    --border-color: var(--schemes-outline);
 }
 
 /* 다크 모드 색상 */
@@ -238,13 +216,6 @@ html, body, * {
     --schemes-hero: #000000;
     --schemes-on-hero: #ffffff;
     
-    /* Legacy Variables (호환성 유지) */
-    --bg-primary: var(--schemes-background);
-    --text-primary: var(--schemes-on-background);
-    --text-secondary: var(--schemes-secondary);
-    --text-white: var(--schemes-on-hero);
-    --accent-color: var(--schemes-primary);
-    --border-color: var(--schemes-outline);
 }
 
 /* 기본 스타일 */
@@ -257,8 +228,8 @@ html, body, * {
 body {
     font-family: var(--font-family);
     line-height: 1.6;
-    color: var(--text-primary);
-    background-color: var(--bg-primary);
+    color: var(--schemes-on-background);
+    background-color: var(--schemes-background);
     overflow-x: hidden;
 }
 
@@ -494,8 +465,8 @@ body {
     width: 100%;
     z-index: 1;
     margin-top: 2rem; /* 메인 타이틀과의 간격 추가 */
-    opacity: 1 !important;
-    visibility: visible !important;
+    opacity: 1;
+    visibility: visible;
 }
 
 .hero-sub-text-left {
@@ -516,31 +487,16 @@ body {
     font-family: var(--font-family);
     color: white !important;
     margin: 0;
-    opacity: 1 !important;
-    visibility: visible !important;
+    opacity: 1;
+    visibility: visible;
 }
 
-.hero-bottom-text-block {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 50%;
-    margin: 0 auto;
-}
 
-.hero-page p {
-    font-size: var(--body-06-size); /* 24px */
-    font-weight: var(--weight-regular);
-    line-height: var(--line-height-body);
-    font-family: var(--font-family);
-    color: white;
-    margin: 0;
-}
 
 /* Featured Work 섹션 */
 .featured-work-section {
     padding: 10rem 0 0 0;
-    background-color: var(--bg-primary);
+    background-color: var(--schemes-background);
 }
 
 .parallax-huge-text {
@@ -568,7 +524,7 @@ body {
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-display);
     font-family: var(--font-family);
-    color: var(--text-primary);
+    color: var(--schemes-on-background);
     white-space: nowrap;
     min-width: 200vw; /* 충분한 너비로 설정 */
     letter-spacing: 0.02em;
@@ -581,7 +537,7 @@ body {
 /* What We Do 섹션 */
 .what-we-do-section {
     padding: 5rem 0 10rem 0;
-    background-color: var(--bg-primary);
+    background-color: var(--schemes-background);
     position: relative;
     z-index: 1;
 }
@@ -591,7 +547,7 @@ body {
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-display);
     font-family: var(--font-family);
-    color: var(--text-primary);
+    color: var(--schemes-on-background);
     margin-bottom: 2rem;
 }
 
@@ -615,7 +571,7 @@ body {
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-heading);
     font-family: var(--font-family);
-    color: var(--text-primary);
+    color: var(--schemes-on-background);
 }
 
 .what-we-do-section .body-text-ko {
@@ -627,14 +583,26 @@ body {
     font-weight: var(--weight-regular);
     line-height: var(--line-height-body-small);
     font-family: var(--font-family);
-    color: var(--text-primary);
+    color: var(--schemes-on-background);
     letter-spacing: -0.32px;
 }
 
 /* Featured Work Grid 섹션 */
 .featured-work-grid-section {
     padding: 2rem 0 10rem 0;
-    background-color: var(--bg-primary);
+    background-color: var(--schemes-background);
+}
+
+/* 프로젝트 카드 컨테이너 */
+.project-cards-container {
+    position: relative;
+    margin-bottom: var(--spacing-12); /* 8rem */
+}
+
+/* All Projects 버튼 컨테이너 */
+.all-projects-button-container {
+    position: relative;
+    margin-top: var(--spacing-08); /* 4rem */
 }
 
 .featured-work-grid {
@@ -652,11 +620,15 @@ body {
     flex-direction: column;
     gap: var(--spacing-05); /* 1rem - spacing-05 */
     grid-column: span 4; /* 4컬럼씩 사용 */
+    text-decoration: none;
+    color: inherit;
 }
 
-.project-card-large {
-    grid-column: span 6; /* 큰 카드는 6컬럼 사용 */
+/* 첫 번째 카드는 6컬럼 사용 */
+.project-card:nth-child(1) {
+    grid-column: span 6;
 }
+
 
 /* 커스텀 커서 - 디자인 시스템 적용 */
 .custom-cursor {
@@ -783,7 +755,7 @@ body {
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-heading);
     font-family: var(--font-family);
-    color: var(--text-primary);
+    color: var(--schemes-on-background) !important;
     margin: 0;
 }
 
@@ -801,7 +773,7 @@ body {
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-heading);
     font-family: var(--font-family);
-    color: var(--text-primary);
+    color: var(--schemes-on-background) !important;
     white-space: nowrap;
     margin: 0;
 }
@@ -811,7 +783,7 @@ body {
 
 /* Services 섹션 - Figma 디자인 업데이트 */
 .services-section {
-    background-color: var(--bg-primary);
+    background-color: var(--schemes-background);
     padding: 3rem 0 15rem 0; /* Services와 Footer 사이 간격 추가 */
 }
 
@@ -820,7 +792,7 @@ body {
     font-weight: var(--weight-emphasized);
     line-height: 1; /* Figma: leading-none */
     font-family: var(--font-family);
-    color: var(--text-primary);
+    color: var(--schemes-on-background);
     margin-bottom: 2rem; /* Figma: gap-8 (32px) */
 }
 
@@ -833,7 +805,6 @@ body {
     width: 100vw; /* 전체 뷰포트 너비 */
     margin-left: calc(-50vw + 50%); /* 컨테이너 패딩을 상쇄하여 전체 너비로 확장 */
     margin-right: calc(-50vw + 50%); /* 컨테이너 패딩을 상쇄하여 전체 너비로 확장 */
-    cursor: none; /* 마우스 커서 숨김 (커스텀 커서 사용) */
     position: relative; /* 마우스 이벤트를 위한 상대 위치 */
 }
 
@@ -854,17 +825,17 @@ body {
 }
 
 .service-item-01 {
-    background-color: var(--bg-primary); /* 기본 흰색 배경 */
+    background-color: var(--schemes-background); /* 기본 흰색 배경 */
     z-index: 1; /* 맨 아래 아이템 */
 }
 
 .service-item-02 {
-    background-color: var(--bg-primary);
+    background-color: var(--schemes-background);
     z-index: 2; /* 01을 덮는 아이템 */
 }
 
 .service-item-03 {
-    background-color: var(--bg-primary);
+    background-color: var(--schemes-background);
     z-index: 3; /* 02를 덮는 맨 위 아이템 */
     margin-bottom: 2rem; /* 마지막 카드 하단에 여백 추가 */
 }
@@ -898,7 +869,7 @@ body {
 
 /* 비활성화된 서비스 아이템 스타일 (Envato Elements 스타일) */
 .service-item:not(.active) {
-    background-color: var(--bg-primary) !important; /* #ffffff */
+    background-color: var(--schemes-background) !important;
     margin-bottom: 0 !important; /* Figma: 카드들이 겹치지 않음 */
     transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), margin-bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Envato 스타일 자연스러운 전환 */
 }
@@ -907,7 +878,7 @@ body {
 .service-item:not(.active) .service-title h3,
 .service-item:not(.active) .service-text-block h4,
 .service-item:not(.active) .service-text-block p {
-    color: var(--text-primary) !important; /* 기본 텍스트 색상 사용 */
+    color: var(--schemes-on-background) !important; /* 기본 텍스트 색상 사용 */
 }
 
 .service-item:not(.active) .service-text-block {
@@ -935,11 +906,11 @@ body {
 
 /* 활성화된 카드의 상세 설명은 확실히 보이도록 */
 .service-item.active .service-text-block p {
-    opacity: 1 !important;
-    visibility: visible !important;
-    max-height: 200px !important; /* 충분한 높이로 설정하여 내용 표시 */
-    margin: 0 !important; /* 기본 마진 유지 */
-    padding: 0 !important; /* 기본 패딩 유지 */
+    opacity: 1;
+    visibility: visible;
+    max-height: 200px; /* 충분한 높이로 설정하여 내용 표시 */
+    margin: 0; /* 기본 마진 유지 */
+    padding: 0; /* 기본 패딩 유지 */
     overflow: visible; /* 내용 표시 */
     transform: translateY(0); /* 원래 위치로 복원 */
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* 더 부드러운 ease in-out 전환 */
@@ -952,8 +923,8 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    border-top: 1px solid var(--text-primary);
-    border-bottom: 1px solid var(--text-primary);
+    border-top: 1px solid var(--schemes-on-background);
+    border-bottom: 1px solid var(--schemes-on-background);
     pointer-events: none;
 }
 
@@ -965,7 +936,7 @@ body {
 
 /* service-item-03만 하단 border 유지 */
 .service-item-03::before {
-    border-bottom: 1px solid var(--text-primary);
+    border-bottom: 1px solid var(--schemes-on-background);
 }
 
 .service-title {
@@ -977,7 +948,7 @@ body {
     font-weight: var(--weight-emphasized);
     line-height: 1.1; /* Figma: leading-[1.1] */
     font-family: var(--font-family);
-    color: var(--text-primary);
+    color: var(--schemes-on-background);
     margin: 0;
 }
 
@@ -996,7 +967,7 @@ body {
     font-weight: var(--weight-emphasized);
     line-height: 1.1; /* Figma: leading-[1.1] */
     font-family: var(--font-family);
-    color: var(--text-primary);
+    color: var(--schemes-on-background);
     margin: 0;
 }
 
@@ -1005,13 +976,13 @@ body {
     font-weight: var(--weight-emphasized);
     line-height: 1.1; /* Figma: leading-[1.1] */
     font-family: var(--font-family);
-    color: var(--text-primary);
+    color: var(--schemes-on-background);
     margin: 0;
 }
 
 /* Footer 섹션 */
 .footer-section {
-    background-color: var(--bg-primary);
+    background-color: var(--schemes-background);
     width: 100vw;
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
@@ -1048,7 +1019,7 @@ body {
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-display);
     font-family: var(--font-family);
-    color: var(--text-primary);
+    color: var(--schemes-on-background);
     margin: 0;
 }
 
@@ -1079,38 +1050,46 @@ body {
     width: 100%;
     height: 100%;
     max-width: none;
-    color: var(--text-primary); /* SVG 색상을 텍스트 색상과 동일하게 */
+    color: var(--schemes-on-background); /* SVG 색상을 텍스트 색상과 동일하게 */
 }
 
 .footer-bar {
-    display: flex;
+    display: flex !important;
     gap: 2.5rem;
-    align-items: center;
+    align-items: center !important;
     justify-content: flex-start;
     width: 100%;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transition: none !important;
+    transform: none !important;
 }
 
 .footer-bar p {
-    font-size: var(--body-06-size); /* 24px */
-    font-weight: var(--weight-emphasized);
-    line-height: var(--line-height-heading);
-    font-family: var(--font-family);
-    color: var(--text-primary);
-    white-space: nowrap;
-    margin: 0;
+    font-size: var(--body-06-size) !important; /* 24px */
+    font-weight: var(--weight-emphasized) !important;
+    line-height: var(--line-height-heading) !important;
+    font-family: var(--font-family) !important;
+    color: var(--schemes-on-background) !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
+    position: relative !important;
+    z-index: 1 !important;
     opacity: 1 !important;
     visibility: visible !important;
-    transform: translateZ(0) !important;
-    will-change: auto;
-    position: relative;
-    z-index: 1;
+    transition: none !important;
+    transform: none !important;
 }
 
 .footer-links {
-    display: flex;
+    display: flex !important;
     gap: 1rem;
     align-items: center;
     justify-content: flex-start;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transition: none !important;
+    transform: none !important;
 }
 
 .footer-links a {
@@ -1118,20 +1097,20 @@ body {
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-heading);
     font-family: var(--font-family);
-    color: var(--text-primary);
+    color: var(--schemes-on-background);
     text-decoration: none;
     white-space: nowrap;
     padding: 0.25rem 0;
 }
 
 .footer-links a:hover {
-    color: var(--text-primary);
+    color: var(--schemes-on-background);
 }
 
 /* About 섹션 */
 .about-section {
     padding: 5rem 0;
-    background-color: var(--bg-primary);
+    background-color: var(--schemes-background);
 }
 
 .about-section h2 {
@@ -1139,7 +1118,7 @@ body {
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-heading);
     font-family: var(--font-family);
-    color: var(--text-primary);
+    color: var(--schemes-on-background);
     margin-bottom: 2rem;
 }
 
@@ -1154,7 +1133,7 @@ body {
 /* Work 섹션 */
 .work-section {
     padding: 5rem 0;
-    background-color: var(--bg-primary);
+    background-color: var(--schemes-background);
 }
 
 .work-section h2 {
@@ -1162,7 +1141,7 @@ body {
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-heading);
     font-family: var(--font-family);
-    color: var(--text-primary);
+    color: var(--schemes-on-background);
     margin-bottom: 2rem;
 }
 
@@ -1177,7 +1156,7 @@ body {
 /* Contact 섹션 */
 .contact-section {
     padding: 5rem 0;
-    background-color: var(--bg-primary);
+    background-color: var(--schemes-background);
 }
 
 .contact-section h2 {
@@ -1185,7 +1164,7 @@ body {
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-heading);
     font-family: var(--font-family);
-    color: var(--text-primary);
+    color: var(--schemes-on-background);
     margin-bottom: 2rem;
 }
 
@@ -1532,11 +1511,6 @@ body {
         font-size: var(--body-03-size); /* 16px */
     }
     
-    .hero-bottom-text-block {
-        width: 100%;
-        flex-direction: column;
-        gap: 1rem;
-    }
     
     .huge-text {
         font-size: var(--display-03-size); /* 120px */
@@ -1556,9 +1530,6 @@ body {
         flex: 0 0 100%; /* 모바일에서 전체 너비 */
     }
     
-    .project-card-large {
-        flex: 0 0 100%; /* 모바일에서 전체 너비 */
-    }
     
     /* 버튼 디자인 시스템 반응형 */
     /* Small 버튼 모바일 */
@@ -1681,15 +1652,68 @@ body {
 }
 
 /* ========================================
+   공통 리빌 인터랙션 (위에서 아래로)
+   ======================================== */
+
+/* 위에서 아래로 그려지는 효과 */
+.reveal-up {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.5s; /* 초기 딜레이 */
+}
+
+.reveal-up.revealed {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0s;
+}
+
+/* Hero 영역은 즉시 표시 */
+.hero-section .reveal-up {
+    opacity: 1;
+    transform: translateY(0);
+    transition: none; /* hero 영역은 애니메이션 없음 */
+}
+
+/* 디자인 시스템 프로젝트 카드 표시 */
+.design-system-section .project-card {
+    opacity: 1;
+    visibility: visible;
+}
+
+.design-system-section .project-info,
+.design-system-section .project-name-and-tags,
+.design-system-section .project-name-and-tags h3,
+.design-system-section .project-name-and-tags p,
+.design-system-section .project-year,
+.design-system-section .project-year p {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: none;
+}
+
+.design-system-section .project-info {
+    display: flex;
+}
+
+.design-system-section .project-name-and-tags {
+    display: flex;
+}
+
+
+/* ========================================
    공통 스크롤 인터랙션 클래스
    ======================================== */
 
-/* 기본 스크롤 리빌 효과 - 위에서 아래로 그려지는 효과 */
+/* 기본 스크롤 리빌 효과 - 커튼이 내려오는 듯한 효과 */
 .scroll-reveal {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(-30px);
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     transition-delay: 0.3s; /* 초기 딜레이 추가 */
+    will-change: transform, opacity;
 }
 
 .scroll-reveal.revealed {
@@ -1719,10 +1743,27 @@ body {
     transition-delay: 0.5s;
 }
 
+/* Reveal-up 지연 효과 */
+.reveal-up-delay-1 {
+    transition-delay: 0.1s;
+}
+
+.reveal-up-delay-2 {
+    transition-delay: 0.2s;
+}
+
+.reveal-up-delay-3 {
+    transition-delay: 0.3s;
+}
+
+.reveal-up-delay-4 {
+    transition-delay: 0.4s;
+}
+
 /* 다른 방향의 애니메이션 */
 .scroll-reveal-left {
     opacity: 0;
-    transform: translateX(-50px);
+    transform: translateX(-30px);
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     transition-delay: 0.3s; /* 초기 딜레이 추가 */
 }
@@ -1735,7 +1776,7 @@ body {
 
 .scroll-reveal-right {
     opacity: 0;
-    transform: translateX(50px);
+    transform: translateX(30px);
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     transition-delay: 0.3s; /* 초기 딜레이 추가 */
 }
@@ -1749,7 +1790,7 @@ body {
 /* 스케일 애니메이션 */
 .scroll-reveal-scale {
     opacity: 0;
-    transform: scale(0.8);
+    transform: scale(0.9);
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     transition-delay: 0.3s; /* 초기 딜레이 추가 */
 }
@@ -1758,4 +1799,83 @@ body {
     opacity: 1;
     transform: scale(1);
     transition-delay: 0s; /* revealed 상태에서는 딜레이 제거 */
+}
+
+/* 아래에서 위로 올라오는 애니메이션 */
+.scroll-reveal-down {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.3s; /* 초기 딜레이 추가 */
+}
+
+.scroll-reveal-down.revealed {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0s; /* revealed 상태에서는 딜레이 제거 */
+}
+
+
+/* ========================================
+   프로젝트 카드 호버 인터랙션 (The Grap 스타일)
+   ======================================== */
+
+/* 호버 링크 블록 - 전체 카드가 호버 영역 */
+.hover-link-block {
+    display: block;
+    text-decoration: none;
+    color: var(--schemes-on-background);
+    transition: all 0.3s ease;
+}
+
+.hover-link-block:hover {
+    text-decoration: none;
+    color: var(--schemes-on-background);
+}
+
+/* 호버 콘텐츠 래퍼 */
+.hover-content-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-05); /* 1rem - spacing-05 */
+    height: 100%;
+}
+
+/* 호버 이미지 래퍼 */
+.hover-image-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+/* 호버 이미지 */
+.hover-image {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+    transform-style: preserve-3d;
+}
+
+/* 이미지 리빌러 - 위에서 아래로 슬라이드하는 오버레이 */
+.image-revealer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    transform: translate3d(0px, 100%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+    transform-style: preserve-3d;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 2;
+}
+
+/* 호버 시 이미지 리빌러 효과 */
+.hover-link-block:hover .image-revealer {
+    transform: translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+}
+
+/* 호버 시 이미지 확대 효과 */
+.hover-link-block:hover .hover-image {
+    transform: translate3d(0px, 0px, 0px) scale3d(1.15, 1.15, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
 }
