@@ -305,7 +305,7 @@ body {
 
 /* 커스텀 스크롤바 - 부드러운 스크롤 경험 */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 0px; /* 스크롤바 공간 제거 */
 }
 
 ::-webkit-scrollbar-track {
@@ -313,22 +313,22 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
+    background: transparent;
     border-radius: 4px;
     transition: background 0.2s cubic-bezier(0.4, 0, 0.2, 1); /* 더 부드러운 전환 */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.4);
+    background: transparent;
 }
 
 /* 다크모드 스크롤바 */
 [data-theme="dark"] ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
+    background: transparent;
 }
 
 [data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.4);
+    background: transparent;
 }
 
 body {
@@ -544,6 +544,25 @@ body {
     /* 모바일 브라우저 UI 대응 */
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* 히어로 캐러셀 섹션 테마 전환 시 시각적 피드백 */
+.hero-carousel-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0);
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* 다크모드 전환 시 히어로 캐러셀 섹션에 어두운 오버레이 */
+[data-theme="dark"] .hero-carousel-section::before {
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 /* 캐러셀 컨테이너 */
@@ -858,9 +877,9 @@ body {
     pointer-events: none;
 }
 
-/* 다크모드 전환 시 히어로 영역에 미묘한 오버레이 */
+/* 다크모드 전환 시 히어로 영역에 어두운 오버레이 */
 [data-theme="dark"] .hero-section::before {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 /* 히어로 영역 테마 전환 시 전체 페이드 효과 */
