@@ -964,10 +964,38 @@ function initHeroCarousel() {
     let currentSlide = 0;
     const totalSlides = slides.length;
     let isTransitioning = false;
+    let autoSlideInterval = null;
+    const autoSlideDelay = 5000; // 5초마다 자동 전환
     
     // 페이지네이션 총 개수 설정 (3개로 고정)
     if (paginationTotal) {
         paginationTotal.textContent = 3;
+    }
+    
+    // 자동 슬라이드 전환 시작
+    function startAutoSlide() {
+        if (autoSlideInterval) {
+            clearInterval(autoSlideInterval);
+        }
+        autoSlideInterval = setInterval(() => {
+            nextSlide();
+        }, autoSlideDelay);
+    }
+    
+    // 자동 슬라이드 전환 중지
+    function stopAutoSlide() {
+        if (autoSlideInterval) {
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = null;
+        }
+    }
+    
+    // 자동 슬라이드 전환 재시작 (일시정지 후 다시 시작)
+    function restartAutoSlide() {
+        stopAutoSlide();
+        setTimeout(() => {
+            startAutoSlide();
+        }, 2000); // 2초 후 재시작
     }
     
     // 슬라이드 표시 함수 - Design Fever 스타일 즉시 전환
@@ -994,10 +1022,12 @@ function initHeroCarousel() {
         
         console.log(`슬라이드 전환 완료: 현재 슬라이드 ${currentSlide + 1}`);
         
-        // Design Fever 스타일: 빠른 전환 완료 (0.3초)
+        // 자연스러운 전환 완료 (0.8초)
         setTimeout(() => {
             isTransitioning = false;
-        }, 300);
+            // 자동 슬라이드 재시작
+            restartAutoSlide();
+        }, 800);
     }
     
     // 다음 슬라이드
@@ -1016,17 +1046,29 @@ function initHeroCarousel() {
     
     // 이벤트 리스너 추가
     if (prevBtn) {
-        prevBtn.addEventListener('click', prevSlide);
+        prevBtn.addEventListener('click', () => {
+            stopAutoSlide(); // 자동 슬라이드 중지
+            prevSlide();
+        });
     }
     
     if (nextBtn) {
-        nextBtn.addEventListener('click', nextSlide);
+        nextBtn.addEventListener('click', () => {
+            stopAutoSlide(); // 자동 슬라이드 중지
+            nextSlide();
+        });
     }
     
     // 키보드 네비게이션
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') prevSlide();
-        if (e.key === 'ArrowRight') nextSlide();
+        if (e.key === 'ArrowLeft') {
+            stopAutoSlide(); // 자동 슬라이드 중지
+            prevSlide();
+        }
+        if (e.key === 'ArrowRight') {
+            stopAutoSlide(); // 자동 슬라이드 중지
+            nextSlide();
+        }
     });
     
     // 스와이프 기능 (모바일 전용)
@@ -1068,6 +1110,7 @@ function initHeroCarousel() {
             
             // 수평 스와이프가 수직 스와이프보다 클 때만 슬라이드 변경
             if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > swipeThreshold) {
+                stopAutoSlide(); // 자동 슬라이드 중지
                 if (deltaX > 0) {
                     prevSlide(); // 오른쪽으로 스와이프 = 이전 슬라이드
                 } else {
@@ -1081,21 +1124,19 @@ function initHeroCarousel() {
         // 스와이프 전용 - 커서 스타일 제거
     }
     
-    // 자동 슬라이드 (8초마다) - Design Fever 스타일: 더 긴 간격
-    setInterval(() => {
-        if (!isTransitioning) {
-            nextSlide();
-        }
-    }, 8000);
-    
     // 초기 슬라이드 표시
     showSlide(0);
+    
+    // 자동 슬라이드 시작
+    startAutoSlide();
     
     // 전역에서 접근 가능하도록 함수 노출
     window.heroCarousel = {
         nextSlide: nextSlide,
         prevSlide: prevSlide,
-        showSlide: showSlide
+        showSlide: showSlide,
+        startAutoSlide: startAutoSlide,
+        stopAutoSlide: stopAutoSlide
     };
 }
 
