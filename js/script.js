@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
         progressBar.style.width = scrollPercent + '%';
     }
     
-    window.addEventListener('scroll', updateProgressBar);
+    window.addEventListener('scroll', updateProgressBar, { passive: true });
 });
 
 
@@ -453,7 +453,7 @@ class Navbar {
                 }
             }
             
-            window.addEventListener('scroll', handleScroll);
+            window.addEventListener('scroll', handleScroll, { passive: true });
             handleScroll(); // 초기 실행
         }
     }
@@ -696,12 +696,22 @@ function debounce(func, wait) {
     };
 }
 
-// 스크롤 이벤트 최적화
-const optimizedScrollHandler = debounce(function() {
-    // 스크롤 관련 로직
-}, 16); // 60fps
+// 기본 스크롤 사용 (커스텀 스크롤 제거됨)
 
-window.addEventListener('scroll', optimizedScrollHandler);
+// 스크롤 이벤트 최적화 - requestAnimationFrame 사용
+let scrollTicking = false;
+
+function optimizedScrollHandler() {
+    if (!scrollTicking) {
+        requestAnimationFrame(function() {
+            // 스크롤 관련 로직
+            scrollTicking = false;
+        });
+        scrollTicking = true;
+    }
+}
+
+window.addEventListener('scroll', optimizedScrollHandler, { passive: true });
 
 // 리사이즈 이벤트 최적화
 const optimizedResizeHandler = debounce(function() {
@@ -785,15 +795,34 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // 선택 가능한 요소들에 호버 이벤트 추가
-    const interactiveElements = document.querySelectorAll('a, button, .nav-link, .btn, .btn-small, [role="button"], input[type="button"], input[type="submit"], .nav-icon, .theme-toggle');
+    // 선택 가능한 요소들에 호버 이벤트 추가 - 더 구체적인 선택자 사용
+    const interactiveElements = document.querySelectorAll('a, button, .nav-link, .btn, .btn-small, .btn-medium, .btn-large, [role="button"], input[type="button"], input[type="submit"], .nav-icon, .theme-toggle, .hero-cta-pagination-block .btn');
+    
+    // 히어로 영역 버튼 직접 확인 및 이벤트 추가
+    const heroButtons = document.querySelectorAll('.hero-carousel-section .btn');
+    heroButtons.forEach((btn, index) => {
+        // interactive 요소에 포함되는지 확인
+        const isInInteractive = Array.from(interactiveElements).includes(btn);
+        
+        // interactive 요소에 포함되지 않으면 직접 이벤트 추가
+        if (!isInInteractive) {
+            btn.addEventListener('mouseenter', function() {
+                if (!customCursor.classList.contains('hover')) {
+                    customCursor.classList.add('interactive');
+                }
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                customCursor.classList.remove('interactive');
+            });
+        }
+    });
     
     interactiveElements.forEach(element => {
         element.addEventListener('mouseenter', function() {
             // 프로젝트 카드 호버 상태가 아닐 때만 interactive 클래스 추가
             if (!customCursor.classList.contains('hover')) {
                 customCursor.classList.add('interactive');
-                console.log('Interactive 요소 호버:', element, '클래스:', element.className);
             }
         });
         
@@ -801,6 +830,7 @@ document.addEventListener('DOMContentLoaded', function() {
             customCursor.classList.remove('interactive');
         });
     });
+    
     
     // 페이지를 벗어날 때 커서 숨김
     document.addEventListener('mouseleave', function() {
@@ -981,72 +1011,45 @@ function initHeroCarousel() {
         if (e.key === 'ArrowRight') nextSlide();
     });
     
-    // 드래그/스와이프 기능
+    // 스와이프 기능 (모바일 전용)
     let startX = 0;
     let startY = 0;
-    let isDragging = false;
-    let dragThreshold = 50; // 드래그 최소 거리
+    let isSwiping = false;
+    let swipeThreshold = 50; // 스와이프 최소 거리
     
     const carouselContainer = document.querySelector('.hero-carousel-container');
     
     if (carouselContainer) {
-        // 마우스 이벤트
-        carouselContainer.addEventListener('mousedown', (e) => {
-            startX = e.clientX;
-            startY = e.clientY;
-            isDragging = true;
-            carouselContainer.style.cursor = 'grabbing';
-        });
+        // 마우스 드래그 기능 제거 - 스와이프만 사용
         
-        carouselContainer.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-        });
-        
-        carouselContainer.addEventListener('mouseup', (e) => {
-            if (!isDragging) return;
-            
-            const deltaX = e.clientX - startX;
-            const deltaY = e.clientY - startY;
-            
-            // 수평 드래그가 수직 드래그보다 클 때만 슬라이드 변경
-            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > dragThreshold) {
-                if (deltaX > 0) {
-                    prevSlide(); // 오른쪽으로 드래그 = 이전 슬라이드
-                } else {
-                    nextSlide(); // 왼쪽으로 드래그 = 다음 슬라이드
-                }
-            }
-            
-            isDragging = false;
-            carouselContainer.style.cursor = 'grab';
-        });
-        
-        carouselContainer.addEventListener('mouseleave', () => {
-            isDragging = false;
-            carouselContainer.style.cursor = 'grab';
-        });
-        
-        // 터치 이벤트 (모바일)
+        // 터치 이벤트 (모바일 스와이프)
         carouselContainer.addEventListener('touchstart', (e) => {
             startX = e.touches[0].clientX;
             startY = e.touches[0].clientY;
-            isDragging = true;
+            isSwiping = true;
         }, { passive: true });
         
         carouselContainer.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault(); // 스크롤 방지
+            if (!isSwiping) return;
+            
+            // 수평 스와이프인지 확인
+            const deltaX = e.touches[0].clientX - startX;
+            const deltaY = e.touches[0].clientY - startY;
+            
+            // 수평 스와이프가 수직 스와이프보다 클 때만 스크롤 방지
+            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                e.preventDefault(); // 수평 스와이프일 때만 스크롤 방지
+            }
         }, { passive: false });
         
         carouselContainer.addEventListener('touchend', (e) => {
-            if (!isDragging) return;
+            if (!isSwiping) return;
             
             const deltaX = e.changedTouches[0].clientX - startX;
             const deltaY = e.changedTouches[0].clientY - startY;
             
             // 수평 스와이프가 수직 스와이프보다 클 때만 슬라이드 변경
-            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > dragThreshold) {
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > swipeThreshold) {
                 if (deltaX > 0) {
                     prevSlide(); // 오른쪽으로 스와이프 = 이전 슬라이드
                 } else {
@@ -1054,11 +1057,10 @@ function initHeroCarousel() {
                 }
             }
             
-            isDragging = false;
+            isSwiping = false;
         }, { passive: true });
         
-        // 드래그 가능한 커서 스타일
-        carouselContainer.style.cursor = 'grab';
+        // 스와이프 전용 - 커서 스타일 제거
     }
     
     // 자동 슬라이드 (8초마다) - Design Fever 스타일: 더 긴 간격
@@ -1081,6 +1083,11 @@ function initHeroCarousel() {
 
 // 히어로 커스텀 커서 기능
 function initHeroCustomCursor() {
+    // 모바일에서는 히어로 커스텀 커서 비활성화
+    if (window.innerWidth <= 767) {
+        return;
+    }
+    
     const heroSection = document.querySelector('.hero-carousel-section');
     const leftArea = document.querySelector('.hero-slide-left');
     const centerArea = document.querySelector('.hero-slide-center');
@@ -1170,7 +1177,11 @@ function initHeroCustomCursor() {
             
             // 프로젝트 카드 호버 상태 확인 - hover 상태가 아닐 때만 히어로 커서 로직 실행
             const customCursor = document.querySelector('.custom-cursor');
-            if (customCursor && !customCursor.classList.contains('hover') && !customCursor.classList.contains('interactive')) {
+            if (customCursor && !customCursor.classList.contains('hover')) {
+                // interactive 클래스가 있으면 히어로 커서 로직 건너뛰기
+                if (customCursor.classList.contains('interactive')) {
+                    return;
+                }
         // 제한된 영역에서는 prev/next 커서 절대 표시하지 않음
         if (isInRestrictedArea) {
             // 제한된 영역에서는 기본 커스텀 커서만 표시

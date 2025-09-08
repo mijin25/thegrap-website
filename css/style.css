@@ -171,7 +171,7 @@ body {
     --cursor-transition-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --cursor-blend-mode-default: difference;
     --cursor-blend-mode-hover: normal;
-    --cursor-z-index: 9999;
+    --cursor-z-index: 999999; /* 커스텀 커서가 모든 요소 위에 표시되도록 */
     
     /* ========================================
        Typography System - Figma 기준 Tailwind 스타일 통합
@@ -279,13 +279,13 @@ body {
 
 /* 부드러운 스크롤 - 페이지 전반 적용 */
 html {
-    scroll-behavior: auto; /* 기본 스크롤 동작으로 변경 */
+    scroll-behavior: smooth; /* 부드러운 스크롤 활성화 */
     scroll-padding-top: 2rem; /* 네비게이션 바 높이만큼 여백 */
 }
 
 /* 부드러운 스크롤을 위한 추가 설정 */
 body {
-    scroll-behavior: auto; /* 기본 스크롤 동작으로 변경 */
+    scroll-behavior: smooth; /* 부드러운 스크롤 활성화 */
     overflow-x: hidden; /* 가로 스크롤 방지 */
 }
 
@@ -301,7 +301,7 @@ body {
 ::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 4px;
-    transition: background 0.3s ease;
+    transition: background 0.2s cubic-bezier(0.4, 0, 0.2, 1); /* 더 부드러운 전환 */
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -574,7 +574,7 @@ body {
     justify-content: center !important;
     opacity: 1 !important;
     visibility: visible !important;
-    z-index: 99999 !important;
+    z-index: 999999 !important;
     transition: none !important;
 }
 
@@ -722,6 +722,22 @@ body {
 .hero-cta-pagination-block .btn::after {
     background-color: var(--schemes-on-hero);
 }
+
+/* 히어로 영역 버튼 호버 효과 - 기본 버튼 호버 효과 상속 */
+.hero-cta-pagination-block .btn:hover::after {
+    transform: translate3d(0%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+    opacity: 1;
+}
+
+.hero-cta-pagination-block .btn:hover .btn-icon svg {
+    transform: translate3d(100%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+}
+
+.hero-cta-pagination-block .btn:hover .btn-icon::before {
+    transform: translate(-50%, -50%) scale3d(1, 1, 1);
+    opacity: 1;
+}
+
 
 /* 페이지네이션 */
 .hero-pagination {
@@ -1099,6 +1115,7 @@ body {
                 font-size var(--cursor-transition-duration) var(--cursor-transition-easing),
                 color var(--cursor-transition-duration) var(--cursor-transition-easing),
                 mix-blend-mode var(--cursor-transition-duration) var(--cursor-transition-easing);
+    isolation: isolate; /* 새로운 stacking context 생성 */
 }
 
 /* 선택 가능한 요소 호버 시 커서 확대 */
@@ -1139,6 +1156,16 @@ body {
     .custom-cursor {
         display: none !important;
     }
+    
+    /* 모바일에서 히어로 커스텀 커서도 숨기기 */
+    .hero-carousel-section .custom-cursor {
+        display: none !important;
+    }
+    
+    /* 모바일에서 히어로 네비게이션 커서 숨기기 */
+    .custom-cursor.hero-nav-cursor {
+        display: none !important;
+    }
 }
 
 /* 프로젝트 카드 호버 시 커스텀 커서 - 모든 영역에서 작동 */
@@ -1159,7 +1186,7 @@ body {
     line-height: 1.1 !important;
     white-space: nowrap !important;
     mix-blend-mode: var(--cursor-blend-mode-hover) !important;
-    z-index: 99999 !important;
+    z-index: 999999 !important;
     opacity: 1 !important;
     visibility: visible !important;
     position: fixed !important;
@@ -1184,7 +1211,7 @@ body {
     line-height: 1.1 !important;
     white-space: nowrap !important;
     mix-blend-mode: var(--cursor-blend-mode-hover) !important;
-    z-index: 99999 !important;
+    z-index: 999999 !important;
     opacity: 1 !important;
     visibility: visible !important;
     position: fixed !important;
