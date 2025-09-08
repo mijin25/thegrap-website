@@ -767,20 +767,22 @@ body {
 }
 
 .what-we-do-section .body {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
     gap: var(--spacing-5); /* gap-5 (20px) */
     align-items: flex-start;
-    justify-content: flex-end;
 }
 
 .what-we-do-section .spacing {
-    width: 329px; /* Figma 고정 너비 */
-    flex-shrink: 0;
+    grid-column: span 3; /* 3컬럼 차지 */
 }
 
 .what-we-do-section .body-text-en {
-    width: 678px; /* Figma 고정 너비 */
-    flex-shrink: 0;
+    grid-column: span 6; /* 6컬럼 차지 */
+}
+
+.what-we-do-section .body-text-ko {
+    grid-column: span 3; /* 3컬럼 차지 */
 }
 
 .what-we-do-section .body-text-en p {
@@ -792,8 +794,7 @@ body {
 }
 
 .what-we-do-section .body-text-ko {
-    flex: 1; /* grow */
-    min-width: 0;
+    /* 그리드 시스템으로 관리 */
 }
 
 .what-we-do-section .body-text-ko p {
@@ -2050,17 +2051,21 @@ body {
     }
     
     .what-we-do-section .body {
-        flex-direction: column; /* 모바일에서 세로 배치 */
+        grid-template-columns: 1fr; /* 모바일에서 1컬럼 */
         gap: var(--spacing-6); /* 모바일: gap-6 (24px) */
     }
     
     .what-we-do-section .spacing {
-        width: auto; /* 모바일에서 자동 너비 */
+        grid-column: span 1; /* 모바일에서 1컬럼 */
         height: 0; /* 모바일에서 숨김 */
     }
     
     .what-we-do-section .body-text-en {
-        width: 100%; /* 모바일에서 전체 너비 */
+        grid-column: span 1; /* 모바일에서 1컬럼 */
+    }
+    
+    .what-we-do-section .body-text-ko {
+        grid-column: span 1; /* 모바일에서 1컬럼 */
     }
     
     .what-we-do-section .body-text-en p {
