@@ -626,6 +626,47 @@ body {
     z-index: 1;
 }
 
+/* 태블릿(아이패드)에서 히어로 배경 최적화 */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .hero-carousel-section {
+        height: 100vh !important;
+        width: 100vw !important;
+        overflow: hidden !important;
+        /* 아이패드에서 전체 화면 활용 */
+        margin-left: calc(-50vw + 50%) !important;
+        margin-right: calc(-50vw + 50%) !important;
+    }
+    
+    .hero-slide-background {
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        /* 아이패드에서 배경이 꽉 차도록 강제 설정 */
+        min-height: 100vh !important;
+        min-width: 100vw !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+    
+    .hero-slide {
+        width: 100% !important;
+        height: 100% !important;
+    }
+    
+    /* 아이패드에서 커스텀 커서 숨기기 */
+    .custom-cursor {
+        display: none !important;
+    }
+    
+    .hero-carousel-section .custom-cursor {
+        display: none !important;
+    }
+    
+    .custom-cursor.hero-nav-cursor {
+        display: none !important;
+    }
+}
+
 /* 모바일에서 히어로 슬라이드 배경 이미지 변경 */
 @media only screen and (max-width: 767px) {
     /* 슬라이드 1 - 기본 모바일 배경 */
