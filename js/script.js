@@ -188,6 +188,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // 마우스 휠 스크롤 부드럽게 만들기
     let isScrolling = false;
     let scrollTimeout;
+    let scrollVelocity = 0;
+    let lastScrollTime = 0;
     
     function smoothScroll() {
         if (!isScrolling) {
@@ -198,20 +200,69 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // 휠 이벤트 최적화
+    // 휠 이벤트 최적화 - 속도감과 탄력감 추가
     window.addEventListener('wheel', function(e) {
+        const currentTime = Date.now();
+        const deltaTime = currentTime - lastScrollTime;
+        lastScrollTime = currentTime;
+        
+        // 스크롤 속도 계산
+        scrollVelocity = Math.abs(e.deltaY);
+        
+        // 더 빠른 스크롤을 위한 가속도 적용
+        if (scrollVelocity > 50) {
+            // 빠른 스크롤 시 더 역동적인 효과
+            document.body.style.scrollBehavior = 'auto';
+            window.scrollBy(0, e.deltaY * 1.5);
+            e.preventDefault();
+        } else {
+            // 일반 스크롤 시 부드러운 효과
+            document.body.style.scrollBehavior = 'smooth';
+        }
+        
         smoothScroll();
         
         // 스크롤 완료 후 이벤트 정리
         clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
             isScrolling = false;
-        }, 150);
-    }, { passive: true });
+            scrollVelocity = 0;
+        }, 100);
+    }, { passive: false });
     
-    // 키보드 스크롤 (Page Up/Down, 화살표 키) 부드럽게
+    // 키보드 스크롤 (Page Up/Down, 화살표 키) - 속도감과 탄력감 추가
     window.addEventListener('keydown', function(e) {
+        // 히어로 캐러셀의 좌우 화살표 키는 제외
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+            return; // 캐러셀 네비게이션을 위해 기본 동작 허용
+        }
+        
         if ([32, 33, 34, 35, 36, 37, 38, 39, 40].includes(e.keyCode)) {
+            // 키보드 스크롤 시 더 역동적인 효과
+            const scrollAmount = window.innerHeight * 0.8; // 화면 높이의 80%
+            
+            if (e.keyCode === 32 || e.keyCode === 34 || e.keyCode === 40) { // Space, Page Down, Down Arrow
+                window.scrollBy({
+                    top: scrollAmount,
+                    behavior: 'smooth'
+                });
+            } else if (e.keyCode === 33 || e.keyCode === 38) { // Page Up, Up Arrow
+                window.scrollBy({
+                    top: -scrollAmount,
+                    behavior: 'smooth'
+                });
+            } else if (e.keyCode === 35) { // End
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: 'smooth'
+                });
+            } else if (e.keyCode === 36) { // Home
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+            
             e.preventDefault();
             smoothScroll();
         }
@@ -388,7 +439,7 @@ class Navbar {
     // Blend mode 초기화
     initBlendMode() {
         const navbar = document.querySelector('.navbar');
-        const heroSection = document.querySelector('.hero-section');
+        const heroSection = document.querySelector('.hero-carousel-section');
         
         if (navbar && heroSection) {
             function handleScroll() {
@@ -537,23 +588,38 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (entry.isIntersecting) {
                         console.log('프로젝트 섹션 진입 - 커튼 효과 시작');
                         
+                        // 데스크탑/모바일 구분하여 딜레이 설정
+                        const isMobile = window.innerWidth <= 768;
+                        
                         // 각 카드에 순차적으로 커튼 효과 적용
                         projectCards.forEach((card, index) => {
                             let delay;
-                            if (index === 0) {
-                                delay = 0; // 첫 번째 카드는 즉시 시작
-                            } else if (index === 1) {
-                                delay = 300; // 두 번째 카드는 300ms 후 시작
-                            } else if (index === 2) {
-                                delay = 600; // 세 번째 카드는 600ms 후 시작 (2번과 3번 사이 딜레이)
+                            
+                            if (isMobile) {
+                                // 모바일: 카드 사이 딜레이 없음 (단일 컬럼)
+                                delay = index * 100; // 100ms씩만 간격
                             } else {
-                                delay = 600 + (index - 2) * 200; // 네 번째부터는 200ms씩 추가 지연
+                                // 데스크탑: 그리드 레이아웃에 맞는 딜레이
+                                if (index === 0) {
+                                    delay = 0; // 첫 번째 카드는 즉시 시작
+                                } else if (index === 1) {
+                                    delay = 200; // 두 번째 카드는 200ms 후 시작
+                                } else if (index === 2) {
+                                    delay = 500; // 세 번째 카드는 500ms 후 시작 (2번과 3번 사이 딜레이)
+                                } else {
+                                    delay = 500 + (index - 2) * 150; // 네 번째부터는 150ms씩 추가 지연
+                                }
                             }
                             
                             setTimeout(() => {
-                                // 바로 애니메이션 시작 (이미 숨김 상태이므로)
-                                card.style.animation = 'projectCardDrawDown 1.0s cubic-bezier(0.25, 0.1, 0.25, 1) forwards';
-                                console.log(`카드 ${index + 1} 커튼 효과 시작`);
+                                // 더 부드러운 애니메이션 적용
+                                card.style.animation = 'projectCardDrawDown 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
+                                console.log(`카드 ${index + 1} 커튼 효과 시작 (${isMobile ? '모바일' : '데스크탑'})`);
+                                
+                                // 애니메이션 완료 후 성능 최적화
+                                setTimeout(() => {
+                                    card.style.willChange = 'auto'; // will-change 해제
+                                }, 800);
                                 
                             }, delay);
                         });
@@ -563,8 +629,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
             }, {
-                threshold: 0.2, // 섹션의 20%가 보일 때 트리거
-                rootMargin: '0px 0px -50px 0px' // 50px 전에 트리거
+                threshold: 0.1, // 섹션의 10%가 보일 때 트리거
+                rootMargin: '0px 0px -100px 0px' // 100px 전에 트리거 (더 일찍 시작)
             });
             
             observer.observe(projectSection);
@@ -710,19 +776,25 @@ document.addEventListener('DOMContentLoaded', function() {
     projectCards.forEach(card => {
         card.addEventListener('mouseenter', function() {
             customCursor.classList.add('hover');
+            customCursor.innerHTML = 'View';
         });
         
         card.addEventListener('mouseleave', function() {
             customCursor.classList.remove('hover');
+            customCursor.innerHTML = '•';
         });
     });
     
     // 선택 가능한 요소들에 호버 이벤트 추가
-    const interactiveElements = document.querySelectorAll('a, button, .nav-link, [role="button"], input[type="button"], input[type="submit"]');
+    const interactiveElements = document.querySelectorAll('a, button, .nav-link, .btn, .btn-small, [role="button"], input[type="button"], input[type="submit"], .nav-icon, .theme-toggle');
     
     interactiveElements.forEach(element => {
         element.addEventListener('mouseenter', function() {
-            customCursor.classList.add('interactive');
+            // 프로젝트 카드 호버 상태가 아닐 때만 interactive 클래스 추가
+            if (!customCursor.classList.contains('hover')) {
+                customCursor.classList.add('interactive');
+                console.log('Interactive 요소 호버:', element, '클래스:', element.className);
+            }
         });
         
         element.addEventListener('mouseleave', function() {
@@ -823,4 +895,482 @@ document.addEventListener('DOMContentLoaded', function() {
     if (heroContent) {
         heroContent.classList.add('revealed');
     }
+    
+    // 히어로 캐러셀 초기화
+    initHeroCarousel();
+    
+    // 히어로 커스텀 커서 초기화
+    initHeroCustomCursor();
 });
+
+// 히어로 캐러셀 기능
+function initHeroCarousel() {
+    const slides = document.querySelectorAll('.hero-slide');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    const paginationCurrent = document.querySelector('.pagination-current');
+    const paginationTotal = document.querySelector('.pagination-total');
+    
+    if (slides.length === 0) return;
+    
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+    let isTransitioning = false;
+    
+    // 페이지네이션 총 개수 설정 (3개로 고정)
+    if (paginationTotal) {
+        paginationTotal.textContent = 3;
+    }
+    
+    // 슬라이드 표시 함수 - Design Fever 스타일 즉시 전환
+    function showSlide(index) {
+        if (isTransitioning || index === currentSlide) {
+            console.log(`슬라이드 전환 건너뜀: ${currentSlide} → ${index} (전환중: ${isTransitioning})`);
+            return;
+        }
+        
+        console.log(`슬라이드 전환 시작: ${currentSlide} → ${index}`);
+        isTransitioning = true;
+        
+        // 현재 슬라이드 숨기기
+        slides[currentSlide].classList.remove('active');
+        
+        // 새 슬라이드 표시
+        currentSlide = index;
+        slides[currentSlide].classList.add('active');
+        
+        // 페이지네이션 업데이트
+        if (paginationCurrent) {
+            paginationCurrent.textContent = currentSlide + 1;
+        }
+        
+        console.log(`슬라이드 전환 완료: 현재 슬라이드 ${currentSlide + 1}`);
+        
+        // Design Fever 스타일: 빠른 전환 완료 (0.3초)
+        setTimeout(() => {
+            isTransitioning = false;
+        }, 300);
+    }
+    
+    // 다음 슬라이드
+    function nextSlide() {
+        const nextIndex = (currentSlide + 1) % totalSlides;
+        console.log(`다음 슬라이드: ${currentSlide} → ${nextIndex} (총 ${totalSlides}개)`);
+        showSlide(nextIndex);
+    }
+    
+    // 이전 슬라이드
+    function prevSlide() {
+        const prevIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+        console.log(`이전 슬라이드: ${currentSlide} → ${prevIndex} (총 ${totalSlides}개)`);
+        showSlide(prevIndex);
+    }
+    
+    // 이벤트 리스너 추가
+    if (prevBtn) {
+        prevBtn.addEventListener('click', prevSlide);
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', nextSlide);
+    }
+    
+    // 키보드 네비게이션
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') prevSlide();
+        if (e.key === 'ArrowRight') nextSlide();
+    });
+    
+    // 드래그/스와이프 기능
+    let startX = 0;
+    let startY = 0;
+    let isDragging = false;
+    let dragThreshold = 50; // 드래그 최소 거리
+    
+    const carouselContainer = document.querySelector('.hero-carousel-container');
+    
+    if (carouselContainer) {
+        // 마우스 이벤트
+        carouselContainer.addEventListener('mousedown', (e) => {
+            startX = e.clientX;
+            startY = e.clientY;
+            isDragging = true;
+            carouselContainer.style.cursor = 'grabbing';
+        });
+        
+        carouselContainer.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+        });
+        
+        carouselContainer.addEventListener('mouseup', (e) => {
+            if (!isDragging) return;
+            
+            const deltaX = e.clientX - startX;
+            const deltaY = e.clientY - startY;
+            
+            // 수평 드래그가 수직 드래그보다 클 때만 슬라이드 변경
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > dragThreshold) {
+                if (deltaX > 0) {
+                    prevSlide(); // 오른쪽으로 드래그 = 이전 슬라이드
+                } else {
+                    nextSlide(); // 왼쪽으로 드래그 = 다음 슬라이드
+                }
+            }
+            
+            isDragging = false;
+            carouselContainer.style.cursor = 'grab';
+        });
+        
+        carouselContainer.addEventListener('mouseleave', () => {
+            isDragging = false;
+            carouselContainer.style.cursor = 'grab';
+        });
+        
+        // 터치 이벤트 (모바일)
+        carouselContainer.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            isDragging = true;
+        }, { passive: true });
+        
+        carouselContainer.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault(); // 스크롤 방지
+        }, { passive: false });
+        
+        carouselContainer.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            
+            const deltaX = e.changedTouches[0].clientX - startX;
+            const deltaY = e.changedTouches[0].clientY - startY;
+            
+            // 수평 스와이프가 수직 스와이프보다 클 때만 슬라이드 변경
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > dragThreshold) {
+                if (deltaX > 0) {
+                    prevSlide(); // 오른쪽으로 스와이프 = 이전 슬라이드
+                } else {
+                    nextSlide(); // 왼쪽으로 스와이프 = 다음 슬라이드
+                }
+            }
+            
+            isDragging = false;
+        }, { passive: true });
+        
+        // 드래그 가능한 커서 스타일
+        carouselContainer.style.cursor = 'grab';
+    }
+    
+    // 자동 슬라이드 (8초마다) - Design Fever 스타일: 더 긴 간격
+    setInterval(() => {
+        if (!isTransitioning) {
+            nextSlide();
+        }
+    }, 8000);
+    
+    // 초기 슬라이드 표시
+    showSlide(0);
+    
+    // 전역에서 접근 가능하도록 함수 노출
+    window.heroCarousel = {
+        nextSlide: nextSlide,
+        prevSlide: prevSlide,
+        showSlide: showSlide
+    };
+}
+
+// 히어로 커스텀 커서 기능
+function initHeroCustomCursor() {
+    const heroSection = document.querySelector('.hero-carousel-section');
+    const leftArea = document.querySelector('.hero-slide-left');
+    const centerArea = document.querySelector('.hero-slide-center');
+    const rightArea = document.querySelector('.hero-slide-right');
+    
+    if (!heroSection || !leftArea || !centerArea || !rightArea) {
+        console.log('히어로 슬라이드 영역 요소를 찾을 수 없음:', {
+            heroSection: !!heroSection,
+            leftArea: !!leftArea,
+            centerArea: !!centerArea,
+            rightArea: !!rightArea
+        });
+        return;
+    }
+    
+    console.log('히어로 슬라이드 영역 요소들 찾음:', {
+        heroSection: heroSection,
+        leftArea: leftArea,
+        centerArea: centerArea,
+        rightArea: rightArea
+    });
+    
+    let isInHeroSection = false;
+    let currentDirection = null;
+    
+    // 마우스 이동 이벤트
+    document.addEventListener('mousemove', (e) => {
+        const rect = heroSection.getBoundingClientRect();
+        const isInside = e.clientX >= rect.left && e.clientX <= rect.right && 
+                        e.clientY >= rect.top && e.clientY <= rect.bottom;
+        
+        // navbar 영역 제외 - 실제 navbar 요소의 위치와 크기 기준
+        const navbar = document.querySelector('.navbar');
+        let isInNavbarArea = false;
+        
+        if (navbar) {
+            const navbarRect = navbar.getBoundingClientRect();
+            // navbar 영역과 겹치는지 확인 (Y 좌표 기준)
+            isInNavbarArea = e.clientY >= navbarRect.top && e.clientY <= navbarRect.bottom;
+        } else {
+            // navbar 요소가 없으면 상단 100px로 대체
+            const navbarHeight = 100;
+            isInNavbarArea = e.clientY < rect.top + navbarHeight;
+        }
+        
+        // 하단 텍스트 영역 감지 (하단 200px)
+        const bottomTextHeight = 200; // 하단 텍스트 영역 높이
+        const isInBottomTextArea = e.clientY > rect.bottom - bottomTextHeight;
+        
+        // prev/next 커서가 절대 나타나면 안 되는 영역들
+        const isInRestrictedArea = isInNavbarArea || isInBottomTextArea;
+        
+        if (isInside && !isInNavbarArea && !isInBottomTextArea) {
+            if (!isInHeroSection) {
+                isInHeroSection = true;
+                console.log('히어로 영역 진입 (navbar 영역, 하단 텍스트 영역 제외)');
+                
+                // 기본 커스텀 커서가 보이도록 설정
+                const customCursor = document.querySelector('.custom-cursor');
+                if (customCursor) {
+                    // 히어로 영역 클래스 먼저 추가
+                    customCursor.classList.add('hero-cursor');
+                    
+                    // 프로젝트 카드 호버 상태나 interactive 상태가 아닐 때만 히어로 스타일 적용
+                    if (!customCursor.classList.contains('hover') && !customCursor.classList.contains('interactive')) {
+                        // 개별 속성만 설정하여 View 커스텀 커서 크기 보호
+                        customCursor.style.display = 'flex';
+                        customCursor.style.opacity = '1';
+                        customCursor.style.visibility = 'visible';
+                        customCursor.style.zIndex = '99999';
+                        customCursor.style.width = '96px';
+                        customCursor.style.height = '96px';
+                        customCursor.style.backgroundColor = 'var(--brand-lime-light)';
+                        customCursor.style.mixBlendMode = 'var(--cursor-blend-mode-default)';
+                        customCursor.style.position = 'fixed';
+                        customCursor.style.pointerEvents = 'none';
+                        customCursor.style.borderRadius = '50%';
+                        customCursor.style.alignItems = 'center';
+                        customCursor.style.justifyContent = 'center';
+                    }
+                    
+                    console.log('히어로 커서 표시 설정 완료');
+                } else {
+                    console.log('커스텀 커서 요소를 찾을 수 없음');
+                }
+            }
+            
+            // 프로젝트 카드 호버 상태 확인 - hover 상태가 아닐 때만 히어로 커서 로직 실행
+            const customCursor = document.querySelector('.custom-cursor');
+            if (customCursor && !customCursor.classList.contains('hover') && !customCursor.classList.contains('interactive')) {
+        // 제한된 영역에서는 prev/next 커서 절대 표시하지 않음
+        if (isInRestrictedArea) {
+            // 제한된 영역에서는 기본 커스텀 커서만 표시
+            if (currentDirection !== 'restricted') {
+                currentDirection = 'restricted';
+                customCursor.classList.remove('hero-nav-cursor');
+                customCursor.innerHTML = '•';
+                // 기본 커스텀 커서 스타일로 복원
+                customCursor.style.width = 'var(--cursor-size-default)';
+                customCursor.style.height = 'var(--cursor-size-default)';
+                customCursor.style.backgroundColor = 'var(--cursor-color)';
+                customCursor.style.mixBlendMode = 'var(--cursor-blend-mode-default)';
+                console.log('제한된 영역에서 기본 커스텀 커서로 전환');
+            }
+        } else {
+                    // 허용된 영역에서만 3등분 영역 판단
+                    const heroWidth = rect.width;
+                    const relativeX = e.clientX - rect.left;
+                    const sectionWidth = heroWidth / 3;
+                    
+                    if (relativeX < sectionWidth && currentDirection !== 'prev') {
+                        // 좌측 영역 (이전) - View 커스텀 커서 스타일 적용
+                        currentDirection = 'prev';
+                        customCursor.classList.add('hero-nav-cursor');
+                        customCursor.innerHTML = 'Prev';
+                    } else if (relativeX > sectionWidth * 2 && currentDirection !== 'next') {
+                        // 우측 영역 (다음) - View 커스텀 커서 스타일 적용
+                        currentDirection = 'next';
+                        customCursor.classList.add('hero-nav-cursor');
+                        customCursor.innerHTML = 'Next';
+                    } else if (relativeX >= sectionWidth && relativeX <= sectionWidth * 2 && currentDirection !== 'center') {
+                        // 중앙 영역 (클릭 비활성화) - 기본 커스텀 커서
+                        currentDirection = 'center';
+                        customCursor.classList.remove('hero-nav-cursor');
+                        customCursor.innerHTML = '•';
+                        // 기본 커스텀 커서 스타일로 복원
+                        customCursor.style.width = 'var(--cursor-size-default)';
+                        customCursor.style.height = 'var(--cursor-size-default)';
+                        customCursor.style.backgroundColor = 'var(--cursor-color)';
+                        customCursor.style.mixBlendMode = 'var(--cursor-blend-mode-default)';
+                    }
+                }
+            } else if (customCursor && customCursor.classList.contains('interactive')) {
+                // interactive 상태일 때 로그 출력
+                console.log('히어로 영역에서 interactive 상태 감지');
+            }
+        } else if (isInside && isInRestrictedArea) {
+            // 제한된 영역(navbar, 하단 텍스트)에서는 히어로 커서 비활성화하고 기본 커스텀 커서로 전환
+            if (isInHeroSection) {
+                isInHeroSection = false;
+                currentDirection = null;
+                
+                const customCursor = document.querySelector('.custom-cursor');
+                if (customCursor) {
+                    customCursor.classList.remove('hero-cursor');
+                    customCursor.classList.remove('hero-nav-cursor');
+                    
+                    if (!customCursor.classList.contains('hover') && !customCursor.classList.contains('interactive')) {
+                        customCursor.innerHTML = '•';
+                        customCursor.style.width = 'var(--cursor-size-default)';
+                        customCursor.style.height = 'var(--cursor-size-default)';
+                        customCursor.style.backgroundColor = 'var(--cursor-color)';
+                        customCursor.style.mixBlendMode = 'var(--cursor-blend-mode-default)';
+                    }
+                }
+                console.log('제한된 영역에서 히어로 커서 비활성화');
+            }
+        } else {
+            if (isInHeroSection) {
+                isInHeroSection = false;
+                currentDirection = null;
+                
+                // 기본 커스텀 커서 원래 상태로 복원
+                const customCursor = document.querySelector('.custom-cursor');
+                if (customCursor) {
+                    // 히어로 영역 클래스들 제거
+                    customCursor.classList.remove('hero-cursor');
+                    customCursor.classList.remove('hero-nav-cursor');
+                    
+                    // 프로젝트 카드 호버 상태가 아닐 때만 기본 상태로 복원
+                    if (!customCursor.classList.contains('hover') && !customCursor.classList.contains('interactive')) {
+                        customCursor.innerHTML = '•';
+                        // 개별 속성만 설정하여 View 커스텀 커서 크기 보호
+                        customCursor.style.display = 'flex';
+                        customCursor.style.opacity = '1';
+                        customCursor.style.visibility = 'visible';
+                        customCursor.style.zIndex = 'var(--cursor-z-index)';
+                        customCursor.style.width = 'var(--cursor-size-default)';
+                        customCursor.style.height = 'var(--cursor-size-default)';
+                        customCursor.style.backgroundColor = 'var(--cursor-color)';
+                        customCursor.style.mixBlendMode = 'var(--cursor-blend-mode-default)';
+                        customCursor.style.position = 'fixed';
+                        customCursor.style.pointerEvents = 'none';
+                        customCursor.style.borderRadius = '50%';
+                        customCursor.style.alignItems = 'center';
+                        customCursor.style.justifyContent = 'center';
+                    }
+                }
+            }
+        }
+    });
+    
+    // 좌측 영역 클릭 이벤트 - Design Fever 스타일 즉시 전환
+    leftArea.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // navbar 영역과 겹치는지 확인
+        const navbar = document.querySelector('.navbar');
+        let isInNavbarArea = false;
+        
+        if (navbar) {
+            const navbarRect = navbar.getBoundingClientRect();
+            isInNavbarArea = e.clientY >= navbarRect.top && e.clientY <= navbarRect.bottom;
+        }
+        
+        if (isInNavbarArea) {
+            console.log('navbar 영역에서 클릭 - 슬라이드 전환 차단');
+            return; // navbar 영역에서는 슬라이드 전환하지 않음
+        }
+        
+        console.log('좌측 영역 클릭 - 이전 슬라이드로 이동', e);
+        if (window.heroCarousel && window.heroCarousel.prevSlide) {
+            window.heroCarousel.prevSlide();
+            console.log('이전 슬라이드 실행됨');
+        } else {
+            console.log('heroCarousel 또는 prevSlide 함수를 찾을 수 없음', window.heroCarousel);
+        }
+    });
+    
+    // 중앙 영역 클릭 이벤트 (클릭 비활성화)
+    centerArea.addEventListener('click', (e) => {
+        e.preventDefault();
+        // 중앙 영역은 클릭해도 아무 동작하지 않음
+        console.log('중앙 영역 클릭 - 슬라이드 전환 없음');
+    });
+    
+    // 우측 영역 클릭 이벤트 - Design Fever 스타일 즉시 전환
+    rightArea.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // navbar 영역과 겹치는지 확인
+        const navbar = document.querySelector('.navbar');
+        let isInNavbarArea = false;
+        
+        if (navbar) {
+            const navbarRect = navbar.getBoundingClientRect();
+            isInNavbarArea = e.clientY >= navbarRect.top && e.clientY <= navbarRect.bottom;
+        }
+        
+        if (isInNavbarArea) {
+            console.log('navbar 영역에서 클릭 - 슬라이드 전환 차단');
+            return; // navbar 영역에서는 슬라이드 전환하지 않음
+        }
+        
+        console.log('우측 영역 클릭 - 다음 슬라이드로 이동', e);
+        if (window.heroCarousel && window.heroCarousel.nextSlide) {
+            window.heroCarousel.nextSlide();
+            console.log('다음 슬라이드 실행됨');
+        } else {
+            console.log('heroCarousel 또는 nextSlide 함수를 찾을 수 없음', window.heroCarousel);
+        }
+    });
+    
+    console.log('히어로 슬라이드 영역 클릭 이벤트 등록 완료');
+    
+    // 히어로 섹션에서 벗어날 때 커서 복원
+    document.addEventListener('mouseleave', () => {
+        if (isInHeroSection) {
+            isInHeroSection = false;
+            currentDirection = null;
+            
+            // 기본 커스텀 커서 원래 상태로 복원
+            const customCursor = document.querySelector('.custom-cursor');
+            if (customCursor) {
+                // 히어로 영역 클래스들 제거
+                customCursor.classList.remove('hero-cursor');
+                customCursor.classList.remove('hero-nav-cursor');
+                
+                // 프로젝트 카드 호버 상태가 아닐 때만 기본 상태로 복원
+                if (!customCursor.classList.contains('hover') && !customCursor.classList.contains('interactive')) {
+                    customCursor.innerHTML = '•';
+                    // 개별 속성만 설정하여 View 커스텀 커서 크기 보호
+                    customCursor.style.display = 'flex';
+                    customCursor.style.opacity = '1';
+                    customCursor.style.visibility = 'visible';
+                    customCursor.style.zIndex = 'var(--cursor-z-index)';
+                    customCursor.style.width = 'var(--cursor-size-default)';
+                    customCursor.style.height = 'var(--cursor-size-default)';
+                    customCursor.style.backgroundColor = 'var(--cursor-color)';
+                    customCursor.style.mixBlendMode = 'var(--cursor-blend-mode-default)';
+                    customCursor.style.position = 'fixed';
+                    customCursor.style.pointerEvents = 'none';
+                    customCursor.style.borderRadius = '50%';
+                    customCursor.style.alignItems = 'center';
+                    customCursor.style.justifyContent = 'center';
+                }
+            }
+        }
+    });
+}
+

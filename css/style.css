@@ -50,6 +50,11 @@ html, body, * {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* 모든 요소에서 기본 커서 제거 */
+* {
+    cursor: none !important;
+}
+
 /* 테마 전환 효과 - 자연스러운 전환 */
 html, body {
     transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
@@ -95,9 +100,9 @@ html, body {
     font-kerning: normal !important;
 }
 
-/* 커서 숨김 - 모든 요소에 적용 */
-* {
-    cursor: none !important;
+/* 커서 숨김 - 커스텀 커서가 있는 요소에만 적용 */
+body {
+    cursor: none;
 }
 
 /* Figma Variables - 실제 Figma에서 가져온 변수들 */
@@ -274,13 +279,13 @@ html, body {
 
 /* 부드러운 스크롤 - 페이지 전반 적용 */
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto; /* 기본 스크롤 동작으로 변경 */
     scroll-padding-top: 2rem; /* 네비게이션 바 높이만큼 여백 */
 }
 
 /* 부드러운 스크롤을 위한 추가 설정 */
 body {
-    scroll-behavior: smooth;
+    scroll-behavior: auto; /* 기본 스크롤 동작으로 변경 */
     overflow-x: hidden; /* 가로 스크롤 방지 */
 }
 
@@ -491,7 +496,6 @@ body {
     height: 24px;
     filter: brightness(0) invert(1); /* 히어로 영역에서는 on-hero 컬러(흰색) */
     transition: opacity 0.3s ease;
-    cursor: pointer;
 }
 
 .nav-icon img:hover {
@@ -510,23 +514,234 @@ body {
     }
 }
 
-/* 히어로 섹션 */
-.hero-section {
+/* 히어로 캐러셀 섹션 */
+.hero-carousel-section {
     position: relative;
     height: 100vh;
     width: 100vw;
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
+    overflow: hidden;
+    background-color: #000;
+    clip-path: inset(0 0 100% 0);
+    animation: heroDrawDown 1.1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    max-width: none;
+}
+
+/* 캐러셀 컨테이너 */
+.hero-carousel-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    user-select: none; /* 텍스트 선택 방지 */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* 히어로 슬라이드 영역 - 3등분 구조 */
+.hero-slide-area {
+    position: absolute;
+    top: 0;
+    width: 33.333%;
+    height: 100%;
+    z-index: 100; /* z-index 더 높여서 클릭 이벤트 우선순위 확보 */
+    cursor: none;
+    pointer-events: auto; /* 클릭 이벤트 활성화 */
+    /* 디버깅용 배경색 제거됨 */
+}
+
+.hero-slide-left {
+    left: 0;
+}
+
+.hero-slide-center {
+    left: 33.333%;
+}
+
+.hero-slide-right {
+    right: 0;
+}
+
+/* 히어로 영역에서 기본 커스텀 커서 확대 및 아이콘 변경 - hover 상태가 아닐 때만 */
+.hero-carousel-section .custom-cursor:not(.hover) {
+    width: 96px !important;
+    height: 96px !important;
+    background-color: var(--brand-lime-light) !important;
+    mix-blend-mode: var(--cursor-blend-mode-default) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 99999 !important;
+    transition: none !important;
+}
+
+.hero-carousel-section .custom-cursor::before {
+    content: '' !important;
+    display: none !important;
+}
+
+.hero-carousel-section .custom-cursor::after {
+    content: '' !important;
+    display: none !important;
+}
+
+
+
+
+/* 히어로 슬라이드 - Design Fever 스타일 빠른 전환 */
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease-out; /* Design Fever 스타일: 빠른 전환 */
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    will-change: transform;
-    transition: transform 0.05s ease-out;
-    z-index: 0;
-    background-color: #000; /* 배경색 추가 - 이미지 로드 실패 시 대비 */
-    clip-path: inset(0 0 100% 0);
-    animation: heroDrawDown 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-slide.active {
+    opacity: 1;
+}
+
+/* 슬라이드 배경 */
+.hero-slide-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+/* 모바일에서 히어로 슬라이드 배경 이미지 변경 */
+@media only screen and (max-width: 767px) {
+    .hero-carousel-section .hero-slide .hero-slide-background {
+        background-image: url('../assets/hero-background-mobile.jpg') !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+    }
+    
+    /* 모바일에서 히어로 슬라이드 영역 비활성화 */
+    .hero-slide-area {
+        pointer-events: none;
+    }
+    
+    /* 모바일에서 히어로 커스텀 커서 숨기기 */
+    .hero-custom-cursor {
+        display: none !important;
+    }
+}
+
+/* 슬라이드 콘텐츠 - 피그마 디자인 반영 */
+.hero-slide-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8); /* 32px */
+    align-items: flex-start;
+    justify-content: flex-end;
+    min-height: 100vh;
+    width: 100%;
+    padding: var(--spacing-10) var(--spacing-8); /* 40px 32px */
+    color: var(--schemes-on-hero);
+    box-sizing: border-box;
+}
+
+/* 헤드라인 블록 */
+.hero-headline-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6); /* 24px */
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: none;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+}
+
+/* 헤드라인 텍스트 - 피그마 디자인 */
+.hero-headline {
+    font-family: var(--font-family);
+    font-size: 4.5rem; /* 72px - text-7xl */
+    font-weight: var(--weight-emphasized); /* Medium */
+    line-height: 1; /* leading-[0] */
+    color: var(--schemes-on-hero);
+    margin: 0;
+    white-space: nowrap;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+}
+
+/* CTA 및 페이지네이션 블록 */
+.hero-cta-pagination-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: none;
+}
+
+/* 히어로 CTA 컨테이너 - 데스크탑에서 왼쪽 spacing-1 추가 */
+.hero-cta-container {
+    margin-left: var(--spacing-1); /* 4px - 데스크탑에서 왼쪽 여백 */
+}
+
+/* 히어로 CTA 버튼 스타일 - 버튼 스몰 컴포넌트 사용 */
+.hero-cta-pagination-block .btn {
+    color: var(--schemes-on-hero);
+}
+
+.hero-cta-pagination-block .btn .btn-text {
+    color: var(--schemes-on-hero);
+}
+
+.hero-cta-pagination-block .btn .btn-icon svg {
+    color: var(--schemes-on-hero);
+}
+
+/* 히어로 섹션 버튼의 ::before 아이콘 색상 - 흰색 배경용 */
+.hero-cta-pagination-block .btn .btn-icon::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23.707 11.293C24.0976 11.6835 24.0976 12.3165 23.707 12.707L16.707 19.707L15.293 18.293L20.5859 13H7V11H20.5859L15.293 5.70703L16.707 4.29297L23.707 11.293Z' fill='%23ffffff'/%3E%3C/svg%3E");
+}
+
+/* 히어로 섹션 버튼의 언더라인 색상 - 흰색 배경용 */
+.hero-cta-pagination-block .btn::after {
+    background-color: var(--schemes-on-hero);
+}
+
+/* 페이지네이션 */
+.hero-pagination {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-1); /* 4px */
+    font-family: var(--font-family);
+    font-size: 1.25rem; /* 20px - text-xl */
+    font-weight: var(--weight-emphasized); /* Medium */
+    line-height: 1.1;
+    color: var(--schemes-on-hero);
+    white-space: nowrap;
+}
+
+.pagination-current {
+    font-weight: var(--weight-emphasized);
+}
+
+.pagination-divider {
+    opacity: 1;
 }
 
 /* 히어로 영역 테마 전환 시 시각적 피드백 */
@@ -575,10 +790,10 @@ body {
 }
 
 @keyframes heroDrawDown {
-    from {
+    0% {
         clip-path: inset(0 0 100% 0);
     }
-    to {
+    100% {
         clip-path: inset(0 0 0% 0);
     }
 }
@@ -843,6 +1058,10 @@ body {
     text-decoration: none;
     color: inherit;
     transition: transform 0.2s ease-out;
+    /* 성능 최적화 */
+    will-change: transform, clip-path;
+    transform: translateZ(0); /* 하드웨어 가속 활성화 */
+    backface-visibility: hidden; /* 렌더링 최적화 */
 }
 
 /* 첫 번째 카드는 6컬럼 사용 */
@@ -884,8 +1103,22 @@ body {
 
 /* 선택 가능한 요소 호버 시 커서 확대 */
 .custom-cursor.interactive {
-    width: calc(var(--cursor-size-default) * 1.5); /* 1.5배 확대 */
-    height: calc(var(--cursor-size-default) * 1.5);
+    width: calc(var(--cursor-size-default) * 1.5) !important; /* 1.5배 확대 */
+    height: calc(var(--cursor-size-default) * 1.5) !important;
+    background-color: var(--cursor-color) !important;
+    mix-blend-mode: var(--cursor-blend-mode-default) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* 히어로 영역에서도 interactive 클래스 우선 적용 */
+.hero-carousel-section .custom-cursor.interactive {
+    width: calc(var(--cursor-size-default) * 1.5) !important;
+    height: calc(var(--cursor-size-default) * 1.5) !important;
+    background-color: var(--cursor-color) !important;
+    mix-blend-mode: var(--cursor-blend-mode-default) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 /* 기본 상태에서만 보이도록 명시적 설정 */
@@ -908,23 +1141,57 @@ body {
     }
 }
 
-/* 프로젝트 카드 호버 시 커스텀 커서 */
-.custom-cursor.hover {
-    width: var(--cursor-size-hover);
-    height: var(--cursor-size-hover);
-    background-color: var(--cursor-color);
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-family);
-    font-size: var(--cursor-font-size);
-    font-weight: 500;
-    color: var(--cursor-text-color);
-    line-height: 1.1;
-    white-space: nowrap;
-    mix-blend-mode: var(--cursor-blend-mode-hover);
+/* 프로젝트 카드 호버 시 커스텀 커서 - 모든 영역에서 작동 */
+.custom-cursor.hover,
+.hero-carousel-section .custom-cursor.hover {
+    width: var(--cursor-size-hover) !important;
+    height: var(--cursor-size-hover) !important;
+    background-color: var(--cursor-color) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-family: var(--font-family) !important;
+    font-size: var(--cursor-font-size) !important;
+    font-weight: 500 !important;
+    color: var(--cursor-text-color) !important;
+    line-height: 1.1 !important;
+    white-space: nowrap !important;
+    mix-blend-mode: var(--cursor-blend-mode-hover) !important;
+    z-index: 99999 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: fixed !important;
+    pointer-events: none !important;
+    transform: translate(-50%, -50%) !important;
 }
+
+/* 히어로 영역 네비게이션 커스텀 커서 - View 커스텀 커서와 동일한 스타일 */
+.custom-cursor.hero-nav-cursor {
+    width: var(--cursor-size-hover) !important;
+    height: var(--cursor-size-hover) !important;
+    background-color: var(--cursor-color) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-family: var(--font-family) !important;
+    font-size: var(--cursor-font-size) !important;
+    font-weight: 500 !important;
+    color: var(--cursor-text-color) !important;
+    line-height: 1.1 !important;
+    white-space: nowrap !important;
+    mix-blend-mode: var(--cursor-blend-mode-hover) !important;
+    z-index: 99999 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: fixed !important;
+    pointer-events: none !important;
+    transform: translate(-50%, -50%) !important;
+}
+
 
 
 
@@ -1491,7 +1758,6 @@ body {
     text-decoration: none;
     border: none;
     background: none;
-    cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     white-space: nowrap;
     position: relative;
@@ -1989,8 +2255,8 @@ body {
         font-kerning: normal !important;
     }
     
-    /* 모바일 히어로 섹션 */
-    .hero-section {
+    /* 모바일 히어로 캐러셀 섹션 */
+    .hero-carousel-section {
         height: 100vh; /* 모바일에서도 전체 뷰포트 높이 사용 */
         width: 100%;
         margin-left: 0;
@@ -2000,6 +2266,35 @@ body {
         animation: none;
         transform: none;
         box-sizing: border-box;
+    }
+    
+    /* 모바일 히어로 캐러셀 스타일 */
+    .hero-slide-content {
+        padding: var(--spacing-8) var(--spacing-6); /* 32px 24px */
+        gap: var(--spacing-6); /* 24px */
+    }
+    
+    .hero-headline {
+        font-size: 2.5rem; /* 40px - 모바일 크기 */
+        line-height: 1.1;
+        white-space: normal; /* 모바일에서 줄바꿈 허용 */
+    }
+    
+    .hero-cta-text,
+    .hero-pagination {
+        font-size: 1rem; /* 16px - 모바일 크기 */
+    }
+    
+    /* 모바일에서 히어로 CTA 컨테이너 왼쪽 여백 제거 */
+    .hero-cta-container {
+        margin-left: 0; /* 모바일에서 왼쪽 여백 제거 */
+    }
+    
+    
+    
+    .hero-cta-icon {
+        width: 20px;
+        height: 20px;
     }
     
     .hero-section .hero-background {

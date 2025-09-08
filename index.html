@@ -24,34 +24,95 @@
     <!-- 네비게이션 바 (컴포넌트로 렌더링) -->
     <div id="navbar-container"></div>
 
-    <!-- 히어로 섹션 -->
-    <section id="home" class="hero-section">
-        <!-- 배경 이미지 -->
-        <div class="hero-background" style="background-image: url('assets/hero-background-desktop.jpg')"></div>
-        
-        <!-- 메인 콘텐츠 -->
-        <div class="hero-content reveal-up">
-            <!-- 메인 타이틀 -->
-            <div class="hero-main-title">
-                <div class="hero-top-text-block">
-                    <p>Imagine more</p>
-                </div>
-                <div class="hero-middle-text-block">
-                    <p>create better</p>
+    <!-- 히어로 캐러셀 섹션 -->
+    <section id="home" class="hero-carousel-section">
+        <!-- 캐러셀 컨테이너 -->
+        <div class="hero-carousel-container">
+            <!-- 히어로 슬라이드 영역 (3등분 구조) -->
+            <div class="hero-slide-area hero-slide-left" data-direction="prev"></div>
+            <div class="hero-slide-area hero-slide-center" data-direction="none"></div>
+            <div class="hero-slide-area hero-slide-right" data-direction="next"></div>
+            <!-- 슬라이드 1 -->
+            <div class="hero-slide active" data-slide="1">
+                <div class="hero-slide-background" style="background-image: url('assets/hero-background-desktop.jpg')"></div>
+                <div class="hero-slide-content">
+                    <div class="hero-headline-block">
+                        <h1 class="hero-headline">Imagine more create better</h1>
+                    </div>
+                    <div class="hero-cta-pagination-block">
+                        <div class="hero-cta-container">
+                            <a href="#" class="btn btn-small">
+                                <span class="btn-text">Learn More</span>
+                                <div class="btn-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hero-pagination">
+                            <span class="pagination-current">1</span>
+                            <span class="pagination-divider">/</span>
+                            <span class="pagination-total">3</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <!-- 서브 텍스트 -->
-            <div class="hero-sub-text">
-                <div class="hero-sub-text-left">
-                    <p>Every detail matters, every interaction counts.</p>
+            <!-- 슬라이드 2 -->
+            <div class="hero-slide" data-slide="2">
+                <div class="hero-slide-background" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)"></div>
+                <div class="hero-slide-content">
+                    <div class="hero-headline-block">
+                        <h1 class="hero-headline">Design with purpose</h1>
+                    </div>
+                    <div class="hero-cta-pagination-block">
+                        <div class="hero-cta-container">
+                            <a href="#" class="btn btn-small">
+                                <span class="btn-text">Learn More</span>
+                                <div class="btn-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hero-pagination">
+                            <span class="pagination-current">2</span>
+                            <span class="pagination-divider">/</span>
+                            <span class="pagination-total">3</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="hero-sub-text-right">
-                    <p>1 / 4</p>
+            </div>
+            
+            <!-- 슬라이드 3 -->
+            <div class="hero-slide" data-slide="3">
+                <div class="hero-slide-background" style="background: linear-gradient(135deg, #2d1b69 0%, #11998e 100%)"></div>
+                <div class="hero-slide-content">
+                    <div class="hero-headline-block">
+                        <h1 class="hero-headline">Build connections</h1>
+                    </div>
+                    <div class="hero-cta-pagination-block">
+                        <div class="hero-cta-container">
+                            <a href="#" class="btn btn-small">
+                                <span class="btn-text">Learn More</span>
+                                <div class="btn-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hero-pagination">
+                            <span class="pagination-current">3</span>
+                            <span class="pagination-divider">/</span>
+                            <span class="pagination-total">3</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        
     </section>
 
     <!-- What We Do 섹션 -->
