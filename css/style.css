@@ -665,6 +665,14 @@ body {
     .custom-cursor.hero-nav-cursor {
         display: none !important;
     }
+    
+    /* 아이패드에서 텍스트 크기 조정 - 전역 clamp() 함수로 통일 */
+    
+    /* 아이패드에서 히어로 콘텐츠 패딩 조정 */
+    .hero-slide-content {
+        padding: var(--spacing-10) var(--spacing-8) !important; /* 40px 32px - 아이패드에 적합한 패딩 */
+        gap: var(--spacing-8) !important; /* 32px */
+    }
 }
 
 /* 모바일에서 히어로 슬라이드 배경 이미지 변경 */
@@ -737,7 +745,7 @@ body {
 /* 헤드라인 텍스트 - 피그마 디자인 */
 .hero-headline {
     font-family: var(--font-family);
-    font-size: 4.5rem; /* 72px - text-7xl */
+    font-size: clamp(2.5rem, 5vw, 4.5rem); /* 40px-72px 반응형 - thegrap.com 스타일 */
     font-weight: var(--weight-emphasized); /* Medium */
     line-height: 1; /* leading-[0] */
     color: var(--schemes-on-hero);
@@ -807,7 +815,7 @@ body {
     align-items: center;
     gap: var(--spacing-1); /* 4px */
     font-family: var(--font-family);
-    font-size: 1.25rem; /* 20px - text-xl */
+    font-size: clamp(0.875rem, 1.2vw, 1.25rem); /* 14px-20px 반응형 - thegrap.com 스타일 */
     font-weight: var(--weight-emphasized); /* Medium */
     line-height: 1.1;
     color: var(--schemes-on-hero);
@@ -2369,7 +2377,7 @@ body {
     }
     
     .hero-headline {
-        font-size: 2.5rem; /* 40px - 모바일 크기 */
+        /* clamp() 함수로 반응형 처리 - 모바일에서 40px 최소 보장 */
         line-height: 1.1;
         white-space: normal; /* 모바일에서 줄바꿈 허용 */
     }
@@ -2383,7 +2391,7 @@ body {
     
     .hero-cta-text,
     .hero-pagination {
-        font-size: 1rem; /* 16px - 모바일 크기 */
+        /* clamp() 함수로 반응형 처리 - 모바일에서 14px 최소 보장 */
     }
     
     /* 모바일에서 히어로 CTA 컨테이너 왼쪽 여백 제거 */
