@@ -628,8 +628,25 @@ body {
 
 /* 모바일에서 히어로 슬라이드 배경 이미지 변경 */
 @media only screen and (max-width: 767px) {
-    .hero-carousel-section .hero-slide .hero-slide-background {
+    /* 슬라이드 1 - 기본 모바일 배경 */
+    .hero-carousel-section .hero-slide[data-slide="1"] .hero-slide-background {
         background-image: url('../assets/hero-background-mobile.jpg') !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+    }
+    
+    /* 슬라이드 2 - 뚜렷한 그라데이션 배경 */
+    .hero-carousel-section .hero-slide[data-slide="2"] .hero-slide-background {
+        background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%) !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+    }
+    
+    /* 슬라이드 3 - 또 다른 뚜렷한 그라데이션 배경 */
+    .hero-carousel-section .hero-slide[data-slide="3"] .hero-slide-background {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
         background-size: cover !important;
         background-position: center !important;
         background-repeat: no-repeat !important;
