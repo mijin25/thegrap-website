@@ -683,6 +683,8 @@ document.addEventListener('touchstart', function() {
     document.body.classList.add('touch-device');
 });
 
+// 모바일 폰트 사이즈는 CSS clamp() 함수로 반응형 처리
+
 // 성능 최적화를 위한 디바운스 함수
 function debounce(func, wait) {
     let timeout;
