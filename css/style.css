@@ -25,29 +25,43 @@
 /* Kakao Small Sans 웹폰트 정의 (한글용 - Regular만) */
 @font-face {
     font-family: 'Kakao Small Sans';
-    src: url('../assets/fonts/KakaoSmallSans-Regular.woff2') format('woff2'),
-         url('../assets/fonts/KakaoSmallSans-Regular.woff') format('woff'),
-         url('../assets/fonts/KakaoSmallSans-Regular.ttf') format('truetype');
+    src: url('./assets/fonts/KakaoSmallSans-Regular.woff2') format('woff2'),
+         url('./assets/fonts/KakaoSmallSans-Regular.woff') format('woff'),
+         url('./assets/fonts/KakaoSmallSans-Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
-    font-display: swap;
+    font-display: swap; /* 빠른 로딩을 위해 swap으로 변경 */
+    unicode-range: U+AC00-D7AF, U+1100-11FF, U+3130-318F; /* 한글 범위만 */
 }
 
 /* Kakao Small Sans 두꺼운 버전 (시각적 효과) */
 @font-face {
     font-family: 'Kakao Small Sans';
-    src: url('../assets/fonts/KakaoSmallSans-Regular.woff2') format('woff2'),
-         url('../assets/fonts/KakaoSmallSans-Regular.woff') format('woff'),
-         url('../assets/fonts/KakaoSmallSans-Regular.ttf') format('truetype');
+    src: url('./assets/fonts/KakaoSmallSans-Regular.woff2') format('woff2'),
+         url('./assets/fonts/KakaoSmallSans-Regular.woff') format('woff'),
+         url('./assets/fonts/KakaoSmallSans-Regular.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
-    font-display: swap;
+    font-display: swap; /* 빠른 로딩을 위해 swap으로 변경 */
+    unicode-range: U+AC00-D7AF, U+1100-11FF, U+3130-318F; /* 한글 범위만 */
 }
 
 /* 폰트 스무딩 - 사이트 전반 적용 */
 html, body, * {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+/* 폰트 로딩 상태 관리 */
+.fonts-loading .what-we-do-section .body-text-ko p {
+    font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    opacity: 0.8;
+}
+
+.fonts-loaded .what-we-do-section .body-text-ko p {
+    font-family: 'Kakao Small Sans', 'Noto Sans KR', 'Malgun Gothic', sans-serif !important;
+    opacity: 1;
+    transition: opacity 0.3s ease;
 }
 
 /* 모든 요소에서 기본 커서 제거 */
@@ -745,7 +759,7 @@ body {
 /* 헤드라인 텍스트 - 피그마 디자인 */
 .hero-headline {
     font-family: var(--font-family);
-    font-size: clamp(2.5rem, 5vw, 4.5rem); /* 40px-72px 반응형 - thegrap.com 스타일 */
+    font-size: clamp(2.5rem, 3.5vw, 4.5rem); /* 40px-72px 반응형 - 아이패드 최적화 */
     font-weight: var(--weight-emphasized); /* Medium */
     line-height: 1; /* leading-[0] */
     color: var(--schemes-on-hero);
@@ -815,7 +829,7 @@ body {
     align-items: center;
     gap: var(--spacing-1); /* 4px */
     font-family: var(--font-family);
-    font-size: clamp(0.875rem, 1.2vw, 1.25rem); /* 14px-20px 반응형 - thegrap.com 스타일 */
+    font-size: clamp(0.875rem, 1vw, 1.25rem); /* 14px-20px 반응형 - 아이패드 최적화 */
     font-weight: var(--weight-emphasized); /* Medium */
     line-height: 1.1;
     color: var(--schemes-on-hero);
@@ -1058,13 +1072,39 @@ body {
     margin-bottom: var(--spacing-12); /* gap-12 (48px) */
 }
 
+.what-we-do-section .section-caption {
+    font-weight: var(--weight-regular); /* Regular */
+    font-family: var(--font-family);
+    color: var(--schemes-on-background);
+    margin-bottom: var(--spacing-4); /* gap-4 (16px) - h2와의 간격 */
+    opacity: 0.7; /* caption 스타일을 위한 투명도 */
+    /* text-caption-lg 클래스에서 폰트 크기와 라인 높이 상속 */
+}
+
 .what-we-do-section .section-header h2 {
-    font-size: 3.75rem; /* 60px - Figma text-6xl */
+    font-size: clamp(2.25rem, 4vw, 3.75rem); /* 36px-60px 반응형 - 피그마 디자인 */
     font-weight: var(--weight-emphasized); /* Medium */
     line-height: 1; /* leading-none */
     font-family: var(--font-family);
     color: var(--schemes-on-background);
     margin-bottom: var(--spacing-8); /* gap-8 (32px) */
+}
+
+.what-we-do-section .header-row {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--spacing-5); /* gap-5 (20px) */
+    align-items: flex-start;
+}
+
+.what-we-do-section .header-row .section-caption {
+    grid-column: span 3; /* 3컬럼 차지 */
+    margin-bottom: 0; /* flex 레이아웃에서는 margin 제거 */
+}
+
+.what-we-do-section .header-row h2 {
+    grid-column: span 9; /* 9컬럼 차지 */
+    margin-bottom: 0; /* header-row 내에서는 margin 제거 */
 }
 
 .what-we-do-section .body {
@@ -1079,15 +1119,15 @@ body {
 }
 
 .what-we-do-section .body-text-en {
-    grid-column: span 6; /* 6컬럼 차지 */
+    grid-column: 4 / 10; /* 4컬럼부터 9컬럼까지 (6컬럼 차지) */
 }
 
 .what-we-do-section .body-text-ko {
-    grid-column: span 3; /* 3컬럼 차지 */
+    grid-column: 10 / 13; /* 10컬럼부터 12컬럼까지 (3컬럼 차지) */
 }
 
 .what-we-do-section .body-text-en p {
-    font-size: 1.5rem; /* 24px - Figma text-2xl */
+    font-size: clamp(1.5rem, 2.5vw, 1.5rem); /* 24px 고정 - 피그마 디자인 */
     font-weight: var(--weight-regular); /* Regular */
     line-height: 1.2; /* leading-[1.2] */
     font-family: var(--font-family);
@@ -1099,11 +1139,13 @@ body {
 }
 
 .what-we-do-section .body-text-ko p {
-    font-size: clamp(1rem, 1rem + (100vw - 320px) * 0.01, 1.25rem); /* 16px-20px 반응형 */
-    font-weight: var(--weight-regular); /* Regular */
+    font-size: clamp(1rem, 1rem, 1rem); /* 16px 고정 - 피그마 디자인 */
+    font-weight: 400; /* Regular - 직접 지정 */
     line-height: 1.3; /* leading-[1.3] */
-    font-family: var(--font-family);
+    font-family: 'Kakao Small Sans', 'Noto Sans KR', 'Malgun Gothic', sans-serif !important; /* 한글 전용 폰트 직접 적용 */
     color: var(--schemes-on-background);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* Featured Work Grid 섹션 */
@@ -2450,8 +2492,21 @@ body {
     }
     
     .what-we-do-section .section-header h2 {
-        font-size: 2.25rem; /* 모바일: 36px - 반응형 크기 조정 */
+        /* clamp() 함수로 반응형 처리 - 모바일에서 36px 최소 보장 */
         margin-bottom: var(--spacing-6); /* 모바일: gap-6 (24px) */
+    }
+    
+    .what-we-do-section .header-row {
+        grid-template-columns: 1fr; /* 모바일에서 1컬럼 */
+        gap: var(--spacing-14); /* 모바일에서 spacing-14 (56px) 간격 */
+    }
+    
+    .what-we-do-section .header-row .section-caption {
+        grid-column: span 1; /* 모바일에서 1컬럼 */
+    }
+    
+    .what-we-do-section .header-row h2 {
+        grid-column: span 1; /* 모바일에서 1컬럼 */
     }
     
     .what-we-do-section .body {
@@ -2473,7 +2528,7 @@ body {
     }
     
     .what-we-do-section .body-text-en p {
-        font-size: 1.25rem; /* 모바일: 20px */
+        /* clamp() 함수로 반응형 처리 - 모바일에서 20px 최소 보장 */
         line-height: 1.2;
     }
     

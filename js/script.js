@@ -1,3 +1,19 @@
+// 폰트 로딩 확인 및 처리
+document.fonts.ready.then(() => {
+    console.log('폰트 로딩 완료');
+    document.body.classList.remove('fonts-loading');
+    document.body.classList.add('fonts-loaded');
+});
+
+// Kakao Small Sans 폰트 로딩 확인
+if ('fonts' in document) {
+    document.fonts.load('400 16px "Kakao Small Sans"').then(() => {
+        console.log('Kakao Small Sans 폰트 로딩 완료');
+    }).catch((error) => {
+        console.error('Kakao Small Sans 폰트 로딩 실패:', error);
+    });
+}
+
 // 공통 스크롤 인터랙션 클래스
 class ScrollReveal {
     constructor(options = {}) {
