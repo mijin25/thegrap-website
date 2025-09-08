@@ -2305,9 +2305,9 @@ body {
         padding: var(--spacing-8) var(--spacing-6); /* 32px 24px - 기본 패딩만 */
         gap: var(--spacing-6); /* 24px */
         min-height: 100dvh; /* 동적 뷰포트 높이 사용 */
-        justify-content: flex-end; /* 하단 정렬 - 바텀바 위로 자동 조정 */
+        justify-content: space-between; /* 상단과 하단 사이 공간 분배 - thegrap.com 스타일 */
         /* 모바일 브라우저 UI 대응을 위한 추가 설정 */
-        padding-bottom: max(var(--spacing-8), env(safe-area-inset-bottom, 0px)); /* 안전 영역 고려 */
+        padding-bottom: max(var(--spacing-8), env(safe-area-inset-bottom, 0px)); /* 안전 영역만 고려 */
     }
     
     .hero-headline {
@@ -2316,7 +2316,12 @@ body {
         white-space: normal; /* 모바일에서 줄바꿈 허용 */
     }
     
-    /* 모바일에서 CTA 및 페이지네이션 블록 - 추가 여백 없음 */
+    /* 모바일에서 헤드라인 블록 중앙 배치 */
+    .hero-headline-block {
+        margin-top: auto; /* 상단 여백을 자동으로 조정하여 중앙에 가깝게 배치 */
+    }
+    
+    /* 모바일에서 CTA 및 페이지네이션 블록 - 자연스러운 배치 */
     
     .hero-cta-text,
     .hero-pagination {
