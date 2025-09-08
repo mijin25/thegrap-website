@@ -118,6 +118,20 @@
 .text-heading-5 { font-size: var(--heading-5-size); line-height: var(--line-height-heading); }
 .text-heading-6 { font-size: var(--heading-6-size); line-height: var(--line-height-heading); }
 
+/* Heading-3 Regular - 크기는 heading-3와 동일하지만 Regular 두께 */
+.text-heading-3-regular { 
+    font-size: var(--heading-3-size); 
+    line-height: var(--line-height-heading-3); /* 더 여유로운 행간 */
+    font-weight: var(--weight-regular);
+}
+
+/* Heading-4 Regular - 크기는 heading-4와 동일하지만 Regular 두께 */
+.text-heading-4-regular { 
+    font-size: var(--heading-4-size); 
+    line-height: var(--line-height-heading); 
+    font-weight: var(--weight-regular);
+}
+
 /* Body 텍스트 - 피그마 18개 텍스트 스타일 */
 .text-body-lg { font-size: var(--body-lg-size); line-height: var(--line-height-body); }
 .text-body-md { font-size: var(--body-md-size); line-height: var(--line-height-body); }

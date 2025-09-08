@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// 부드러운 스크롤 효과
+// 부드러운 스크롤 효과 - 향상된 버전
 document.addEventListener('DOMContentLoaded', function() {
     const links = document.querySelectorAll('a[href^="#"]');
     
@@ -173,12 +173,48 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
-                targetSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                // 네비게이션 바 높이 고려한 오프셋
+                const navbarHeight = 80; // 네비게이션 바 높이
+                const targetPosition = targetSection.offsetTop - navbarHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
                 });
             }
         });
+    });
+    
+    // 마우스 휠 스크롤 부드럽게 만들기
+    let isScrolling = false;
+    let scrollTimeout;
+    
+    function smoothScroll() {
+        if (!isScrolling) {
+            isScrolling = true;
+            requestAnimationFrame(() => {
+                isScrolling = false;
+            });
+        }
+    }
+    
+    // 휠 이벤트 최적화
+    window.addEventListener('wheel', function(e) {
+        smoothScroll();
+        
+        // 스크롤 완료 후 이벤트 정리
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            isScrolling = false;
+        }, 150);
+    }, { passive: true });
+    
+    // 키보드 스크롤 (Page Up/Down, 화살표 키) 부드럽게
+    window.addEventListener('keydown', function(e) {
+        if ([32, 33, 34, 35, 36, 37, 38, 39, 40].includes(e.keyCode)) {
+            e.preventDefault();
+            smoothScroll();
+        }
     });
 });
 
@@ -315,6 +351,13 @@ class Navbar {
             
             // 테마 토글 이벤트
             themeToggle.addEventListener('click', function() {
+                const heroSection = document.querySelector('.hero-section');
+                
+                // 히어로 영역에 페이드 효과 추가
+                if (heroSection) {
+                    heroSection.classList.add('theme-transitioning');
+                }
+                
                 isDarkMode = !isDarkMode;
                 
                 if (isDarkMode) {
@@ -326,6 +369,13 @@ class Navbar {
                     themeToggle.src = 'assets/icon_dark-mode.svg';
                     localStorage.setItem('theme', 'light');
                 }
+                
+                // 페이드 효과 제거 (전환 완료 후)
+                setTimeout(() => {
+                    if (heroSection) {
+                        heroSection.classList.remove('theme-transitioning');
+                    }
+                }, 300); // 0.3초 후 제거
             });
         }
         
@@ -376,7 +426,7 @@ class ProjectCard {
         const delayClass = `reveal-up-delay-${(this.data.index % 4) + 1}`;
         
         return `
-            <a href="#" class="project-card hover-link-block reveal-up ${delayClass}">
+            <a href="#" class="project-card hover-link-block project-card-curtain ${delayClass}">
                 <div class="hover-content-wrapper">
                 <div class="project-cover">
                         <div class="hover-image-wrapper">
@@ -461,14 +511,68 @@ document.addEventListener('DOMContentLoaded', function() {
         
         projectGrid.innerHTML = allCards;
         
-        // 프로젝트 카드에 그리기 효과 적용
-        // 각 프로젝트 카드를 개별적으로 관찰
+        // 프로젝트 카드에 커튼 효과 적용 (순차적으로)
         const projectCards = projectGrid.querySelectorAll('.project-card');
-        projectCards.forEach(card => {
+        console.log(`발견된 프로젝트 카드 수: ${projectCards.length}`);
+        
+        // 프로젝트 카드 초기 설정 - 처음부터 숨김 상태
+        projectCards.forEach((card, index) => {
+            // 처음부터 숨김 상태로 설정
+            card.style.clipPath = 'inset(0 0 100% 0)';
+            card.style.overflow = 'hidden';
+            card.style.animation = 'none';
+            card.classList.remove('project-card-curtain');
+            
+            // 기존 reveal-up 관찰 유지
             if (window.revealUpInstance) {
                 window.revealUpInstance.observe(card);
             }
         });
+        
+        // Intersection Observer로 프로젝트 섹션 진입 시 커튼 효과 시작
+        const projectSection = document.querySelector('.featured-work-grid-section');
+        if (projectSection) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        console.log('프로젝트 섹션 진입 - 커튼 효과 시작');
+                        
+                        // 각 카드에 순차적으로 커튼 효과 적용
+                        projectCards.forEach((card, index) => {
+                            let delay;
+                            if (index === 0) {
+                                delay = 0; // 첫 번째 카드는 즉시 시작
+                            } else if (index === 1) {
+                                delay = 300; // 두 번째 카드는 300ms 후 시작
+                            } else if (index === 2) {
+                                delay = 600; // 세 번째 카드는 600ms 후 시작 (2번과 3번 사이 딜레이)
+                            } else {
+                                delay = 600 + (index - 2) * 200; // 네 번째부터는 200ms씩 추가 지연
+                            }
+                            
+                            setTimeout(() => {
+                                // 바로 애니메이션 시작 (이미 숨김 상태이므로)
+                                card.style.animation = 'projectCardDrawDown 1.0s cubic-bezier(0.25, 0.1, 0.25, 1) forwards';
+                                console.log(`카드 ${index + 1} 커튼 효과 시작`);
+                                
+                            }, delay);
+                        });
+                        
+                        // 한 번만 실행되도록 observer 해제
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.2, // 섹션의 20%가 보일 때 트리거
+                rootMargin: '0px 0px -50px 0px' // 50px 전에 트리거
+            });
+            
+            observer.observe(projectSection);
+        }
+        
+        console.log('프로젝트 카드 커튼 효과 설정 완료');
+        
+        console.log('프로젝트 카드 커튼 효과 설정 완료');
         
         // 디버깅: 관찰된 카드 수 확인
         console.log(`관찰된 프로젝트 카드 수: ${projectCards.length}`);
@@ -555,7 +659,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let targetTranslateX = 0;
         let currentTranslateX = 0;
         
-        // 스크롤 이벤트로 텍스트 위치 계산
+        // 스크롤 이벤트로 텍스트 위치 계산 - 자연스러운 ease in/out
         function updateTextPosition() {
             const scrollY = window.scrollY;
             const scrollDelta = scrollY - currentScrollY;
@@ -563,8 +667,16 @@ document.addEventListener('DOMContentLoaded', function() {
             // 스크롤에 따라 텍스트 위치 계산 (The Grap 스타일)
             targetTranslateX -= scrollDelta * 0.5; // 스크롤 속도에 비례한 이동
             
-            // 부드러운 애니메이션을 위한 lerp
-            currentTranslateX += (targetTranslateX - currentTranslateX) * 0.1;
+            // 고급 ease in/out을 위한 개선된 lerp
+            const lerpFactor = 0.06; // 더 부드러운 전환 (0.08 → 0.06)
+            const distance = targetTranslateX - currentTranslateX;
+            
+            // ease in/out 커브 적용
+            const easeInOut = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+            const normalizedDistance = Math.abs(distance) / 100; // 거리를 정규화
+            const easedFactor = easeInOut(Math.min(normalizedDistance, 1)) * lerpFactor;
+            
+            currentTranslateX += distance * easedFactor;
             
             // The Grap과 동일한 transform 스타일 적용
             hugeText.style.transform = `translate3d(${currentTranslateX}px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)`;

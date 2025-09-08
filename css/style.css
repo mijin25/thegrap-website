@@ -50,6 +50,32 @@ html, body, * {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* 테마 전환 효과 - 자연스러운 전환 */
+html, body {
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 모든 요소에 테마 전환 효과 적용 */
+* {
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                fill 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                stroke 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 기존 transition이 있는 요소들은 덮어쓰기 */
+.nav-link, .btn, .project-image, .custom-cursor {
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                fill 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                stroke 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* 폰트 로딩 상태 관리 */
 .fonts-loading {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
@@ -202,6 +228,7 @@ html, body, * {
     /* 라인 높이 */
     --line-height-display: 1;
     --line-height-heading: 1.1;
+    --line-height-heading-3: 1.3; /* heading-3 전용 더 여유로운 행간 */
     --line-height-body: 1.2;
     --line-height-body-small: 1.3;
     
@@ -230,7 +257,12 @@ html, body, * {
     --schemes-outline: #444444;
     --schemes-hero: #000000;
     --schemes-on-hero: #ffffff;
-    
+}
+
+/* 다크모드 전환 시 부드러운 효과 */
+[data-theme="dark"] body {
+    background-color: var(--schemes-background);
+    color: var(--schemes-on-background);
 }
 
 /* 기본 스타일 */
@@ -238,6 +270,46 @@ html, body, * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* 부드러운 스크롤 - 페이지 전반 적용 */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 2rem; /* 네비게이션 바 높이만큼 여백 */
+}
+
+/* 부드러운 스크롤을 위한 추가 설정 */
+body {
+    scroll-behavior: smooth;
+    overflow-x: hidden; /* 가로 스크롤 방지 */
+}
+
+/* 커스텀 스크롤바 - 부드러운 스크롤 경험 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* 다크모드 스크롤바 */
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
 }
 
 body {
@@ -273,6 +345,12 @@ body {
 /* hero 영역을 벗어날 때 mix-blend-mode 적용 */
 .navbar.blend-mode {
     mix-blend-mode: difference;
+    /* 블렌드 모드에서 폰트 스무딩 강화 */
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    text-rendering: optimizeLegibility !important;
+    font-feature-settings: "kern" 1 !important;
+    font-kerning: normal !important;
 }
 
 /* blend mode가 적용될 때는 자동으로 색상이 반전되므로 별도 설정 불필요 */
@@ -341,11 +419,56 @@ body {
     text-decoration: none;
     padding: var(--spacing-1) 0; /* 4px */
     display: block;
-    transition: color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* 기본 폰트 스무딩 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1;
+    font-kerning: normal;
 }
 
+/* The Grap 스타일 호버 효과 - 텍스트가 위로 살짝 올라감 */
 .nav-link:hover {
+    transform: translateY(-2px); /* 위로 2px 이동 */
     color: var(--schemes-on-hero);
+}
+
+/* 호버 시 부드러운 언더라인 효과 */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--schemes-on-hero);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* 블렌드 모드에서 nav-link 폰트 스무딩 강화 */
+.navbar.blend-mode .nav-link {
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    text-rendering: optimizeLegibility !important;
+    font-feature-settings: "kern" 1 !important;
+    font-kerning: normal !important;
+}
+
+/* 블렌드 모드에서도 호버 효과 유지 */
+.navbar.blend-mode .nav-link:hover {
+    transform: translateY(-2px);
+}
+
+.navbar.blend-mode .nav-link::after {
+    background-color: var(--schemes-on-hero);
 }
 
 /* blend-mode가 적용될 때는 mix-blend-mode: difference가 자동으로 색상 반전 */
@@ -406,6 +529,35 @@ body {
     animation: heroDrawDown 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* 히어로 영역 테마 전환 시 시각적 피드백 */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0);
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* 다크모드 전환 시 히어로 영역에 미묘한 오버레이 */
+[data-theme="dark"] .hero-section::before {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* 히어로 영역 테마 전환 시 전체 페이드 효과 */
+.hero-section {
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 테마 전환 시 히어로 영역에 페이드 효과 추가 */
+.hero-section.theme-transitioning {
+    opacity: 0.7;
+}
+
 .hero-background {
     position: absolute;
     top: 0;
@@ -418,6 +570,8 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     z-index: -1;
+    transition: transform 0.1s ease-out;
+    will-change: transform;
 }
 
 @keyframes heroDrawDown {
@@ -428,6 +582,26 @@ body {
         clip-path: inset(0 0 0% 0);
     }
 }
+
+/* 프로젝트 카드 커튼 효과 - 부드럽고 탄력 있게 */
+@keyframes projectCardDrawDown {
+    0% {
+        clip-path: inset(0 0 100% 0);
+    }
+    100% {
+        clip-path: inset(0 0 0% 0);
+    }
+}
+
+/* 프로젝트 카드 커튼 애니메이션 클래스 */
+.project-cards-container .featured-work-grid .project-card {
+    /* 기본 표시 - JavaScript에서 제어 */
+}
+
+.project-cards-container .featured-work-grid .project-card-curtain {
+    /* 커튼 효과 - JavaScript에서 인라인 스타일로 적용 */
+}
+
 
 
 .hero-content {
@@ -441,6 +615,8 @@ body {
     align-items: flex-start;
     justify-content: flex-end;
     min-height: 100%;
+    transition: transform 0.1s ease-out;
+    will-change: transform;
 }
 
 .hero-main-title {
@@ -566,61 +742,66 @@ body {
     word-spacing: 0.1em;
     will-change: transform;
     transform-style: preserve-3d;
-    transition: none; /* The Grap처럼 즉시 반응 */
+    transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* 자연스러운 ease in/out */
 }
 
-/* What We Do 섹션 */
+/* What We Do 섹션 - Figma 디자인 반영 */
 .what-we-do-section {
-    padding: 5rem 0 10rem 0;
+    padding: var(--spacing-20) 0; /* py-20만 적용, 좌우 패딩은 container에서 처리 */
     background-color: var(--schemes-background);
     position: relative;
     z-index: 1;
 }
 
+.what-we-do-section .section-header {
+    margin-bottom: var(--spacing-12); /* gap-12 (48px) */
+}
+
 .what-we-do-section .section-header h2 {
-    font-size: var(--display-5-size); /* 72px 데스크톱, 36px 모바일 - display-5 스타일 */
-    font-weight: var(--weight-emphasized);
-    line-height: var(--line-height-display);
+    font-size: 3.75rem; /* 60px - Figma text-6xl */
+    font-weight: var(--weight-emphasized); /* Medium */
+    line-height: 1; /* leading-none */
     font-family: var(--font-family);
     color: var(--schemes-on-background);
-    margin-bottom: 2rem;
+    margin-bottom: var(--spacing-8); /* gap-8 (32px) */
 }
 
 .what-we-do-section .body {
     display: flex;
-    gap: var(--spacing-5); /* 20px - 피그마 gap-5 */
+    gap: var(--spacing-5); /* gap-5 (20px) */
     align-items: flex-start;
     justify-content: flex-end;
 }
 
 .what-we-do-section .spacing {
-    flex: 0 0 25%; /* 4컬럼 (25%) - 웹 환경에 맞는 비율 */
+    width: 329px; /* Figma 고정 너비 */
+    flex-shrink: 0;
 }
 
 .what-we-do-section .body-text-en {
-    flex: 0 0 45%; /* 5.4컬럼 (45%) - 웹 환경에 맞는 비율 */
+    width: 678px; /* Figma 고정 너비 */
+    flex-shrink: 0;
 }
 
 .what-we-do-section .body-text-en p {
-    font-size: var(--heading-3-size); /* 30px 데스크톱, 20px 모바일 - heading-3 스타일 */
-    font-weight: var(--weight-emphasized);
-    line-height: var(--line-height-heading);
+    font-size: 1.5rem; /* 24px - Figma text-2xl */
+    font-weight: var(--weight-regular); /* Regular */
+    line-height: 1.2; /* leading-[1.2] */
     font-family: var(--font-family);
     color: var(--schemes-on-background);
 }
 
 .what-we-do-section .body-text-ko {
-    flex: 0 0 30%; /* 3.6컬럼 (30%) - 한글 텍스트에 적합한 크기 */
+    flex: 1; /* grow */
     min-width: 0;
 }
 
 .what-we-do-section .body-text-ko p {
-    font-size: var(--body-lg-size); /* 18px - 데스크톱에서 더 크게 */
-    font-weight: var(--weight-regular);
-    line-height: var(--line-height-body-small);
+    font-size: 1rem; /* 16px - Figma text-base */
+    font-weight: var(--weight-regular); /* Regular */
+    line-height: 1.3; /* leading-[1.3] */
     font-family: var(--font-family);
     color: var(--schemes-on-background);
-    letter-spacing: -0.32px;
 }
 
 /* Featured Work Grid 섹션 */
@@ -660,6 +841,7 @@ body {
     grid-column: span 4; /* 데스크탑 기본값 - 4컬럼 */
     text-decoration: none;
     color: inherit;
+    transition: transform 0.2s ease-out;
 }
 
 /* 첫 번째 카드는 6컬럼 사용 */
@@ -787,6 +969,7 @@ body {
     gap: var(--spacing-7); /* 28px - 피그마 gap-7 */
     align-items: flex-start;
     justify-content: space-between;
+    transition: transform 0.2s ease-out;
 }
 
 .project-name-and-tags {
@@ -798,7 +981,7 @@ body {
 
 .project-name-and-tags h3 {
     font-size: var(--text-2xl); /* 24px - 피그마 디자인 업데이트 */
-    font-weight: var(--weight-emphasized);
+    font-weight: var(--weight-regular); /* Regular 두께로 변경 */
     line-height: 1.1; /* 피그마 line-height */
     font-family: var(--font-family);
     color: var(--schemes-on-background) !important;
@@ -816,7 +999,7 @@ body {
 
 .project-year p {
     font-size: var(--text-2xl); /* 24px - 피그마 디자인 업데이트 */
-    font-weight: var(--weight-emphasized);
+    font-weight: var(--weight-regular); /* Regular 두께로 변경 */
     line-height: 1.1; /* 피그마 line-height */
     font-family: var(--font-family);
     color: var(--schemes-on-background) !important;
@@ -1269,7 +1452,7 @@ body {
     --btn-medium-gap: var(--spacing-0);         /* 0px */
 
     --btn-large-text: var(--heading-1-size);    /* 48px */
-    --btn-large-icon: 3rem;                     /* 48px */
+    --btn-large-icon: 3rem;                     /* 48px - 텍스트와 균형 */
     --btn-large-gap: var(--spacing-0);          /* 0px */
 
     /* 버튼 패딩 변수 - 피그마 디자인 기준 */
@@ -1452,15 +1635,15 @@ body {
 }
 
 .btn-large .btn-text {
-    font-size: var(--text-4xl); /* 36px 데스크탑, 28px 모바일 - 레이아웃 밸런스 고려 */
+    font-size: var(--heading-1-size); /* 48px 데스크탑 - 더 큰 텍스트 */
     flex-shrink: 0;
     position: relative;
     text-align: center;
 }
 
 .btn-large .btn-icon {
-    width: 3rem; /* 48px - size-12 */
-    height: 3rem; /* 48px - size-12 */
+    width: 3rem; /* 48px - 텍스트와 균형 */
+    height: 3rem; /* 48px - 텍스트와 균형 */
     position: relative;
     flex-shrink: 0;
     display: flex;
@@ -1611,7 +1794,7 @@ body {
         --btn-medium-gap: var(--spacing-0);         /* 0px */
         
         --btn-large-text: var(--heading-1-size);    /* 36px */
-        --btn-large-icon: 2rem;                     /* 36px */
+        --btn-large-icon: 2.25rem;                  /* 36px - 모바일에서도 더 크게 */
         --btn-large-gap: var(--spacing-0);          /* 0px */
     }
 }
@@ -1776,6 +1959,12 @@ body {
     /* 모바일에서도 blend-mode가 적용될 때는 현재 테마에 따라 색상 변환 */
     .navbar.blend-mode {
         mix-blend-mode: difference; /* 모바일에서도 블렌드 모드 적용 */
+        /* 모바일 블렌드 모드에서 폰트 스무딩 강화 */
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
+        text-rendering: optimizeLegibility !important;
+        font-feature-settings: "kern" 1 !important;
+        font-kerning: normal !important;
     }
     
     .navbar.blend-mode .nav-logo img,
@@ -1788,6 +1977,15 @@ body {
     .navbar.blend-mode .nav-icon.nav-menu-icon svg {
         color: white; /* blend mode에서 흰색으로 설정 - mix-blend-mode가 자동 반전 */
         stroke: currentColor; /* SVG stroke 색상도 currentColor로 설정 */
+    }
+    
+    /* 모바일 블렌드 모드에서 nav-link 폰트 스무딩 강화 */
+    .navbar.blend-mode .nav-link {
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
+        text-rendering: optimizeLegibility !important;
+        font-feature-settings: "kern" 1 !important;
+        font-kerning: normal !important;
     }
     
     /* 모바일 히어로 섹션 */
@@ -1839,29 +2037,39 @@ body {
     
     /* Figma 모바일 What We Do 섹션 */
     .what-we-do-section {
-        padding: var(--spacing-12) 0; /* 모바일에 적합한 크기 (48px 0) - 좌우 패딩 제거 */
+        padding: var(--spacing-12) 0; /* 모바일: py-12만 적용, 좌우 패딩은 container에서 처리 */
     }
     
     .what-we-do-section .section-header {
-        margin-bottom: var(--spacing-12); /* Figma: gap-12 (48px) */
+        margin-bottom: var(--spacing-8); /* 모바일: gap-8 (32px) */
     }
     
     .what-we-do-section .section-header h2 {
-        margin-bottom: var(--spacing-8); /* Figma: gap-8 (32px) */
+        font-size: 2.25rem; /* 모바일: 36px - 반응형 크기 조정 */
+        margin-bottom: var(--spacing-6); /* 모바일: gap-6 (24px) */
     }
     
     .what-we-do-section .body {
         flex-direction: column; /* 모바일에서 세로 배치 */
-        gap: var(--spacing-6); /* Figma: gap-6 (24px) */
+        gap: var(--spacing-6); /* 모바일: gap-6 (24px) */
+    }
+    
+    .what-we-do-section .spacing {
+        width: auto; /* 모바일에서 자동 너비 */
+        height: 0; /* 모바일에서 숨김 */
+    }
+    
+    .what-we-do-section .body-text-en {
+        width: 100%; /* 모바일에서 전체 너비 */
     }
     
     .what-we-do-section .body-text-en p {
-        font-size: var(--heading-4-size); /* 24px - 피그마 모바일 기준 */
-        line-height: 1.1;
+        font-size: 1.25rem; /* 모바일: 20px */
+        line-height: 1.2;
     }
     
     .what-we-do-section .body-text-ko p {
-        font-size: var(--body-md-size); /* 16px - 모바일에서 더 크게 */
+        font-size: 0.875rem; /* 모바일: 14px */
         line-height: 1.3;
     }
     
@@ -1903,16 +2111,19 @@ body {
     /* 프로젝트 카드 텍스트 모바일 최적화 - 피그마 디자인 업데이트 */
     .project-name-and-tags h3 {
         font-size: var(--text-xl); /* 20px - 피그마 모바일 디자인 */
+        font-weight: var(--weight-regular); /* Regular 두께로 변경 */
         line-height: 1.1;
     }
     
     .project-name-and-tags p {
         font-size: var(--text-xl); /* 20px - 피그마 모바일 디자인 */
+        font-weight: var(--weight-regular); /* Regular 두께로 변경 */
         line-height: 1.1;
     }
     
     .project-year p {
         font-size: var(--text-xl); /* 20px - 피그마 모바일 디자인 */
+        font-weight: var(--weight-regular); /* Regular 두께로 변경 */
         line-height: 1.1;
     }
     
@@ -1948,8 +2159,8 @@ body {
     /* Large 버튼 모바일 - 텍스트는 clamp() 함수로 자동 스케일링 */
     
     .btn-large .btn-icon {
-        width: 2.25rem; /* 36px - 피그마 모바일 기준 */
-        height: 2.25rem; /* 36px - 피그마 모바일 기준 */
+        width: 2.25rem; /* 36px - 모바일에서도 더 크게 */
+        height: 2.25rem; /* 36px - 모바일에서도 더 크게 */
         position: relative;
     }
     
@@ -2273,7 +2484,7 @@ body {
     transition-delay: 0s; /* revealed 상태에서는 딜레이 제거 */
 }
 
-/* 아래에서 위로 올라오는 애니메이션 */
+/* 아래에서 위로 올라오는 애니메이션 - 특별한 경우에만 사용 */
 .scroll-reveal-down {
     opacity: 0;
     transform: translateY(30px);
@@ -2321,11 +2532,12 @@ body {
     overflow: hidden;
 }
 
-/* 호버 이미지 */
+/* 호버 이미지 - The Grap 스타일 */
 .hover-image {
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.2s ease-out;
     transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
     transform-style: preserve-3d;
+    will-change: transform;
 }
 
 /* 이미지 리빌러 - 위에서 아래로 슬라이드하는 오버레이 */
@@ -2347,7 +2559,11 @@ body {
     transform: translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
 }
 
-/* 호버 시 이미지 확대 효과 */
+/* 호버 시 이미지 확대 효과 - The Grap 스타일 */
 .hover-link-block:hover .hover-image {
-    transform: translate3d(0px, 0px, 0px) scale3d(1.15, 1.15, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+    transform: translate3d(0px, 0px, 0px) scale3d(1.08, 1.08, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
 }
+
+/* 호버 시 텍스트 효과 제거 */
+
+/* 호버 시 카드 상승 효과 제거 */
