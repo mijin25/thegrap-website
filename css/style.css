@@ -2284,7 +2284,8 @@ body {
     
     /* 모바일 히어로 캐러셀 섹션 */
     .hero-carousel-section {
-        height: 100vh; /* 모바일에서도 전체 뷰포트 높이 사용 */
+        height: 100dvh; /* 동적 뷰포트 높이 사용 - 모바일 브라우저 UI 고려 */
+        min-height: 100vh; /* fallback */
         width: 100%;
         margin-left: 0;
         margin-right: 0;
@@ -2297,8 +2298,10 @@ body {
     
     /* 모바일 히어로 캐러셀 스타일 */
     .hero-slide-content {
-        padding: var(--spacing-8) var(--spacing-6); /* 32px 24px */
+        padding: var(--spacing-8) var(--spacing-6); /* 32px 24px - 기본 패딩만 */
         gap: var(--spacing-6); /* 24px */
+        min-height: 100dvh; /* 동적 뷰포트 높이 사용 */
+        justify-content: flex-end; /* 하단 정렬 - 바텀바 위로 자동 조정 */
     }
     
     .hero-headline {
@@ -2306,6 +2309,8 @@ body {
         line-height: 1.1;
         white-space: normal; /* 모바일에서 줄바꿈 허용 */
     }
+    
+    /* 모바일에서 CTA 및 페이지네이션 블록 - 추가 여백 없음 */
     
     .hero-cta-text,
     .hero-pagination {
