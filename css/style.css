@@ -843,7 +843,7 @@ body[data-theme="dark"] .hero-carousel-section::before {
 
 /* 히어로 섹션 버튼의 ::before 아이콘 색상 - 흰색 배경용 */
 .hero-cta-pagination-block .btn .btn-icon::before {
-    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23.707 11.293C24.0976 11.6835 24.0976 12.3165 23.707 12.707L16.707 19.707L15.293 18.293L20.5859 13H7V11H20.5859L15.293 5.70703L16.707 4.29297L23.707 11.293Z' fill='%23ffffff'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 12.0039H21' stroke='%23ffffff' stroke-width='1.5'/%3E%3Cpath d='M14 5L21.0036 12L14 19' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 /* 히어로 섹션 버튼의 언더라인 색상 - 흰색 배경용 */
@@ -1116,7 +1116,7 @@ body[data-theme="dark"] .hero-section::before {
     transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* 자연스러운 ease in/out */
 }
 
-/* What We Do 섹션 - Figma 디자인 반영 */
+/* What We Do 섹션 */
 .what-we-do-section {
     padding: var(--spacing-20) 0; /* py-20만 적용, 좌우 패딩은 container에서 처리 */
     background-color: var(--schemes-background);
@@ -1910,15 +1910,15 @@ body[data-theme="dark"] .hero-section::before {
     /* 버튼 크기 변수 - 피그마 디자인 기준 */
     --btn-small-text: var(--heading-5-size);     /* 20px */
     --btn-small-icon: 1.5rem;                   /* 24px */
-    --btn-small-gap: var(--spacing-0);          /* 0px */
+    --btn-small-gap: var(--spacing-1);          /* 4px */
 
     --btn-medium-text: var(--heading-3-size);   /* 30px */
     --btn-medium-icon: 1.875rem;                /* 30px */
-    --btn-medium-gap: var(--spacing-0);         /* 0px */
+    --btn-medium-gap: var(--spacing-1);         /* 4px */
 
     --btn-large-text: var(--heading-1-size);    /* 48px */
     --btn-large-icon: 3rem;                     /* 48px - 텍스트와 균형 */
-    --btn-large-gap: var(--spacing-0);          /* 0px */
+    --btn-large-gap: var(--spacing-1);          /* 4px */
 
     /* 버튼 패딩 변수 - 피그마 디자인 기준 */
     --btn-small-padding-y: var(--spacing-1);    /* 4px - py-1 */
@@ -2024,7 +2024,7 @@ body[data-theme="dark"] .hero-section::before {
 
 /* Small 버튼 (20px 텍스트, 24px 아이콘) - 피그마 디자인 */
 .btn-small {
-    gap: var(--spacing-0); /* 0px - 피그마 디자인 */
+    gap: var(--spacing-1); /* 4px - 텍스트와 아이콘 사이 간격 */
     padding: var(--spacing-1) 0; /* 4px 상하 - py-1 */
     display: inline-flex;
     flex-direction: row;
@@ -2051,9 +2051,14 @@ body[data-theme="dark"] .hero-section::before {
     transform: scale(1); /* 24px 원본 크기 */
 }
 
+/* Small 버튼 아이콘 stroke-width */
+.btn-small .btn-icon svg path {
+    stroke-width: 1.5; /* Small 버튼용 얇은 선 */
+}
+
 /* Medium 버튼 (30px 텍스트, 30px 아이콘) - 피그마 디자인 */
 .btn-medium {
-    gap: var(--spacing-0); /* 0px - 피그마 디자인 */
+    gap: var(--spacing-1); /* 4px - 텍스트와 아이콘 사이 간격 */
     padding: 0; /* 패딩 없음 */
     display: inline-flex;
     align-items: center;
@@ -2085,10 +2090,15 @@ body[data-theme="dark"] .hero-section::before {
     transform: scale(1); /* 24px 원본 크기 */
 }
 
+/* Medium 버튼 아이콘 stroke-width */
+.btn-medium .btn-icon svg path {
+    stroke-width: 2.0; /* Medium 버튼용 중간 선 */
+}
+
 /* Large 버튼 (64px 텍스트, 64px 아이콘) - Small 버튼 구조 기반 */
 /* Large 버튼 (48px 텍스트, 48px 아이콘) - 피그마 디자인 */
 .btn-large {
-    gap: var(--spacing-0); /* 0px - 피그마 디자인 */
+    gap: var(--spacing-1); /* 4px - 텍스트와 아이콘 사이 간격 */
     padding: var(--spacing-1) 0 0 0; /* 4px 상단만 - pt-1 */
     display: inline-flex;
     align-items: center;
@@ -2122,6 +2132,11 @@ body[data-theme="dark"] .hero-section::before {
     transform: scale(1); /* 24px 원본 크기 */
 }
 
+/* Large 버튼 아이콘 stroke-width */
+.btn-large .btn-icon svg path {
+    stroke-width: 2.0; /* Large 버튼용 굵은 선 */
+}
+
 
 /* 버튼 아이콘 컨테이너에 새로운 아이콘을 위한 ::before 요소 추가 */
 .btn-icon::before {
@@ -2132,7 +2147,7 @@ body[data-theme="dark"] .hero-section::before {
     transform: translate(-50%, -50%) scale(0);
     width: 24px;
     height: 24px;
-    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23.707 11.293C24.0976 11.6835 24.0976 12.3165 23.707 12.707L16.707 19.707L15.293 18.293L20.5859 13H7V11H20.5859L15.293 5.70703L16.707 4.29297L23.707 11.293Z' fill='%23000000'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 12.0039H21' stroke='%23000000' stroke-width='1.5'/%3E%3Cpath d='M14 5L21.0036 12L14 19' stroke='%23000000' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -2143,7 +2158,17 @@ body[data-theme="dark"] .hero-section::before {
 
 /* 다크모드에서 ::before 요소의 아이콘 색상 변경 */
 [data-theme="dark"] .btn-icon::before {
-    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23.707 11.293C24.0976 11.6835 24.0976 12.3165 23.707 12.707L16.707 19.707L15.293 18.293L20.5859 13H7V11H20.5859L15.293 5.70703L16.707 4.29297L23.707 11.293Z' fill='%23ffffff'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 12.0039H21' stroke='%23ffffff' stroke-width='1.5'/%3E%3Cpath d='M14 5L21.0036 12L14 19' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* 다크모드에서 Medium 버튼 ::before 요소의 아이콘 색상 변경 */
+[data-theme="dark"] .btn-medium .btn-icon::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 12.0039H21' stroke='%23ffffff' stroke-width='2.0'/%3E%3Cpath d='M14 5L21.0036 12L14 19' stroke='%23ffffff' stroke-width='2.0' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* 다크모드에서 Large 버튼 ::before 요소의 아이콘 색상 변경 */
+[data-theme="dark"] .btn-large .btn-icon::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 12.0039H21' stroke='%23ffffff' stroke-width='2.0'/%3E%3Cpath d='M14 5L21.0036 12L14 19' stroke='%23ffffff' stroke-width='2.0' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 /* Medium 버튼의 ::before 아이콘 크기 조정 - 기존 아이콘과 동일 */
@@ -2151,6 +2176,7 @@ body[data-theme="dark"] .hero-section::before {
     transform: translate(-50%, -50%) scale(0);
     width: 30px; /* 30px - Medium 버튼 아이콘 컨테이너 크기와 동일 */
     height: 30px;
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 12.0039H21' stroke='%23000000' stroke-width='2.0'/%3E%3Cpath d='M14 5L21.0036 12L14 19' stroke='%23000000' stroke-width='2.0' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 /* Large 버튼의 ::before 아이콘 크기 조정 - 기존 아이콘과 동일 */
@@ -2158,6 +2184,7 @@ body[data-theme="dark"] .hero-section::before {
     transform: translate(-50%, -50%) scale(0);
     width: 48px; /* 48px - Large 버튼 아이콘 컨테이너 크기와 동일 */
     height: 48px;
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 12.0039H21' stroke='%23000000' stroke-width='2.0'/%3E%3Cpath d='M14 5L21.0036 12L14 19' stroke='%23000000' stroke-width='2.0' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 /* 버튼 호버 효과 - The Grap 스타일 인터랙션 */
@@ -2251,15 +2278,15 @@ body[data-theme="dark"] .hero-section::before {
     :root {
         --btn-small-text: var(--heading-5-size);     /* 20px */
         --btn-small-icon: 1.125rem;                 /* 18px */
-        --btn-small-gap: var(--spacing-0);          /* 0px */
+        --btn-small-gap: var(--spacing-1);          /* 4px */
         
         --btn-medium-text: var(--heading-3-size);   /* 24px */
         --btn-medium-icon: 1.5rem;                  /* 24px */
-        --btn-medium-gap: var(--spacing-0);         /* 0px */
+        --btn-medium-gap: var(--spacing-1);         /* 4px */
         
         --btn-large-text: var(--heading-1-size);    /* 36px */
         --btn-large-icon: 2.25rem;                  /* 36px - 모바일에서도 더 크게 */
-        --btn-large-gap: var(--spacing-0);          /* 0px */
+        --btn-large-gap: var(--spacing-1);          /* 4px */
     }
 }
 
