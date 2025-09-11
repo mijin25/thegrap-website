@@ -191,93 +191,82 @@ body {
     
     /* 커스텀 커서 변수 */
     --cursor-size-default: 1rem; /* 16px - 기본 크기 */
-    --cursor-size-hover: 8rem; /* 128px - 호버 크기 */
+    --cursor-size-hover: 6rem; /* 96px - 호버 크기 */
     --cursor-color: var(--brand-lime-light); /* 브랜드 컬러 직접 참조 */
     --cursor-text-color: var(--schemes-on-primary); /* #000000 */
     --cursor-font-size: var(--spacing-07); /* 24px */
     --cursor-transition-duration: 0.3s;
-    --cursor-transition-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --cursor-transition-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
     --cursor-blend-mode-default: difference;
     --cursor-blend-mode-hover: normal;
     --cursor-z-index: 999999; /* 커스텀 커서가 모든 요소 위에 표시되도록 */
     
     /* ========================================
-       Typography System - Figma 기준 Tailwind 스타일 통합
+       Typography System - typography.css에서 관리
        ======================================== */
     
-    /* Tailwind CSS 표준 타이포그래피 스케일 */
-    /* Typography System - Tailwind CSS 표준 rem 단위 매핑 */
-    --text-xs: 0.75rem;      /* 12px - Tailwind text-xs */
-    --text-sm: 0.875rem;     /* 14px - Tailwind text-sm */
-    --text-base: 1rem;       /* 16px - Tailwind text-base */
-    --text-lg: 1.125rem;     /* 18px - Tailwind text-lg */
-    --text-xl: 1.25rem;      /* 20px - Tailwind text-xl */
-    --text-2xl: 1.5rem;      /* 24px - Tailwind text-2xl */
-    --text-3xl: 1.875rem;    /* 30px - Tailwind text-3xl */
-    --text-4xl: 2.25rem;     /* 36px - Tailwind text-4xl */
-    --text-5xl: 3rem;        /* 48px - Tailwind text-5xl */
-    --text-6xl: 3.75rem;     /* 60px - Tailwind text-6xl */
-    --text-7xl: 4.5rem;      /* 72px - Tailwind text-7xl */
-    --text-8xl: 6rem;        /* 96px - Tailwind text-8xl */
-    --text-9xl: 8rem;        /* 128px - Tailwind text-9xl */
-    --text-10xl: 10rem;      /* 160px - 커스텀 확장 */
-    --text-11xl: 12rem;      /* 192px - 커스텀 확장 */
-    --text-12xl: 14rem;      /* 224px - 커스텀 확장 */
+    /* 모든 타이포그래피 변수는 typography.css에서 정의됨 */
+    /* 중복 정의 방지를 위해 여기서는 제거 */
     
-    /* Figma 특수 크기 - Tailwind 스케일 확장 */
-    --text-hero-sub: 1.375rem;    /* 22px - Figma Hero 서브텍스트 */
-    --text-section-title: 2.5rem; /* 40px - Figma 섹션 제목 */
-    --text-service-title: 2rem;   /* 32px - Figma 서비스 제목 */
-    
-    /* 폰트 패밀리 - 텍스트 유형별 적용 */
-    --font-family: 'PP Neue Montreal', 'Kakao Small Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    
-    /* 영문 전용 폰트 */
-    --font-family-en: 'PP Neue Montreal', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-    
-    /* 한글 전용 폰트 */
-    --font-family-ko: 'Kakao Small Sans', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
-    
-    /* 혼합 텍스트용 폰트 */
-    --font-family-mixed: 'PP Neue Montreal', 'Kakao Small Sans', sans-serif;
-    
-    /* Display 스타일 */
-    /* Display 변수들은 typography.css에서 관리됨 */
-    
-    /* Heading 크기 - Figma 기준 Tailwind 매핑 */
-    --heading-01-size: var(--text-4xl);     /* 36px */
-    --heading-02-size: var(--text-3xl);     /* 30px */
-    --heading-03-size: var(--text-section-title); /* 40px */
-    --heading-04-size: var(--text-service-title); /* 32px */
-    --heading-05-size: var(--text-2xl);     /* 24px */
-    
-    /* Body 크기 - Figma 기준 Tailwind 매핑 */
-    --body-06-size: var(--text-2xl);        /* 24px */
-    --body-03-size: var(--text-base);       /* 16px */
-    
-    /* Paragraph 스타일 */
-    --paragraph-01-paragraph-03: 1rem; /* 16px */
-    
-    /* 폰트 웨이트 */
-    --weight-emphasized: 500;
-    --weight-regular: 400;
-    
-    /* 라인 높이 */
-    --line-height-display: 1;
-    --line-height-heading: 1.1;
+    /* 추가 라인 높이 (typography.css에 없는 것들) */
     --line-height-heading-3: 1.3; /* heading-3 전용 더 여유로운 행간 */
-    --line-height-body: 1.2;
     --line-height-body-small: 1.3;
     
     /* 레터 스페이싱 */
     --letter-spacing: 0;
     
     /* ========================================
+       Logo System - 정적 HTML + CSS 변수 방식
+       ======================================== */
+    
+    /* 로고 기본 스타일 */
+    --logo-height: 24px;
+    --logo-width: 96px;
+    
+    /* ========================================
        Figma Variables - Spacing (실제 Figma 값)
        ======================================== */
     
     --space-0: 0;
+}
     
+    /* ========================================
+   Logo Styles - 정적 HTML + CSS 변수 방식
+       ======================================== */
+
+/* 로고 기본 스타일 */
+.logo {
+    height: var(--logo-height);
+    width: var(--logo-width);
+    filter: brightness(0) invert(1); /* 다크모드에서 흰색 */
+    transition: filter 0.3s ease;
+    display: block;
+}
+
+/* 라이트모드에서 로고 색상 */
+[data-theme="light"] .logo {
+    filter: none; /* 라이트모드에서 원본 색상 */
+}
+
+/* 히어로 영역 로고는 블렌드 모드로 자동 처리되므로 별도 오버라이드 불필요 */
+
+/* 네비게이션 로고 */
+.nav-logo .logo {
+    height: var(--logo-height);
+    /* SVG 로고를 위한 filter 속성 */
+    filter: brightness(0) invert(1) !important;
+}
+
+/* 모바일 메뉴 로고 */
+.mobile-menu-logo .logo {
+    height: var(--logo-height);
+    /* SVG 로고를 위한 filter 속성 */
+    filter: brightness(0) invert(1) !important;
+}
+
+/* 푸터 로고 */
+.footer-logo .logo {
+    height: var(--logo-height);
 }
 
 /* 다크 모드 색상 */
@@ -366,7 +355,7 @@ body {
     padding: clamp(var(--spacing-3), var(--spacing-3) + (100vw - 1920px) * 0.01, var(--spacing-8)) clamp(var(--spacing-8), var(--spacing-8) + (100vw - 1920px) * 0.015, var(--spacing-10));
 }
 
-/* 네비게이션 바 */
+/* 네비게이션 바 - 항상 블렌드 모드 적용 */
 .navbar {
     position: fixed;
     top: 0;
@@ -376,11 +365,19 @@ body {
     z-index: 1000;
     height: 78px;
     transition: all 0.3s ease;
+    /* 블렌드 모드 적용 */
+    mix-blend-mode: difference !important;
+    /* 폰트 스무딩 강화 */
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    text-rendering: optimizeLegibility !important;
+    font-feature-settings: "kern" 1 !important;
+    font-kerning: normal !important;
 }
 
 
 /* hero 영역을 벗어날 때 블렌드 모드 적용 */
-.navbar.blend-mode {
+.navbar {
     /* 블렌드 모드에서 폰트 스무딩 강화 */
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale !important;
@@ -449,9 +446,9 @@ body {
     color: white !important; /* SVG 색상 고정 */
 }
 
-/* blend-mode가 적용될 때는 현재 테마에 따라 색상 변환 */
-.navbar.blend-mode .nav-logo img,
-.navbar.blend-mode .nav-logo svg {
+/* 네비게이션 로고 색상 변환 */
+.navbar .nav-logo img,
+.navbar .nav-logo svg {
     filter: brightness(0) invert(1) !important; /* blend mode에서 자동 반전 */
     color: white !important; /* SVG 색상 고정 */
 }
@@ -515,8 +512,8 @@ body {
     display: none; /* 언더라인 효과 완전 제거 */
 }
 
-/* 블렌드 모드에서 nav-link 폰트 스무딩 강화 */
-.navbar.blend-mode .nav-link {
+/* nav-link 폰트 스무딩 강화 */
+.navbar .nav-link {
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale !important;
     text-rendering: optimizeLegibility !important;
@@ -526,7 +523,7 @@ body {
 
 /* 블렌드 모드에서도 호버 효과 유지 - 기본 nav-link 스타일 상속 */
 
-.navbar.blend-mode .nav-link .m-flip_item {
+.navbar .nav-link .m-flip_item {
     display: block;
     position: relative;
     top: 0;
@@ -535,11 +532,11 @@ body {
     line-height: 1.3; /* 텍스트와 토글 버튼 정렬 맞추기 */
 }
 
-.navbar.blend-mode .nav-link .m-flip_item:first-child {
+.navbar .nav-link .m-flip_item:first-child {
     top: 0;
 }
 
-.navbar.blend-mode .nav-link .m-flip_item:last-child {
+.navbar .nav-link .m-flip_item:last-child {
     position: absolute;
     top: 100%; /* 원본 방식: 아래쪽에 위치 */
     left: 0;
@@ -547,15 +544,15 @@ body {
     overflow: hidden; /* 텍스트 오버플로우 숨기기 */
 }
 
-.navbar.blend-mode .nav-link:hover .m-flip_item:first-child {
+.navbar .nav-link:hover .m-flip_item:first-child {
     top: -100%; /* 원본 방식: 위로 이동 */
 }
 
-.navbar.blend-mode .nav-link:hover .m-flip_item:last-child {
+.navbar .nav-link:hover .m-flip_item:last-child {
     top: 0; /* 원본 방식: 원래 위치로 */
 }
 
-.navbar.blend-mode .nav-link::after {
+.navbar .nav-link::after {
     display: none; /* 언더라인 효과 완전 제거 */
 }
 
@@ -574,7 +571,7 @@ body {
     }
     
     /* 데스크톱에서 블렌드 모드 강화 */
-    .navbar.blend-mode {
+    .navbar {
         mix-blend-mode: difference !important;
         position: fixed !important; /* 상단 고정 유지 */
         top: 0 !important;
@@ -583,21 +580,21 @@ body {
         isolation: isolate !important;
         z-index: 1000 !important;
         /* 데스크톱에서 블렌드 모드가 확실히 작동하도록 추가 속성 */
-        background-color: rgba(255, 255, 255, 0.01) !important;
+        background: transparent !important;
         backdrop-filter: none !important;
     }
     
     /* 데스크톱에서 블렌드 모드 텍스트 색상 강제 설정 */
-    .navbar.blend-mode .nav-link {
+    .navbar .nav-link {
         color: white !important;
     }
     
-    .navbar.blend-mode .nav-logo svg {
+    .navbar .nav-logo svg {
         color: white !important;
         filter: brightness(0) invert(1) !important;
     }
     
-    .navbar.blend-mode .nav-icon svg {
+    .navbar .nav-icon svg {
         color: white !important;
         filter: brightness(0) invert(1) !important;
     }
@@ -647,7 +644,7 @@ body {
 }
 
 /* blend-mode가 적용될 때는 현재 테마에 따라 색상 변환 */
-.navbar.blend-mode .nav-icon img {
+.navbar .nav-icon img {
     filter: brightness(0) invert(1) !important; /* blend mode에서도 흰색 유지 - mix-blend-mode가 자동 반전 */
 }
 
@@ -725,15 +722,38 @@ body[data-theme="dark"] .hero-carousel-section::before {
     top: 0;
     width: 33.333%;
     height: 100%;
-    z-index: 1; /* 버튼보다 낮게 설정 */
+    z-index: 10; /* 클릭 이벤트를 위해 z-index 증가 */
     cursor: none;
     pointer-events: auto; /* 클릭 이벤트 활성화 */
     /* 디버깅용 배경색 제거됨 */
 }
 
-/* 히어로 슬라이드 영역에서 버튼 영역은 클릭 비활성화 */
+/* 히어로 슬라이드 영역에서 버튼 영역은 클릭 활성화 */
 .hero-slide-area:has(.hero-cta-pagination-block) {
-    pointer-events: none;
+    pointer-events: auto;
+}
+
+/* 히어로 슬라이드 영역 클릭 활성화 - 데스크톱에서만 */
+.hero-slide-left,
+.hero-slide-center,
+.hero-slide-right {
+    pointer-events: auto;
+    cursor: none !important; /* 시스템 커서 완전히 숨김 */
+}
+
+/* 데스크톱에서 히어로 슬라이드 영역 클릭 강제 활성화 */
+@media (min-width: 768px) {
+    .hero-slide-area {
+        pointer-events: auto !important;
+        cursor: none !important; /* 시스템 커서 완전히 숨김 */
+    }
+    
+    .hero-slide-left,
+    .hero-slide-center,
+    .hero-slide-right {
+        pointer-events: auto !important;
+        cursor: none !important; /* 시스템 커서 완전히 숨김 */
+    }
 }
 
 .hero-slide-left {
@@ -795,6 +815,7 @@ body[data-theme="dark"] .hero-carousel-section::before {
     position: relative;
     z-index: 1; /* 버튼보다 낮게 설정 */
     display: flex;
+    mix-blend-mode: difference !important; /* 배경에 따라 자동으로 적절한 색상 */
     flex-direction: column;
     gap: var(--spacing-8);
     align-items: flex-start;
@@ -876,7 +897,7 @@ body[data-theme="dark"] .hero-carousel-section::before {
 
 /* 이미지 배너 슬라이드의 텍스트 가시성 보장 */
 .hero-slide[data-media-type="image"] .hero-slide-content {
-    z-index: 1; /* 버튼보다 낮게 설정 */
+    z-index: 10; /* 텍스트가 배경 위에 표시되도록 높은 z-index */
     position: relative;
     display: flex;
     opacity: 1;
@@ -885,9 +906,27 @@ body[data-theme="dark"] .hero-carousel-section::before {
 
 .hero-slide[data-media-type="image"].active .hero-slide-content {
     z-index: 30;
-    display: flex;
-    opacity: 1;
-    visibility: visible;
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* 슬라이드 3 텍스트 강제 표시 */
+.hero-slide[data-slide="3"] .hero-slide-content {
+    z-index: 20 !important;
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.hero-slide[data-slide="3"] .hero-headline {
+    color: var(--schemes-on-hero) !important;
+    mix-blend-mode: difference !important;
+}
+
+.hero-slide[data-slide="3"] .hero-cta-pagination-block {
+    color: var(--schemes-on-hero) !important;
+    mix-blend-mode: difference !important;
 }
 
 /* 영상이 있는 슬라이드에서는 영상 표시 */
@@ -986,7 +1025,7 @@ body[data-theme="dark"] .hero-carousel-section::before {
     
     /* 모바일에서 히어로 슬라이드 영역 비활성화 (버튼 제외) */
     .hero-slide-area {
-        pointer-events: none;
+        pointer-events: none !important;
     }
     
     /* 모바일에서 히어로 버튼은 클릭 가능하도록 설정 */
@@ -1001,6 +1040,7 @@ body[data-theme="dark"] .hero-carousel-section::before {
     .hero-custom-cursor {
         display: none !important;
     }
+    
 }
 
 /* 헤드라인 블록 */
@@ -1029,6 +1069,7 @@ body[data-theme="dark"] .hero-carousel-section::before {
     transform: none !important;
     animation: none !important;
     transition: none !important;
+    mix-blend-mode: difference !important; /* 배경에 따라 자동으로 적절한 색상 */
 }
 
 /* CTA 및 페이지네이션 블록 */
@@ -1038,6 +1079,7 @@ body[data-theme="dark"] .hero-carousel-section::before {
     justify-content: space-between;
     width: 100%;
     max-width: none;
+    mix-blend-mode: difference !important; /* 배경에 따라 자동으로 적절한 색상 */
 }
 
 /* 히어로 CTA 컨테이너 - 데스크탑에서 왼쪽 spacing-1 추가 */
@@ -1055,7 +1097,7 @@ body[data-theme="dark"] .hero-carousel-section::before {
 .hero-cta-pagination-block .btn *,
 .hero-cta-pagination-block .btn::before {
     color: var(--schemes-on-hero) !important;
-    cursor: none !important; /* 커스텀 커서만 사용 */
+    cursor: pointer !important; /* 클릭 가능한 요소로 인식 */
     pointer-events: auto !important; /* 클릭 이벤트 허용 */
     position: relative !important;
     z-index: 9999 !important; /* 모든 요소보다 위에 표시 */
@@ -1066,7 +1108,7 @@ body[data-theme="dark"] .hero-carousel-section::before {
 
 /* ::after 요소는 별도로 처리 (언더라인 효과를 위해) */
 .hero-cta-pagination-block .btn::after {
-    cursor: none !important; /* 커스텀 커서만 사용 */
+    cursor: pointer !important; /* 클릭 가능한 요소로 인식 */
     pointer-events: auto !important;
     z-index: 9999 !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
@@ -1093,7 +1135,7 @@ body[data-theme="dark"] .hero-carousel-section::before {
 .hero-carousel-section .hero-cta-pagination-block .btn *,
 .hero-carousel-section .hero-cta-pagination-block .btn::before,
 .hero-carousel-section .hero-cta-pagination-block .btn::after {
-    cursor: none !important; /* 커스텀 커서만 사용 */
+    cursor: pointer !important; /* 클릭 가능한 요소로 인식 */
     pointer-events: auto !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
@@ -1103,6 +1145,7 @@ body[data-theme="dark"] .hero-carousel-section::before {
 .hero-cta-pagination-block .btn .btn-icon::before {
     background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 12.0039H22' stroke='%23ffffff' stroke-width='1.5'/%3E%3Cpath d='M15 5L22.0036 12L15 19' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
 }
+
 
 .hero-cta-pagination-block .btn::after {
     background-color: var(--schemes-on-hero) !important; /* 흰색 언더라인 */
@@ -1127,11 +1170,12 @@ body[data-theme="dark"] .hero-carousel-section::before {
     align-items: center;
     gap: var(--spacing-1); /* 4px */
     font-family: var(--font-family);
-    font-size: var(--heading-05-size); /* 24px - heading-5 스타일 */
+    font-size: var(--heading-5-size); /* 24px - heading-5 스타일 */
     font-weight: var(--weight-emphasized); /* Medium */
     line-height: 1.1;
     color: var(--schemes-on-hero);
     white-space: nowrap;
+    mix-blend-mode: difference !important; /* 배경에 따라 자동으로 적절한 색상 */
 }
 
 .pagination-current {
@@ -1228,6 +1272,7 @@ body[data-theme="dark"] .hero-section::before {
     position: relative;
     z-index: 2;
     color: white;
+    mix-blend-mode: difference !important; /* 배경에 따라 자동으로 적절한 색상 */
     padding: 2.5rem 2rem; /* py-10 px-8 */
     width: 100%;
     display: flex;
@@ -1265,6 +1310,7 @@ body[data-theme="dark"] .hero-section::before {
     line-height: 1; /* leading-none */
     font-family: var(--font-family);
     color: white;
+    mix-blend-mode: difference !important; /* 배경에 따라 자동으로 적절한 색상 */
     margin: 0;
 }
 
@@ -1285,6 +1331,7 @@ body[data-theme="dark"] .hero-section::before {
     line-height: 1; /* leading-none */
     font-family: var(--font-family);
     color: white;
+    mix-blend-mode: difference !important; /* 배경에 따라 자동으로 적절한 색상 */
     margin: 0;
 }
 
@@ -1317,6 +1364,7 @@ body[data-theme="dark"] .hero-section::before {
     line-height: 1.1; /* leading-[1.1] */
     font-family: var(--font-family);
     color: white !important;
+    mix-blend-mode: difference !important; /* 배경에 따라 자동으로 적절한 색상 */
     margin: 0;
     opacity: 1;
     visibility: visible;
@@ -1530,7 +1578,9 @@ body[data-theme="dark"] .hero-section::before {
                 height var(--cursor-transition-duration) var(--cursor-transition-easing),
                 font-size var(--cursor-transition-duration) var(--cursor-transition-easing),
                 color var(--cursor-transition-duration) var(--cursor-transition-easing),
-                mix-blend-mode var(--cursor-transition-duration) var(--cursor-transition-easing);
+                mix-blend-mode var(--cursor-transition-duration) var(--cursor-transition-easing),
+                transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     isolation: isolate; /* 새로운 stacking context 생성 */
 }
 
@@ -1565,6 +1615,26 @@ body[data-theme="dark"] .hero-section::before {
 .custom-cursor::after {
     display: none !important;
     content: none !important;
+}
+
+/* 클릭 효과 - 10% 스케일 축소 (원과 텍스트 모두) */
+.custom-cursor.click-effect,
+.hero-carousel-section .custom-cursor.click-effect,
+.hero-carousel-section .custom-cursor.hero-nav-cursor.click-effect,
+.hero-carousel-section .custom-cursor.hero-cursor.hero-nav-cursor.click-effect {
+    transform: translate(-50%, -50%) scale(0.9) !important; /* 10% 축소 */
+    background-color: var(--brand-lime-light) !important;
+    z-index: 999999 !important;
+    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+/* hero-nav-cursor와 click-effect가 함께 있을 때 더 강력한 선택자 */
+.custom-cursor.hero-nav-cursor.click-effect {
+    transform: translate(-50%, -50%) scale(0.9) !important; /* 10% 축소 */
+    background-color: var(--brand-lime-light) !important;
+    z-index: 999999 !important;
+    mix-blend-mode: var(--cursor-blend-mode-hover) !important;
+    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
 }
 
 /* 모바일에서 커스텀 커서 숨기기 */
@@ -1669,7 +1739,7 @@ body[data-theme="dark"] .hero-section::before {
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: var(--heading-04-size);
+    font-size: var(--heading-4-size);
     font-weight: var(--weight-emphasized);
     text-align: center;
     padding: 1rem;
@@ -1785,7 +1855,7 @@ body[data-theme="dark"] .hero-section::before {
 .service-item h3 {
     font-size: var(--heading-2-size); /* 피그마 heading-2 */
     font-weight: var(--weight-emphasized);
-    line-height: var(--line-height-heading);
+    line-height: 1.1; /* Figma: leading-[1.1] - 피그마 디자인과 일치 */
     font-family: var(--font-family);
     color: var(--schemes-on-background);
     margin: 0;
@@ -1793,9 +1863,9 @@ body[data-theme="dark"] .hero-section::before {
 }
 
 .service-text-block h4 {
-    font-size: var(--display-6-size); /* 피그마 display-6 */
+    font-size: var(--heading-1-size); /* 36px~48px - 피그마 text-5xl 매핑 */
     font-weight: var(--weight-emphasized);
-    line-height: var(--line-height-display);
+    line-height: 1.1;
     font-family: var(--font-family);
     color: var(--schemes-on-background);
     margin: 0;
@@ -1803,7 +1873,7 @@ body[data-theme="dark"] .hero-section::before {
 }
 
 .service-text-block p {
-    font-size: var(--text-2xl); /* 24px - 피그마 디자인 */
+    font-size: 1.5rem; /* 24px - 피그마 text-2xl 매핑 (고정) */
     font-weight: var(--weight-emphasized);
     line-height: 1.1;
     font-family: var(--font-family);
@@ -1918,9 +1988,9 @@ body[data-theme="dark"] .hero-section::before {
 }
 
 .service-title h3 {
-    font-size: var(--heading-03-size); /* 40px - Figma: text-[40px] */
+    font-size: var(--heading-2-size); /* 24px~36px - 피그마 text-4xl 매핑 */
     font-weight: var(--weight-emphasized);
-    line-height: 1.1; /* Figma: leading-[1.1] */
+    line-height: 1.1; /* Figma: leading-[1.1] - 피그마 디자인과 일치 */
     font-family: var(--font-family);
     color: var(--schemes-on-background);
     margin: 0;
@@ -1937,14 +2007,6 @@ body[data-theme="dark"] .hero-section::before {
 }
 
 
-.service-text-block p {
-    font-size: var(--body-06-size); /* 24px - Figma: text-[24px] */
-    font-weight: var(--weight-emphasized);
-    line-height: 1.1; /* Figma: leading-[1.1] */
-    font-family: var(--font-family);
-    color: var(--schemes-on-background);
-    margin: 0;
-}
 
 /* Footer 섹션 */
 .footer-section {
@@ -2085,7 +2147,7 @@ body[data-theme="dark"] .hero-section::before {
 }
 
 .about-section h2 {
-    font-size: var(--heading-01-size); /* 64px */
+    font-size: var(--heading-1-size); /* 64px */
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-heading);
     font-family: var(--font-family);
@@ -2108,7 +2170,7 @@ body[data-theme="dark"] .hero-section::before {
 }
 
 .work-section h2 {
-    font-size: var(--heading-01-size); /* 64px */
+    font-size: var(--heading-1-size); /* 64px */
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-heading);
     font-family: var(--font-family);
@@ -2131,7 +2193,7 @@ body[data-theme="dark"] .hero-section::before {
 }
 
 .contact-section h2 {
-    font-size: var(--heading-01-size); /* 64px */
+    font-size: var(--heading-1-size); /* 64px */
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-heading);
     font-family: var(--font-family);
@@ -2157,7 +2219,7 @@ body[data-theme="dark"] .hero-section::before {
 
 :root {
     /* 버튼 크기 변수 - 피그마 디자인 기준 */
-    --btn-small-text: var(--heading-05-size);    /* 24px - heading-5 스타일 */
+    --btn-small-text: var(--heading-5-size);    /* 24px - heading-5 스타일 */
     --btn-small-icon: 1.5rem;                   /* 24px */
     --btn-small-gap: var(--spacing-1);          /* 4px */
 
@@ -2544,7 +2606,7 @@ body[data-theme="dark"] .hero-section::before {
 /* 모바일 버튼 크기 조정 */
 @media only screen and (max-width: 767px) {
     :root {
-        --btn-small-text: var(--heading-05-size);    /* 24px - heading-5 스타일 */
+        --btn-small-text: var(--heading-5-size);    /* 24px - heading-5 스타일 */
         --btn-small-icon: 1.125rem;                 /* 18px */
         --btn-small-gap: var(--spacing-1);          /* 4px */
         
@@ -2744,7 +2806,7 @@ body[data-theme="dark"] .hero-section::before {
     }
     
     /* 모바일에서도 blend-mode가 적용될 때는 현재 테마에 따라 색상 변환 */
-    .navbar.blend-mode {
+    .navbar {
         mix-blend-mode: difference; /* 모바일에서도 블렌드 모드 적용 */
         /* 모바일 블렌드 모드에서 폰트 스무딩 강화 */
         -webkit-font-smoothing: antialiased !important;
@@ -2754,20 +2816,20 @@ body[data-theme="dark"] .hero-section::before {
         font-kerning: normal !important;
     }
     
-    .navbar.blend-mode .nav-logo img,
-    .navbar.blend-mode .nav-logo svg {
+    .navbar .nav-logo img,
+    .navbar .nav-logo svg {
         filter: brightness(0) invert(1) !important; /* blend mode에서 자동 반전 */
         color: white !important; /* SVG 색상 고정 */
     }
     
     /* 모바일 햄버거 메뉴 아이콘 blend-mode */
-    .navbar.blend-mode .nav-icon.nav-menu-icon svg {
+    .navbar .nav-icon.nav-menu-icon svg {
         color: white; /* blend mode에서 흰색으로 설정 - mix-blend-mode가 자동 반전 */
         stroke: currentColor; /* SVG stroke 색상도 currentColor로 설정 */
     }
     
     /* 모바일 블렌드 모드에서 nav-link 폰트 스무딩 강화 */
-    .navbar.blend-mode .nav-link {
+    .navbar .nav-link {
         -webkit-font-smoothing: antialiased !important;
         -moz-osx-font-smoothing: grayscale !important;
         text-rendering: optimizeLegibility !important;
@@ -3064,15 +3126,15 @@ body[data-theme="dark"] .hero-section::before {
     
     /* Figma 모바일 Services 텍스트 */
     .service-item h3 {
-        font-size: var(--heading-2-size); /* 피그마 heading-2 */
+        font-size: var(--heading-2-size); /* 24px~36px - 피그마 text-4xl 매핑 */
     }
     
     .service-text-block h4 {
-        font-size: var(--display-6-size); /* 피그마 display-6 */
+        font-size: var(--heading-1-size); /* 36px~48px - 피그마 text-5xl 매핑 */
     }
     
     .service-text-block p {
-        font-size: var(--text-2xl); /* 24px - 피그마 디자인 유지 */
+        font-size: 1.5rem; /* 24px - 피그마 text-2xl 매핑 (고정) */
         line-height: 1.1;
     }
     
@@ -3394,10 +3456,10 @@ body[data-theme="dark"] .hero-section::before {
 
 /* 모바일 메뉴 링크 - 피그마 디자인 */
 .mobile-menu-link {
-    font-family: 'PP Neue Montreal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Dingklix 제거, PP Neue Montreal 사용 */
-    font-size: var(--heading-1-size); /* heading-1 스타일 적용 */
-    font-weight: 300; /* Light - 더 얇게 (명시적으로 300으로 설정) */
-    line-height: 1; /* 피그마 leading-[0] */
+    font-family: var(--font-family-en); /* 디자인 시스템 폰트 사용 */
+    font-size: var(--heading-1-size); /* 36px - 올바른 디자인 시스템 변수 사용 */
+    font-weight: var(--weight-regular); /* 400 - 디자인 시스템 weight 사용 */
+    line-height: var(--line-height-heading); /* 1.1 - 디자인 시스템 line-height 사용 */
     color: var(--schemes-on-hero); /* #ffffff */
     text-decoration: none;
     display: block;
