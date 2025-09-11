@@ -1840,7 +1840,7 @@ function initMobileMenu() {
     // 모바일 메뉴 초기화 시 테마 아이콘 설정
     const currentTheme = document.body.getAttribute('data-theme') || 'dark';
     if (mobileThemeToggle) {
-        // 현재 테마가 다크모드면 라이트모드 아이콘을, 라이트모드면 다크모드 아이콘을 표시
+        // 현재 테마가 다크모드면 라이트모드 아이콘(태양)을, 라이트모드면 다크모드 아이콘(달)을 표시
         updateMobileThemeIcon(mobileThemeToggle, currentTheme === 'dark' ? 'light' : 'dark');
         console.log('모바일 테마 아이콘 초기화:', currentTheme === 'dark' ? 'light' : 'dark');
     }
