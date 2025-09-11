@@ -22,6 +22,17 @@
     font-display: swap;
 }
 
+/* Dingklix Light 웹폰트 정의 */
+@font-face {
+    font-family: 'Dingklix';
+    src: url('../assets/fonts/Dingklix-Light.woff2') format('woff2'),
+         url('../assets/fonts/Dingklix-Light.woff') format('woff'),
+         url('../assets/fonts/Dingklix-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* Kakao Small Sans 웹폰트 정의 (한글용 - Regular만) */
 @font-face {
     font-family: 'Kakao Small Sans';
