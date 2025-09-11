@@ -3,7 +3,50 @@ document.fonts.ready.then(() => {
     console.log('폰트 로딩 완료');
     document.body.classList.remove('fonts-loading');
     document.body.classList.add('fonts-loaded');
+    
+    // 폰트 로딩 완료 후 플립 효과 초기화
+    setTimeout(() => {
+        initFlipEffect();
+    }, 100);
 });
+
+// 웹스토리보이 원본 플립 효과 함수
+function initFlipEffect() {
+    const flipElements = document.querySelectorAll('.js-flip');
+    
+    flipElements.forEach(element => {
+        const flipItems = element.querySelectorAll('.m-flip_item');
+        
+        if (flipItems.length >= 2) {
+            // 첫 번째 아이템의 높이를 계산하여 컨테이너 높이 설정
+            const firstItemHeight = flipItems[0].offsetHeight;
+            element.style.height = firstItemHeight + 'px';
+            element.style.overflow = 'hidden'; // 컨테이너에서 overflow hidden 강제 설정
+            element.dataset.height = firstItemHeight;
+            
+            // 초기 상태 설정 - 더 명확하게
+            flipItems[0].style.position = 'relative';
+            flipItems[0].style.top = '0px';
+            flipItems[0].style.display = 'block';
+            
+            flipItems[1].style.position = 'absolute';
+            flipItems[1].style.top = '100%';
+            flipItems[1].style.left = '0';
+            flipItems[1].style.display = 'block';
+            
+            // 호버 이벤트 추가
+            element.addEventListener('mouseenter', function() {
+                flipItems[0].style.top = -firstItemHeight + 'px';
+                flipItems[1].style.top = '0px';
+            });
+            
+            element.addEventListener('mouseleave', function() {
+                flipItems[0].style.top = '0px';
+                flipItems[1].style.top = '100%';
+            });
+        }
+    });
+}
 
 // Kakao Small Sans 폰트 로딩 확인
 if ('fonts' in document) {
@@ -111,6 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 모바일 메뉴 초기화 (DOM이 완전히 렌더링된 후 실행)
         setTimeout(() => {
             initMobileMenu();
+            initFlipEffect(); // 플립 효과 초기화
         }, 100);
         
         // 추가로 DOMContentLoaded 이벤트에서도 초기화
@@ -274,6 +318,11 @@ document.addEventListener('DOMContentLoaded', function() {
             enableBlendMode: true
         });
         navbar.init();
+        
+        // 플립 효과 초기화
+        setTimeout(() => {
+            initFlipEffect();
+        }, 100);
     }
 });
 
@@ -434,8 +483,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!element.closest('.hero-section')) {
             element.style.opacity = '0';
             element.style.transform = 'translateY(30px)';
-              element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-              observer.observe(element);
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(element);
         }
     });
 });
@@ -469,15 +518,20 @@ class Navbar {
                     <div class="nav-right">
                         <div class="nav-menu">
                             ${this.options.menuItems.map(item => 
-                                `<a href="${item.link}" class="nav-link">${item.text}</a>`
+                                `<a href="${item.link}" class="nav-link js-flip">
+                                    <span class="m-flip_item">${item.text}</span>
+                                    <span class="m-flip_item">${item.text}</span>
+                                </a>`
                             ).join('')}
                         </div>
                         <div class="nav-icon">
-                            <button id="theme-toggle" class="theme-toggle-btn">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M20.086 16.417C15.073 16.417 11.01 12.377 11.01 7.394C11.01 5.798 11.43 4.301 12.162 3C7.58 3.456 4 7.3 4 11.977C4 16.961 8.064 21 13.076 21C16.483 21 19.448 19.132 21 16.372C20.7 16.402 20.395 16.417 20.086 16.417Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                                </svg>
-                            </button>
+                            <div class="theme-toggle-container">
+                                <button id="theme-toggle" class="theme-toggle-btn">
+                                    <svg id="theme-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M20.086 16.417C15.073 16.417 11.01 12.377 11.01 7.394C11.01 5.798 11.43 4.301 12.162 3C7.58 3.456 4 7.3 4 11.977C4 16.961 8.064 21 13.076 21C16.483 21 19.448 19.132 21 16.372C20.7 16.402 20.395 16.417 20.086 16.417Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                         <div class="nav-icon nav-menu-icon" id="nav-menu-icon" onclick="openMobileMenu()">
                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -492,17 +546,17 @@ class Navbar {
     }
     
     // 테마 아이콘 업데이트 함수
-    updateThemeIcon(button, mode) {
+    updateThemeIcon(button, currentTheme) {
         const svg = button.querySelector('svg');
         if (!svg) return;
         
-        if (mode === 'dark') {
-            // 다크모드 아이콘 (달)
+        if (currentTheme === 'dark') {
+            // 다크모드일 때: 달 아이콘 표시 (다크모드 상태)
             svg.innerHTML = `
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M20.086 16.417C15.073 16.417 11.01 12.377 11.01 7.394C11.01 5.798 11.43 4.301 12.162 3C7.58 3.456 4 7.3 4 11.977C4 16.961 8.064 21 13.076 21C16.483 21 19.448 19.132 21 16.372C20.7 16.402 20.395 16.417 20.086 16.417Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
             `;
         } else {
-            // 라이트모드 아이콘 (태양)
+            // 라이트모드일 때: 태양 아이콘 표시 (라이트모드 상태)
             svg.innerHTML = `
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.50096C13.5184 6.50096 14.8941 7.11648 15.8897 8.11109C16.8854 9.10665 17.5 10.4813 17.5 12.0005C17.5 13.5197 16.8844 14.8943 15.8897 15.8899C14.8941 16.8854 13.5184 17.5 12 17.5C10.4807 17.5 9.10592 16.8845 8.11027 15.8899C7.11462 14.8943 6.5 13.5197 6.5 12.0005C6.5 10.4813 7.11558 9.10665 8.11027 8.11109C9.10592 7.11553 10.4807 6.50096 12 6.50096Z" stroke="currentColor" stroke-width="1.5"/>
                 <path d="M17.625 6.37498L18.7017 5.2983L19.7784 4.22163M4.22163 19.7784L5.29924 18.7008L6.37591 17.6241M19.9538 12H21.4774H23M1 12H2.52265H4.04623M17.625 17.6241L18.7017 18.7008L19.7784 19.7784M4.22163 4.22163L5.29924 5.2983L6.37591 6.37498M12.0317 4.04623V2.52265V1M12.0317 23V21.4764V19.9538" stroke="currentColor" stroke-width="1.5"/>
@@ -523,10 +577,10 @@ class Navbar {
             // 초기 테마 적용
             if (isDarkMode) {
                 body.setAttribute('data-theme', 'dark');
-                this.updateThemeIcon(themeToggle, 'light');
+                this.updateThemeIcon(themeToggle, 'dark');
             } else {
                 body.setAttribute('data-theme', 'light');
-                this.updateThemeIcon(themeToggle, 'dark');
+                this.updateThemeIcon(themeToggle, 'light');
             }
             
             // 테마 토글 이벤트
@@ -543,11 +597,11 @@ class Navbar {
                 
                 if (isDarkMode) {
                     body.setAttribute('data-theme', 'dark');
-                    self.updateThemeIcon(themeToggle, 'light');
+                    self.updateThemeIcon(themeToggle, 'dark');
                     localStorage.setItem('theme', 'dark');
                 } else {
                     body.setAttribute('data-theme', 'light');
-                    self.updateThemeIcon(themeToggle, 'dark');
+                    self.updateThemeIcon(themeToggle, 'light');
                     localStorage.setItem('theme', 'light');
                 }
                 
@@ -903,7 +957,7 @@ let scrollTicking = false;
 function optimizedScrollHandler() {
     if (!scrollTicking) {
         requestAnimationFrame(function() {
-            // 스크롤 관련 로직
+    // 스크롤 관련 로직
             scrollTicking = false;
         });
         scrollTicking = true;
@@ -1021,7 +1075,7 @@ document.addEventListener('DOMContentLoaded', function() {
         element.addEventListener('mouseenter', function() {
             // 프로젝트 카드 호버 상태가 아닐 때만 interactive 클래스 추가
             if (!customCursor.classList.contains('hover')) {
-                customCursor.classList.add('interactive');
+            customCursor.classList.add('interactive');
             }
         });
         

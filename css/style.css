@@ -162,27 +162,28 @@ body {
        ======================================== */
     
     /* Spacing Variables - Figma Tailwind CSS 표준 */
+    /* Spacing System - Tailwind CSS 표준 rem 단위 매핑 */
     --spacing-0: 0;
-    --spacing-1: 0.25rem;   /* 4px */
-    --spacing-2: 0.5rem;    /* 8px */
-    --spacing-3: 0.75rem;   /* 12px */
-    --spacing-4: 1rem;      /* 16px */
-    --spacing-5: 1.25rem;   /* 20px */
-    --spacing-6: 1.5rem;    /* 24px */
-    --spacing-7: 1.75rem;   /* 28px */
-    --spacing-8: 2rem;      /* 32px */
-    --spacing-9: 2.25rem;   /* 36px */
-    --spacing-10: 2.5rem;   /* 40px */
-    --spacing-11: 2.75rem;  /* 44px */
-    --spacing-12: 3rem;     /* 48px */
-    --spacing-14: 3.5rem;   /* 56px */
-    --spacing-16: 4rem;     /* 64px */
-    --spacing-20: 5rem;     /* 80px */
-    --spacing-24: 6rem;     /* 96px */
-    --spacing-28: 7rem;     /* 112px */
-    --spacing-32: 8rem;     /* 128px */
-    --spacing-36: 9rem;     /* 144px */
-    --spacing-40: 10rem;    /* 160px */
+    --spacing-1: 0.25rem;    /* 4px - Tailwind spacing-1 */
+    --spacing-2: 0.5rem;     /* 8px - Tailwind spacing-2 */
+    --spacing-3: 0.75rem;    /* 12px - Tailwind spacing-3 */
+    --spacing-4: 1rem;       /* 16px - Tailwind spacing-4 */
+    --spacing-5: 1.25rem;    /* 20px - Tailwind spacing-5 */
+    --spacing-6: 1.5rem;     /* 24px - Tailwind spacing-6 */
+    --spacing-7: 1.75rem;    /* 28px - Tailwind spacing-7 */
+    --spacing-8: 2rem;       /* 32px - Tailwind spacing-8 */
+    --spacing-9: 2.25rem;    /* 36px - Tailwind spacing-9 */
+    --spacing-10: 2.5rem;    /* 40px - Tailwind spacing-10 */
+    --spacing-11: 2.75rem;   /* 44px - Tailwind spacing-11 */
+    --spacing-12: 3rem;      /* 48px - Tailwind spacing-12 */
+    --spacing-14: 3.5rem;    /* 56px - Tailwind spacing-14 */
+    --spacing-16: 4rem;      /* 64px - Tailwind spacing-16 */
+    --spacing-20: 5rem;      /* 80px - Tailwind spacing-20 */
+    --spacing-24: 6rem;      /* 96px - Tailwind spacing-24 */
+    --spacing-28: 7rem;      /* 112px - Tailwind spacing-28 */
+    --spacing-32: 8rem;      /* 128px - Tailwind spacing-32 */
+    --spacing-36: 9rem;      /* 144px - Tailwind spacing-36 */
+    --spacing-40: 10rem;     /* 160px - Tailwind spacing-40 */
     
     /* ========================================
        Figma Variables - Cursor (디자인 시스템)
@@ -205,6 +206,7 @@ body {
        ======================================== */
     
     /* Tailwind CSS 표준 타이포그래피 스케일 */
+    /* Typography System - Tailwind CSS 표준 rem 단위 매핑 */
     --text-xs: 0.75rem;      /* 12px - Tailwind text-xs */
     --text-sm: 0.875rem;     /* 14px - Tailwind text-sm */
     --text-base: 1rem;       /* 16px - Tailwind text-base */
@@ -218,6 +220,9 @@ body {
     --text-7xl: 4.5rem;      /* 72px - Tailwind text-7xl */
     --text-8xl: 6rem;        /* 96px - Tailwind text-8xl */
     --text-9xl: 8rem;        /* 128px - Tailwind text-9xl */
+    --text-10xl: 10rem;      /* 160px - 커스텀 확장 */
+    --text-11xl: 12rem;      /* 192px - 커스텀 확장 */
+    --text-12xl: 14rem;      /* 224px - 커스텀 확장 */
     
     /* Figma 특수 크기 - Tailwind 스케일 확장 */
     --text-hero-sub: 1.375rem;    /* 22px - Figma Hero 서브텍스트 */
@@ -417,6 +422,7 @@ body {
     display: flex;
     align-items: center;
     gap: var(--spacing-10); /* 2.5rem / 40px */
+    height: 1.3em; /* line-height와 동일한 높이로 고정 */
 }
 
 .nav-logo {
@@ -454,17 +460,17 @@ body {
 .nav-link {
     font-size: var(--text-2xl); /* 24px - 피그마 데스크톱 기준 */
     font-weight: var(--weight-emphasized);
-    line-height: var(--line-height-heading);
     font-family: var(--font-family);
-    
     color: var(--schemes-on-hero);
     text-decoration: none;
-    padding: var(--spacing-1) 0; /* 4px */
-    display: block;
+    padding: 0; /* 플립 효과를 위해 패딩 제거 */
+    /* 플립 효과 스타일 */
+    display: inline-block;
     position: relative;
     overflow: hidden;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    vertical-align: middle; /* 토글 버튼과 정렬 맞추기 */
+    line-height: 1.3; /* 텍스트와 토글 버튼 정렬 맞추기 */
     /* 기본 폰트 스무딩 */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -473,26 +479,40 @@ body {
     font-kerning: normal;
 }
 
-/* The Grap 스타일 호버 효과 - 텍스트가 위로 살짝 올라감 */
-.nav-link:hover {
-    transform: translateY(-2px); /* 위로 2px 이동 */
-    color: var(--schemes-on-hero);
+/* The Grap 스타일 호버 효과 - 슬라이드 플립 효과 (웹스토리보이 원본 방식) */
+
+.nav-link .m-flip_item {
+    display: block;
+    position: relative;
+    top: 0;
+    transition: top 0.2s ease-out 0s; /* 웹스토리보이 원본 방식 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    line-height: 1.3; /* 텍스트와 토글 버튼 정렬 맞추기 */
 }
 
-/* 호버 시 부드러운 언더라인 효과 */
-.nav-link::after {
-    content: '';
+.nav-link .m-flip_item:first-child {
+    top: 0;
+}
+
+.nav-link .m-flip_item:last-child {
     position: absolute;
-    bottom: 0;
+    top: 100%; /* 원본 방식: 아래쪽에 위치 */
     left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--schemes-on-hero);
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%; /* 전체 너비 사용 */
+    overflow: hidden; /* 텍스트 오버플로우 숨기기 */
 }
 
-.nav-link:hover::after {
-    width: 100%;
+.nav-link:hover .m-flip_item:first-child {
+    top: -100%; /* 원본 방식: 위로 이동 */
+}
+
+.nav-link:hover .m-flip_item:last-child {
+    top: 0; /* 원본 방식: 원래 위치로 */
+}
+
+/* 언더라인 효과 제거 */
+.nav-link::after {
+    display: none; /* 언더라인 효과 완전 제거 */
 }
 
 /* 블렌드 모드에서 nav-link 폰트 스무딩 강화 */
@@ -504,13 +524,39 @@ body {
     font-kerning: normal !important;
 }
 
-/* 블렌드 모드에서도 호버 효과 유지 */
-.navbar.blend-mode .nav-link:hover {
-    transform: translateY(-2px);
+/* 블렌드 모드에서도 호버 효과 유지 - 기본 nav-link 스타일 상속 */
+
+.navbar.blend-mode .nav-link .m-flip_item {
+    display: block;
+    position: relative;
+    top: 0;
+    transition: top 0.2s ease-out 0s; /* 웹스토리보이 원본 방식 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    line-height: 1.3; /* 텍스트와 토글 버튼 정렬 맞추기 */
+}
+
+.navbar.blend-mode .nav-link .m-flip_item:first-child {
+    top: 0;
+}
+
+.navbar.blend-mode .nav-link .m-flip_item:last-child {
+    position: absolute;
+    top: 100%; /* 원본 방식: 아래쪽에 위치 */
+    left: 0;
+    width: 100%; /* 전체 너비 사용 */
+    overflow: hidden; /* 텍스트 오버플로우 숨기기 */
+}
+
+.navbar.blend-mode .nav-link:hover .m-flip_item:first-child {
+    top: -100%; /* 원본 방식: 위로 이동 */
+}
+
+.navbar.blend-mode .nav-link:hover .m-flip_item:last-child {
+    top: 0; /* 원본 방식: 원래 위치로 */
 }
 
 .navbar.blend-mode .nav-link::after {
-    background-color: var(--schemes-on-hero);
+    display: none; /* 언더라인 효과 완전 제거 */
 }
 
 /* blend-mode가 적용될 때는 mix-blend-mode: difference가 자동으로 색상 반전 */
@@ -566,6 +612,14 @@ body {
 
 .nav-icon img:hover {
     opacity: 0.7;
+}
+
+/* 테마 토글 버튼 컨테이너 */
+.theme-toggle-container {
+    display: inline-block;
+    line-height: 1.3; /* 네비게이션 텍스트와 동일한 line-height */
+    height: 1.3em; /* 네비게이션 메뉴와 동일한 높이 */
+    vertical-align: middle; /* 네비게이션 텍스트와 정렬 맞추기 */
 }
 
 /* 테마 토글 버튼 스타일 */
@@ -671,10 +725,15 @@ body[data-theme="dark"] .hero-carousel-section::before {
     top: 0;
     width: 33.333%;
     height: 100%;
-    z-index: 100; /* z-index 더 높여서 클릭 이벤트 우선순위 확보 */
+    z-index: 1; /* 버튼보다 낮게 설정 */
     cursor: none;
     pointer-events: auto; /* 클릭 이벤트 활성화 */
     /* 디버깅용 배경색 제거됨 */
+}
+
+/* 히어로 슬라이드 영역에서 버튼 영역은 클릭 비활성화 */
+.hero-slide-area:has(.hero-cta-pagination-block) {
+    pointer-events: none;
 }
 
 .hero-slide-left {
@@ -734,7 +793,7 @@ body[data-theme="dark"] .hero-carousel-section::before {
 /* 모든 슬라이드 콘텐츠 기본 설정 */
 .hero-slide-content {
     position: relative;
-    z-index: 20; /* 배경과 영상보다 확실히 위에 */
+    z-index: 1; /* 버튼보다 낮게 설정 */
     display: flex;
     flex-direction: column;
     gap: var(--spacing-8);
@@ -817,7 +876,7 @@ body[data-theme="dark"] .hero-carousel-section::before {
 
 /* 이미지 배너 슬라이드의 텍스트 가시성 보장 */
 .hero-slide[data-media-type="image"] .hero-slide-content {
-    z-index: 30; /* 이미지 배경보다 확실히 위에 */
+    z-index: 1; /* 버튼보다 낮게 설정 */
     position: relative;
     display: flex;
     opacity: 1;
@@ -925,17 +984,23 @@ body[data-theme="dark"] .hero-carousel-section::before {
         background-repeat: no-repeat !important;
     }
     
-    /* 모바일에서 히어로 슬라이드 영역 비활성화 */
+    /* 모바일에서 히어로 슬라이드 영역 비활성화 (버튼 제외) */
     .hero-slide-area {
         pointer-events: none;
+    }
+    
+    /* 모바일에서 히어로 버튼은 클릭 가능하도록 설정 */
+    .hero-cta-pagination-block .btn {
+        pointer-events: auto !important;
+        z-index: 9999 !important;
+        position: relative !important;
+        isolation: isolate !important;
     }
     
     /* 모바일에서 히어로 커스텀 커서 숨기기 */
     .hero-custom-cursor {
         display: none !important;
     }
-}
-
 }
 
 /* 헤드라인 블록 */
@@ -978,45 +1043,82 @@ body[data-theme="dark"] .hero-carousel-section::before {
 /* 히어로 CTA 컨테이너 - 데스크탑에서 왼쪽 spacing-1 추가 */
 .hero-cta-container {
     margin-left: var(--spacing-1); /* 4px - 데스크탑에서 왼쪽 여백 */
+    pointer-events: auto !important; /* 클릭 이벤트 허용 */
+    position: relative !important;
+    z-index: 9998 !important; /* 모든 요소보다 위에 표시 */
+    isolation: isolate !important; /* 새로운 stacking context 생성 */
 }
 
-/* 히어로 CTA 버튼 스타일 - 버튼 스몰 컴포넌트 사용 */
-.hero-cta-pagination-block .btn {
-    color: var(--schemes-on-hero);
+/* 히어로 CTA 버튼 - 디자인 시스템 기본 스타일 사용 */
+/* 히어로 영역에서만 버튼이 보이도록 색상 조정 */
+.hero-cta-pagination-block .btn,
+.hero-cta-pagination-block .btn *,
+.hero-cta-pagination-block .btn::before {
+    color: var(--schemes-on-hero) !important;
+    cursor: none !important; /* 커스텀 커서만 사용 */
+    pointer-events: auto !important; /* 클릭 이벤트 허용 */
+    position: relative !important;
+    z-index: 9999 !important; /* 모든 요소보다 위에 표시 */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important; /* 호버 효과를 위한 transition */
+    display: inline-flex !important; /* 버튼이 제대로 표시되도록 */
+    isolation: isolate !important; /* 새로운 stacking context 생성 */
+}
+
+/* ::after 요소는 별도로 처리 (언더라인 효과를 위해) */
+.hero-cta-pagination-block .btn::after {
+    cursor: none !important; /* 커스텀 커서만 사용 */
+    pointer-events: auto !important;
+    z-index: 9999 !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    isolation: isolate !important;
+    /* display는 디자인 시스템의 기본값 사용 */
 }
 
 .hero-cta-pagination-block .btn .btn-text {
     color: var(--schemes-on-hero);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .hero-cta-pagination-block .btn .btn-icon svg {
     color: var(--schemes-on-hero);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-/* 히어로 섹션 버튼의 ::before 아이콘 색상 - 흰색 배경용 */
 .hero-cta-pagination-block .btn .btn-icon::before {
-    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 12.0039H21' stroke='%23ffffff' stroke-width='1.5'/%3E%3Cpath d='M14 5L21.0036 12L14 19' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E");
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-/* 히어로 섹션 버튼의 언더라인 색상 - 흰색 배경용 */
+/* 전역 cursor: none을 덮어쓰기 위한 더 강력한 선택자 */
+.hero-carousel-section .hero-cta-pagination-block .btn,
+.hero-carousel-section .hero-cta-pagination-block .btn *,
+.hero-carousel-section .hero-cta-pagination-block .btn::before,
+.hero-carousel-section .hero-cta-pagination-block .btn::after {
+    cursor: none !important; /* 커스텀 커서만 사용 */
+    pointer-events: auto !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* 히어로 영역 버튼 - 디자인 시스템 기본 스타일 사용 */
+/* 히어로 영역에서만 색상 조정 */
+.hero-cta-pagination-block .btn .btn-icon::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 12.0039H22' stroke='%23ffffff' stroke-width='1.5'/%3E%3Cpath d='M15 5L22.0036 12L15 19' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+}
+
 .hero-cta-pagination-block .btn::after {
-    background-color: var(--schemes-on-hero);
+    background-color: var(--schemes-on-hero) !important; /* 흰색 언더라인 */
+    /* 디자인 시스템의 기본 언더라인 스타일 상속 */
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0.5px; /* 중앙 정렬을 위해 약간 오프셋 */
+    width: calc(100% - 1px); /* 화살표 아이콘보다 1px 짧게 */
+    height: 1.5px; /* 히어로 영역은 btn-small이므로 1.5px */
+    transform: translate3d(-100%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+    transform-style: preserve-3d;
+    opacity: 0;
 }
 
-/* 히어로 영역 버튼 호버 효과 - 기본 버튼 호버 효과 상속 */
-.hero-cta-pagination-block .btn:hover::after {
-    transform: translate3d(0%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
-    opacity: 1;
-}
-
-.hero-cta-pagination-block .btn:hover .btn-icon svg {
-    transform: translate3d(100%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
-}
-
-.hero-cta-pagination-block .btn:hover .btn-icon::before {
-    transform: translate(-50%, -50%) scale3d(1, 1, 1);
-    opacity: 1;
-}
+/* 히어로 영역 버튼 - 디자인 컴포넌트의 기본 호버 효과 사용 */
 
 
 /* 페이지네이션 */
@@ -1025,7 +1127,7 @@ body[data-theme="dark"] .hero-carousel-section::before {
     align-items: center;
     gap: var(--spacing-1); /* 4px */
     font-family: var(--font-family);
-    font-size: clamp(0.875rem, 1vw, 1.25rem); /* 14px-20px 반응형 - 아이패드 최적화 */
+    font-size: var(--heading-05-size); /* 24px - heading-5 스타일 */
     font-weight: var(--weight-emphasized); /* Medium */
     line-height: 1.1;
     color: var(--schemes-on-hero);
@@ -1116,13 +1218,9 @@ body[data-theme="dark"] .hero-section::before {
 }
 
 /* 프로젝트 카드 커튼 애니메이션 클래스 */
-.project-cards-container .featured-work-grid .project-card {
-    /* 기본 표시 - JavaScript에서 제어 */
-}
+/* 프로젝트 카드 - JavaScript에서 제어 */
 
-.project-cards-container .featured-work-grid .project-card-curtain {
-    /* 커튼 효과 - JavaScript에서 인라인 스타일로 적용 */
-}
+/* 프로젝트 카드 커튼 효과 - JavaScript에서 인라인 스타일로 적용 */
 
 
 
@@ -1342,9 +1440,7 @@ body[data-theme="dark"] .hero-section::before {
     color: var(--schemes-on-background);
 }
 
-.what-we-do-section .body-text-ko {
-    /* 그리드 시스템으로 관리 */
-}
+/* what-we-do-section body-text-ko - 그리드 시스템으로 관리 */
 
 .what-we-do-section .body-text-ko p {
     font-size: clamp(1rem, 1rem, 1rem); /* 16px 고정 - 피그마 디자인 */
@@ -2061,7 +2157,7 @@ body[data-theme="dark"] .hero-section::before {
 
 :root {
     /* 버튼 크기 변수 - 피그마 디자인 기준 */
-    --btn-small-text: var(--heading-5-size);     /* 20px */
+    --btn-small-text: var(--heading-05-size);    /* 24px - heading-5 스타일 */
     --btn-small-icon: 1.5rem;                   /* 24px */
     --btn-small-gap: var(--spacing-1);          /* 4px */
 
@@ -2158,7 +2254,7 @@ body[data-theme="dark"] .hero-section::before {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 2px;
+    height: 2px; /* 기본값 - Medium 버튼용 */
     background-color: var(--schemes-on-background);
     transform: translate3d(-100%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
     transform-style: preserve-3d;
@@ -2167,6 +2263,25 @@ body[data-theme="dark"] .hero-section::before {
     /* 버튼 영역에만 제한 */
     box-sizing: border-box;
     max-width: 100%;
+}
+
+/* Small 버튼 언더라인 - 1.5px, 화살표 아이콘보다 1px 짧게 */
+.btn-small::after {
+    height: 1.5px;
+    width: calc(100% - 1px); /* 화살표 아이콘보다 1px 짧게 */
+    left: 0.5px; /* 중앙 정렬을 위해 약간 오프셋 */
+}
+
+/* Medium 버튼 언더라인 - 2px (기본값) */
+.btn-medium::after {
+    height: 2px;
+}
+
+/* Large 버튼 언더라인 - 3px, 화살표 아이콘보다 1px 짧게 */
+.btn-large::after {
+    height: 3px;
+    width: calc(100% - 1px); /* 화살표 아이콘보다 1px 짧게 */
+    left: 0.5px; /* 중앙 정렬을 위해 약간 오프셋 */
 }
 
 /* 버튼 호버 시 하단 라인 나타남 */
@@ -2178,7 +2293,7 @@ body[data-theme="dark"] .hero-section::before {
 /* Small 버튼 (20px 텍스트, 24px 아이콘) - 피그마 디자인 */
 .btn-small {
     gap: var(--spacing-1); /* 4px - 텍스트와 아이콘 사이 간격 */
-    padding: var(--spacing-1) 0; /* 4px 상하 - py-1 */
+    padding: 0; /* 패딩 없음 */
     display: inline-flex;
     flex-direction: row;
     align-items: center;
@@ -2187,7 +2302,7 @@ body[data-theme="dark"] .hero-section::before {
 }
 
 .btn-small .btn-text {
-    font-size: var(--heading-5-size); /* 20px - 피그마 디자인 */
+    font-size: var(--btn-small-text); /* 24px - heading-5 스타일 */
     flex-shrink: 0;
 }
 
@@ -2276,7 +2391,7 @@ body[data-theme="dark"] .hero-section::before {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: var(--spacing-1) 0 0 0; /* 4px 상단 패딩 */
+    padding: 0; /* 패딩 없음 - 텍스트와 정렬 */
 }
 
 /* Large 버튼 아이콘 - 원본 크기 (24px) */
@@ -2429,7 +2544,7 @@ body[data-theme="dark"] .hero-section::before {
 /* 모바일 버튼 크기 조정 */
 @media only screen and (max-width: 767px) {
     :root {
-        --btn-small-text: var(--heading-5-size);     /* 20px */
+        --btn-small-text: var(--heading-05-size);    /* 24px - heading-5 스타일 */
         --btn-small-icon: 1.125rem;                 /* 18px */
         --btn-small-gap: var(--spacing-1);          /* 4px */
         
@@ -2480,24 +2595,25 @@ body[data-theme="dark"] .hero-section::before {
 @media only screen and (max-width: 767px) {
     /* 모바일 Spacing Variables - Tailwind CSS v2 breakpoints 기준 */
     :root {
-        --spacing-3: 0.5rem;    /* 8px Mobile */
-        --spacing-4: 0.5rem;    /* 8px Mobile */
-        --spacing-5: 0.75rem;   /* 12px Mobile */
-        --spacing-6: 0.75rem;   /* 12px Mobile */
-        --spacing-7: 1rem;      /* 16px Mobile */
-        --spacing-8: 1rem;      /* 16px Mobile - Figma Variables 기준 */
-        --spacing-9: 1.25rem;   /* 20px Mobile */
-        --spacing-10: 1.25rem;  /* 20px Mobile */
-        --spacing-11: 1.5rem;   /* 24px Mobile */
-        --spacing-12: 1.5rem;   /* 24px Mobile */
-        --spacing-14: 2rem;     /* 32px Mobile */
-        --spacing-16: 2rem;     /* 32px Mobile */
-        --spacing-20: 2.5rem;   /* 40px Mobile */
-        --spacing-24: 3rem;     /* 48px Mobile */
-        --spacing-28: 3.5rem;   /* 56px Mobile */
-        --spacing-32: 4rem;     /* 64px Mobile */
-        --spacing-36: 4.5rem;   /* 72px Mobile */
-        --spacing-40: 5rem;     /* 80px Mobile */
+        /* 모바일 Spacing - Tailwind 표준 유지하되 일부 조정 */
+        --spacing-3: 0.5rem;    /* 8px Mobile - Tailwind spacing-2 */
+        --spacing-4: 0.5rem;    /* 8px Mobile - Tailwind spacing-2 */
+        --spacing-5: 0.75rem;   /* 12px Mobile - Tailwind spacing-3 */
+        --spacing-6: 0.75rem;   /* 12px Mobile - Tailwind spacing-3 */
+        --spacing-7: 1rem;      /* 16px Mobile - Tailwind spacing-4 */
+        --spacing-8: 1rem;      /* 16px Mobile - Tailwind spacing-4 */
+        --spacing-9: 1.25rem;   /* 20px Mobile - Tailwind spacing-5 */
+        --spacing-10: 1.25rem;  /* 20px Mobile - Tailwind spacing-5 */
+        --spacing-11: 1.5rem;   /* 24px Mobile - Tailwind spacing-6 */
+        --spacing-12: 1.5rem;   /* 24px Mobile - Tailwind spacing-6 */
+        --spacing-14: 2rem;     /* 32px Mobile - Tailwind spacing-8 */
+        --spacing-16: 2rem;     /* 32px Mobile - Tailwind spacing-8 */
+        --spacing-20: 2.5rem;   /* 40px Mobile - Tailwind spacing-10 */
+        --spacing-24: 3rem;     /* 48px Mobile - Tailwind spacing-12 */
+        --spacing-28: 3.5rem;   /* 56px Mobile - Tailwind spacing-14 */
+        --spacing-32: 4rem;     /* 64px Mobile - Tailwind spacing-16 */
+        --spacing-36: 4.5rem;   /* 72px Mobile - 커스텀 */
+        --spacing-40: 5rem;     /* 80px Mobile - Tailwind spacing-20 */
         
         /* 모바일 타이포그래피 - Figma 기준 */
         --text-hero-sub: 1.375rem;    /* 22px - 모바일에서도 동일 */
@@ -2698,10 +2814,7 @@ body[data-theme="dark"] .hero-section::before {
     
     /* 모바일에서 CTA 및 페이지네이션 블록 - 자연스러운 배치 */
     
-    .hero-cta-text,
-    .hero-pagination {
-        /* clamp() 함수로 반응형 처리 - 모바일에서 14px 최소 보장 */
-    }
+    /* hero-cta-text, hero-pagination - clamp() 함수로 반응형 처리 - 모바일에서 14px 최소 보장 */
     
     /* 모바일에서 히어로 CTA 컨테이너 왼쪽 여백 제거 */
     .hero-cta-container {
@@ -3635,4 +3748,54 @@ body[data-theme="dark"] .hero-section::before {
 
 [data-theme="dark"] .mobile-menu-social {
     color: var(--schemes-text, #ffffff);
+}
+
+/* ========================================
+   반응형 디자인 토큰 - Mobile
+   ======================================== */
+
+/* Mobile Spacing System - 디자인 토큰 기반 */
+@media (max-width: 768px) {
+    :root {
+        /* Mobile Spacing */
+        --spacing-0: 0;
+        --spacing-1: 4px;
+        --spacing-2: 8px;
+        --spacing-3: 8px;
+        --spacing-4: 12px;
+        --spacing-5: 16px;
+        --spacing-6: 16px;
+        --spacing-7: 16px;
+        --spacing-8: 16px;
+        --spacing-9: 20px;
+        --spacing-10: 20px;
+        --spacing-11: 24px;
+        --spacing-12: 32px;
+        --spacing-14: 36px;
+        --spacing-16: 36px;
+        --spacing-20: 40px;
+        --spacing-24: 48px;
+        --spacing-28: 56px;
+        --spacing-32: 64px;
+        --spacing-36: 72px;
+        --spacing-40: 80px;
+        
+        /* Mobile Typography - Tailwind 표준 rem 단위 */
+        --text-xs: 0.75rem;      /* 12px - Tailwind text-xs */
+        --text-sm: 0.75rem;      /* 12px - 모바일에서 text-xs와 동일 */
+        --text-base: 1rem;       /* 16px - Tailwind text-base */
+        --text-lg: 1rem;         /* 16px - 모바일에서 text-base와 동일 */
+        --text-xl: 1.125rem;     /* 18px - Tailwind text-lg */
+        --text-2xl: 1.25rem;     /* 20px - Tailwind text-xl */
+        --text-3xl: 1.5rem;      /* 24px - Tailwind text-2xl */
+        --text-4xl: 1.75rem;     /* 28px - 커스텀 */
+        --text-5xl: 2.25rem;     /* 36px - Tailwind text-4xl */
+        --text-6xl: 2.75rem;     /* 44px - 커스텀 */
+        --text-7xl: 3rem;        /* 48px - Tailwind text-5xl */
+        --text-8xl: 3.5rem;      /* 56px - 커스텀 */
+        --text-9xl: 4rem;        /* 64px - 커스텀 */
+        --text-10xl: 5rem;       /* 80px - 커스텀 */
+        --text-11xl: 6rem;       /* 96px - Tailwind text-8xl */
+        --text-12xl: 7rem;       /* 112px - 커스텀 */
+    }
 }
