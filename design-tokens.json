@@ -440,7 +440,7 @@
               "GAP"
             ],
             "$type": "float",
-            "$value": 8
+            "$value": 12
           },
           "spacing-5": {
             "$scopes": [
@@ -449,7 +449,7 @@
               "GAP"
             ],
             "$type": "float",
-            "$value": 12
+            "$value": 16
           },
           "spacing-6": {
             "$scopes": [
@@ -458,7 +458,7 @@
               "GAP"
             ],
             "$type": "float",
-            "$value": 12
+            "$value": 16
           },
           "spacing-7": {
             "$scopes": [
@@ -512,7 +512,7 @@
               "GAP"
             ],
             "$type": "float",
-            "$value": 24
+            "$value": 32
           },
           "spacing-14": {
             "$scopes": [
@@ -521,7 +521,7 @@
               "GAP"
             ],
             "$type": "float",
-            "$value": 32
+            "$value": 36
           },
           "spacing-16": {
             "$scopes": [
@@ -530,7 +530,7 @@
               "GAP"
             ],
             "$type": "float",
-            "$value": 32
+            "$value": 36
           },
           "spacing-20": {
             "$scopes": [
@@ -1369,7 +1369,7 @@
                   "FONT_VARIATIONS"
                 ],
                 "$type": "float",
-                "$value": 14
+                "$value": 16
               }
             },
             "text-lg": {
