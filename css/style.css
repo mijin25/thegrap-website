@@ -22,17 +22,7 @@
     font-display: swap;
 }
 
-/* Dingklix Light 웹폰트 정의 */
-@font-face {
-    font-family: 'Dingklix';
-    src: url('../assets/fonts/Dingklix-Light.woff2') format('woff2'),
-         url('../assets/fonts/Dingklix-Light.woff') format('woff'),
-         url('../assets/fonts/Dingklix-Light.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-    unicode-range: U+0020-007F, U+00A0-00FF, U+0100-017F, U+0180-024F, U+1E00-1EFF; /* 라틴 문자 범위 */
-}
+/* Dingklix 폰트 제거됨 - PP Neue Montreal 사용 */
 
 /* Kakao Small Sans 웹폰트 정의 (한글용 - Regular만) */
 @font-face {
@@ -410,7 +400,7 @@ body {
 .nav-container {
     width: 100%;
     margin: 0 auto;
-    padding: 0;
+    padding: 0; /* 패딩 제거 */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -444,8 +434,8 @@ body {
 
 .nav-logo img,
 .nav-logo svg {
-    width: 168px;
-    height: 2.125rem; /* 34px - 텍스트 높이와 동일하게 맞춤 */
+    width: 96px; /* 피그마 디자인: 96px */
+    height: 24px; /* 피그마 디자인: 24px */
     max-width: none;
     object-fit: contain; /* 비율 유지하면서 컨테이너에 맞춤 */
     /* hero 영역에서는 흰색으로 표시 */
@@ -727,26 +717,35 @@ body[data-theme="dark"] .hero-carousel-section::before {
 
 
 
-/* 히어로 슬라이드 - 자연스러운 전환 */
+/* 히어로 슬라이드 - 단순한 구조 */
 .hero-slide {
-    position: absolute;
-    top: 0;
-    left: 0;
+    display: none;
     width: 100%;
     height: 100%;
-    opacity: 0;
-    transform: translateX(30px) scale(0.98);
-    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    display: flex;
+    position: relative;
     align-items: center;
     justify-content: center;
 }
 
 .hero-slide.active {
-    opacity: 1;
-    transform: translateX(0) scale(1);
+    display: flex;
 }
+
+/* 모든 슬라이드 콘텐츠 기본 설정 */
+.hero-slide-content {
+    position: relative;
+    z-index: 20; /* 배경과 영상보다 확실히 위에 */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+    align-items: flex-start;
+    justify-content: flex-end;
+    min-height: 100dvh;
+    width: 100%;
+    padding: var(--spacing-10) var(--spacing-8);
+    color: var(--schemes-on-hero);
+}
+
 
 /* 슬라이드 배경 */
 .hero-slide-background {
@@ -755,10 +754,100 @@ body[data-theme="dark"] .hero-carousel-section::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-size: cover;
+    background-size: 110%; /* 초기 크기를 110%로 설정 */
     background-position: center;
     background-repeat: no-repeat;
     z-index: 0;
+    transition: background-size 20s ease-out; /* 20초 동안 천천히 줌 */
+}
+
+/* 활성 슬라이드의 배경 이미지 줌 효과 */
+.hero-slide.active .hero-slide-background {
+    background-size: 120%; /* 20초 후 120%까지 확대 */
+}
+
+/* 히어로 영상 배경 */
+.hero-slide-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* 배경과 같은 레벨로 조정 */
+    overflow: hidden;
+}
+
+.hero-slide-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* 영상이 있을 때 배경 이미지 숨기기 */
+.hero-slide:has(.hero-slide-video) .hero-slide-background {
+    opacity: 0;
+}
+
+/* 유연한 배너 시스템 */
+/* 영상이 있는 슬라이드에서는 배경 이미지 숨김 */
+.hero-slide[data-media-type="video"] .hero-slide-background {
+    opacity: 0;
+    z-index: -1;
+}
+
+/* 이미지 전용 슬라이드에서는 영상 숨김 */
+.hero-slide[data-media-type="image"] .hero-slide-video {
+    display: none;
+}
+
+/* 이미지 전용 슬라이드에서는 배경 이미지 표시 */
+.hero-slide[data-media-type="image"] .hero-slide-background {
+    opacity: 1;
+    z-index: 0;
+    background-size: 110%;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-size 20s ease-out;
+}
+
+.hero-slide[data-media-type="image"].active .hero-slide-background {
+    background-size: 120%;
+}
+
+/* 이미지 배너 슬라이드의 텍스트 가시성 보장 */
+.hero-slide[data-media-type="image"] .hero-slide-content {
+    z-index: 30; /* 이미지 배경보다 확실히 위에 */
+    position: relative;
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+}
+
+.hero-slide[data-media-type="image"].active .hero-slide-content {
+    z-index: 30;
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 영상이 있는 슬라이드에서는 영상 표시 */
+.hero-slide[data-media-type="video"] .hero-slide-video {
+    display: block;
+}
+
+/* 모바일 영상 최적화 */
+@media (max-width: 767px) {
+    .hero-slide-video video {
+        /* 모바일에서 영상 품질 최적화 */
+        object-fit: cover;
+        object-position: center;
+        /* 모바일에서 성능 최적화 */
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
 }
 
 /* 태블릿(아이패드)에서 히어로 배경 최적화 */
@@ -847,20 +936,6 @@ body[data-theme="dark"] .hero-carousel-section::before {
     }
 }
 
-/* 슬라이드 콘텐츠 - 피그마 디자인 반영 */
-.hero-slide-content {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-8); /* 32px */
-    align-items: flex-start;
-    justify-content: flex-end;
-    min-height: 100dvh; /* 동적 뷰포트 높이 - 브라우저 UI 대응 */
-    width: 100%;
-    padding: var(--spacing-10) var(--spacing-8); /* 40px 32px */
-    color: var(--schemes-on-hero);
-    box-sizing: border-box;
 }
 
 /* 헤드라인 블록 */
@@ -1837,7 +1912,8 @@ body[data-theme="dark"] .hero-section::before {
 }
 
 .footer-logo img,
-.footer-logo svg {
+.footer-logo svg,
+.footer-logo-svg {
     position: absolute;
     bottom: 2.42%;
     left: 0;
@@ -2456,7 +2532,7 @@ body[data-theme="dark"] .hero-section::before {
         box-sizing: border-box !important;
         min-height: var(--spacing-5) !important; /* 모바일: 20px */
         margin: 0 !important;
-        padding: 0 !important;
+        padding: 0 !important; /* 패딩 제거 */
     }
     
     .nav-right {
@@ -2543,8 +2619,8 @@ body[data-theme="dark"] .hero-section::before {
     
     .nav-logo img,
     .nav-logo svg {
-        width: 140px;
-        height: 2.125rem; /* 34px - 텍스트 높이와 동일하게 맞춤 */
+        width: 96px; /* 피그마 디자인: 96px */
+        height: 24px; /* 피그마 디자인: 24px */
         object-fit: contain; /* 비율 유지하면서 컨테이너에 맞춤 */
         /* hero 영역에서는 흰색으로 표시 */
         filter: brightness(0) invert(1);
@@ -3114,9 +3190,10 @@ body[data-theme="dark"] .hero-section::before {
     height: 2.125rem; /* 34px - 피그마 h-8 */
 }
 
-.mobile-menu-logo svg {
-    width: 140px; /* 피그마 w-56 = 224px → 모바일에 맞게 조정 */
-    height: 2.125rem; /* 34px */
+.mobile-menu-logo svg,
+.mobile-menu-logo-svg {
+    width: 96px; /* 피그마 디자인: 96px */
+    height: 24px; /* 피그마 디자인: 24px */
     color: var(--schemes-on-hero); /* #ffffff - 피그마 on-hero 색상 */
     /* 다크모드에서만 흰색으로 변환 */
     filter: brightness(0) invert(1);
@@ -3204,8 +3281,8 @@ body[data-theme="dark"] .hero-section::before {
 
 /* 모바일 메뉴 링크 - 피그마 디자인 */
 .mobile-menu-link {
-    font-family: 'Dingklix', 'PP Neue Montreal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* 피그마 font-['Dingklix:Light',_sans-serif] */
-    font-size: var(--text-6xl); /* 60px - 피그마 text-[60px] */
+    font-family: 'PP Neue Montreal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Dingklix 제거, PP Neue Montreal 사용 */
+    font-size: var(--heading-1-size); /* heading-1 스타일 적용 */
     font-weight: 300; /* Light - 더 얇게 (명시적으로 300으로 설정) */
     line-height: 1; /* 피그마 leading-[0] */
     color: var(--schemes-on-hero); /* #ffffff */
