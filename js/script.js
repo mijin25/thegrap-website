@@ -1738,7 +1738,8 @@ function toggleMobileTheme() {
     // 모바일 테마 토글 아이콘도 동기화
     const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
     if (mobileThemeToggle) {
-        updateMobileThemeIcon(mobileThemeToggle, newTheme === 'dark' ? 'light' : 'dark');
+        // newTheme가 라이트모드면 달 아이콘(다크모드 전환), 다크모드면 태양 아이콘(라이트모드 전환)
+        updateMobileThemeIcon(mobileThemeToggle, newTheme === 'light' ? 'dark' : 'light');
     }
     
     console.log('테마 변경 완료:', newTheme);
@@ -1840,7 +1841,7 @@ function initMobileMenu() {
     // 모바일 메뉴 초기화 시 테마 아이콘 설정
     const currentTheme = document.body.getAttribute('data-theme') || 'dark';
     if (mobileThemeToggle) {
-        // 현재 테마가 다크모드면 라이트모드 아이콘(태양)을, 라이트모드면 다크모드 아이콘(달)을 표시
+        // 현재 테마가 다크모드면 태양 아이콘(라이트모드 전환), 라이트모드면 달 아이콘(다크모드 전환)을 표시
         updateMobileThemeIcon(mobileThemeToggle, currentTheme === 'dark' ? 'light' : 'dark');
         console.log('모바일 테마 아이콘 초기화:', currentTheme === 'dark' ? 'light' : 'dark');
     }
