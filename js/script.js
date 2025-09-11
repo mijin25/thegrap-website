@@ -530,13 +530,14 @@ class Navbar {
             // 초기 테마 적용
             if (isDarkMode) {
                 body.setAttribute('data-theme', 'dark');
-                updateThemeIcon(themeToggle, 'light');
+                this.updateThemeIcon(themeToggle, 'light');
             } else {
                 body.setAttribute('data-theme', 'light');
-                updateThemeIcon(themeToggle, 'dark');
+                this.updateThemeIcon(themeToggle, 'dark');
             }
             
             // 테마 토글 이벤트
+            const self = this; // this 컨텍스트 보존
             themeToggle.addEventListener('click', function() {
                 const heroSection = document.querySelector('.hero-section');
                 
@@ -549,11 +550,11 @@ class Navbar {
                 
                 if (isDarkMode) {
                     body.setAttribute('data-theme', 'dark');
-                    updateThemeIcon(themeToggle, 'light');
+                    self.updateThemeIcon(themeToggle, 'light');
                     localStorage.setItem('theme', 'dark');
                 } else {
                     body.setAttribute('data-theme', 'light');
-                    updateThemeIcon(themeToggle, 'dark');
+                    self.updateThemeIcon(themeToggle, 'dark');
                     localStorage.setItem('theme', 'light');
                 }
                 
