@@ -402,7 +402,7 @@ class Navbar {
                                 </svg>
                             </button>
                         </div>
-                        <div class="nav-icon nav-menu-icon" id="nav-menu-icon">
+                        <div class="nav-icon nav-menu-icon" id="nav-menu-icon" onclick="openMobileMenu()">
                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2 11H30" stroke="currentColor" stroke-width="1.5"/>
                                 <path d="M2 21H30" stroke="currentColor" stroke-width="1.5"/>
@@ -1480,12 +1480,125 @@ function initHeroCustomCursor() {
     });
 }
 
+// 전역 변수로 모바일 메뉴 요소들 저장
+let mobileMenuOverlay, mobileMenuClose, mobileMenuLinks;
+
+// 햄버거 메뉴 아이콘을 닫기 아이콘으로 전환
+function toggleMenuIcon(isOpen) {
+    const menuIcon = document.querySelector('#nav-menu-icon svg');
+    if (!menuIcon) return;
+    
+    if (isOpen) {
+        // 닫기 아이콘으로 전환
+        menuIcon.innerHTML = `
+            <path d="M26 26L6.20101 6.20101" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M6 26L25.799 6.20101" stroke="currentColor" stroke-width="1.5"/>
+        `;
+    } else {
+        // 햄버거 메뉴 아이콘으로 전환 (2줄, 10px 간격)
+        menuIcon.innerHTML = `
+            <path d="M2 11H30" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M2 21H30" stroke="currentColor" stroke-width="1.5"/>
+        `;
+    }
+}
+
+// 모바일 메뉴 열기 (전역 함수)
+function openMobileMenu() {
+    if (!mobileMenuOverlay) {
+        mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    }
+    
+    if (mobileMenuOverlay) {
+        mobileMenuOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // 스크롤 방지
+        toggleMenuIcon(true); // 햄버거 아이콘을 닫기 아이콘으로 전환
+        console.log('모바일 메뉴 열림');
+    }
+}
+
+// 모바일 메뉴 닫기 (전역 함수)
+function closeMobileMenu() {
+    if (!mobileMenuOverlay) {
+        mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    }
+    
+    if (mobileMenuOverlay) {
+        mobileMenuOverlay.classList.remove('active');
+        document.body.style.overflow = ''; // 스크롤 복원
+        toggleMenuIcon(false); // 닫기 아이콘을 햄버거 아이콘으로 전환
+        console.log('모바일 메뉴 닫힘');
+    }
+}
+
+// 모바일 테마 아이콘 업데이트 함수 (전역)
+function updateMobileThemeIcon(button, mode) {
+    const svg = button.querySelector('svg');
+    if (!svg) return;
+    
+    if (mode === 'dark') {
+        // 다크모드 아이콘 (달) - icon_dark-mode.svg와 동일
+        svg.innerHTML = `
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M20.086 16.417C15.073 16.417 11.01 12.377 11.01 7.394C11.01 5.798 11.43 4.301 12.162 3C7.58 3.456 4 7.3 4 11.977C4 16.961 8.064 21 13.076 21C16.483 21 19.448 19.132 21 16.372C20.7 16.402 20.395 16.417 20.086 16.417Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+        `;
+    } else {
+        // 라이트모드 아이콘 (태양) - icon_light-mode.svg와 동일
+        svg.innerHTML = `
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.50096C13.5184 6.50096 14.8941 7.11648 15.8897 8.11109C16.8854 9.10665 17.5 10.4813 17.5 12.0005C17.5 13.5197 16.8844 14.8943 15.8897 15.8899C14.8941 16.8854 13.5184 17.5 12 17.5C10.4807 17.5 9.10592 16.8845 8.11027 15.8899C7.11462 14.8943 6.5 13.5197 6.5 12.0005C6.5 10.4813 7.11558 9.10665 8.11027 8.11109C9.10592 7.11553 10.4807 6.50096 12 6.50096Z" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M17.625 6.37498L18.7017 5.2983L19.7784 4.22163M4.22163 19.7784L5.29924 18.7008L6.37591 17.6241M19.9538 12H21.4774H23M1 12H2.52265H4.04623M17.625 17.6241L18.7017 18.7008L19.7784 19.7784M4.22163 4.22163L5.29924 5.2983L6.37591 6.37498M12.0317 4.04623V2.52265V1M12.0317 23V21.4764V19.9538" stroke="currentColor" stroke-width="1.5"/>
+        `;
+    }
+}
+
+// 모바일 테마 토글 (전역 함수)
+function toggleMobileTheme() {
+    console.log('모바일 테마 토글 클릭됨');
+    
+    // 현재 테마 확인
+    const currentTheme = document.body.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    console.log('현재 테마:', currentTheme, '-> 새 테마:', newTheme);
+    
+    // 테마 변경
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    
+    // 데스크톱 테마 토글 버튼도 동기화
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        const desktopSvg = themeToggle.querySelector('svg');
+        if (desktopSvg) {
+            if (newTheme === 'dark') {
+                // 다크모드 아이콘 (달)
+                desktopSvg.innerHTML = `
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M20.086 16.417C15.073 16.417 11.01 12.377 11.01 7.394C11.01 5.798 11.43 4.301 12.162 3C7.58 3.456 4 7.3 4 11.977C4 16.961 8.064 21 13.076 21C16.483 21 19.448 19.132 21 16.372C20.7 16.402 20.395 16.417 20.086 16.417Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                `;
+            } else {
+                // 라이트모드 아이콘 (태양)
+                desktopSvg.innerHTML = `
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.50096C13.5184 6.50096 14.8941 7.11648 15.8897 8.11109C16.8854 9.10665 17.5 10.4813 17.5 12.0005C17.5 13.5197 16.8844 14.8943 15.8897 15.8899C14.8941 16.8854 13.5184 17.5 12 17.5C10.4807 17.5 9.10592 16.8845 8.11027 15.8899C7.11462 14.8943 6.5 13.5197 6.5 12.0005C6.5 10.4813 7.11558 9.10665 8.11027 8.11109C9.10592 7.11553 10.4807 6.50096 12 6.50096Z" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M17.625 6.37498L18.7017 5.2983L19.7784 4.22163M4.22163 19.7784L5.29924 18.7008L6.37591 17.6241M19.9538 12H21.4774H23M1 12H2.52265H4.04623M17.625 17.6241L18.7017 18.7008L19.7784 19.7784M4.22163 4.22163L5.29924 5.2983L6.37591 6.37498M12.0317 4.04623V2.52265V1M12.0317 23V21.4764V19.9538" stroke="currentColor" stroke-width="1.5"/>
+                `;
+            }
+        }
+    }
+    
+    // 모바일 테마 토글 아이콘도 동기화
+    const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+    if (mobileThemeToggle) {
+        updateMobileThemeIcon(mobileThemeToggle, newTheme === 'dark' ? 'light' : 'dark');
+    }
+    
+    console.log('테마 변경 완료:', newTheme);
+}
+
 // 모바일 메뉴 초기화 함수
 function initMobileMenu() {
-    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
     const mobileMenuToggle = document.querySelector('#nav-menu-icon');
-    const mobileMenuClose = document.querySelector('.mobile-menu-close');
-    const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+    mobileMenuClose = document.querySelector('.mobile-menu-close');
+    mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
     
     if (!mobileMenuOverlay || !mobileMenuToggle) {
         console.log('모바일 메뉴 요소를 찾을 수 없음:', {
@@ -1499,42 +1612,6 @@ function initMobileMenu() {
         mobileMenuOverlay: mobileMenuOverlay,
         mobileMenuToggle: mobileMenuToggle
     });
-    
-    // 햄버거 메뉴 아이콘을 닫기 아이콘으로 전환
-    function toggleMenuIcon(isOpen) {
-        const menuIcon = document.querySelector('#nav-menu-icon svg');
-        if (!menuIcon) return;
-        
-        if (isOpen) {
-            // 닫기 아이콘으로 전환
-            menuIcon.innerHTML = `
-                <path d="M26 26L6.20101 6.20101" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M6 26L25.799 6.20101" stroke="currentColor" stroke-width="1.5"/>
-            `;
-        } else {
-            // 햄버거 메뉴 아이콘으로 전환 (2줄, 10px 간격)
-            menuIcon.innerHTML = `
-                <path d="M2 11H30" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M2 21H30" stroke="currentColor" stroke-width="1.5"/>
-            `;
-        }
-    }
-    
-    // 모바일 메뉴 열기
-    function openMobileMenu() {
-        mobileMenuOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden'; // 스크롤 방지
-        toggleMenuIcon(true); // 햄버거 아이콘을 닫기 아이콘으로 전환
-        console.log('모바일 메뉴 열림');
-    }
-    
-    // 모바일 메뉴 닫기
-    function closeMobileMenu() {
-        mobileMenuOverlay.classList.remove('active');
-        document.body.style.overflow = ''; // 스크롤 복원
-        toggleMenuIcon(false); // 닫기 아이콘을 햄버거 아이콘으로 전환
-        console.log('모바일 메뉴 닫힘');
-    }
     
     // 햄버거 메뉴 클릭 이벤트 (여러 이벤트 타입으로 확실하게)
     function handleMenuClick(e) {
@@ -1608,29 +1685,13 @@ function initMobileMenu() {
         });
     }
     
-    // 모바일 테마 아이콘 업데이트 함수
-    function updateMobileThemeIcon(button, mode) {
-        const svg = button.querySelector('svg');
-        if (!svg) return;
-        
-        if (mode === 'dark') {
-            // 다크모드 아이콘 (달)
-            svg.innerHTML = `
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M20.086 16.417C15.073 16.417 11.01 12.377 11.01 7.394C11.01 5.798 11.43 4.301 12.162 3C7.58 3.456 4 7.3 4 11.977C4 16.961 8.064 21 13.076 21C16.483 21 19.448 19.132 21 16.372C20.7 16.402 20.395 16.417 20.086 16.417Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-            `;
-        } else {
-            // 라이트모드 아이콘 (태양)
-            svg.innerHTML = `
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.50096C13.5184 6.50096 14.8941 7.11648 15.8897 8.11109C16.8854 9.10665 17.5 10.4813 17.5 12.0005C17.5 13.5197 16.8844 14.8943 15.8897 15.8899C14.8941 16.8854 13.5184 17.5 12 17.5C10.4807 17.5 9.10592 16.8845 8.11027 15.8899C7.11462 14.8943 6.5 13.5197 6.5 12.0005C6.5 10.4813 7.11558 9.10665 8.11027 8.11109C9.10592 7.11553 10.4807 6.50096 12 6.50096Z" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M17.625 6.37498L18.7017 5.2983L19.7784 4.22163M4.22163 19.7784L5.29924 18.7008L6.37591 17.6241M19.9538 12H21.4774H23M1 12H2.52265H4.04623M17.625 17.6241L18.7017 18.7008L19.7784 19.7784M4.22163 4.22163L5.29924 5.2983L6.37591 6.37498M12.0317 4.04623V2.52265V1M12.0317 23V21.4764V19.9538" stroke="currentColor" stroke-width="1.5"/>
-            `;
-        }
-    }
     
     // 모바일 메뉴 초기화 시 테마 아이콘 설정
-    const isDarkMode = document.body.getAttribute('data-theme') === 'dark';
+    const currentTheme = document.body.getAttribute('data-theme') || 'dark';
     if (mobileThemeToggle) {
-        updateMobileThemeIcon(mobileThemeToggle, isDarkMode ? 'light' : 'dark');
+        // 현재 테마가 다크모드면 라이트모드 아이콘을, 라이트모드면 다크모드 아이콘을 표시
+        updateMobileThemeIcon(mobileThemeToggle, currentTheme === 'dark' ? 'light' : 'dark');
+        console.log('모바일 테마 아이콘 초기화:', currentTheme === 'dark' ? 'light' : 'dark');
     }
     
     console.log('모바일 메뉴 초기화 완료');

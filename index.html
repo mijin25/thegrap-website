@@ -45,7 +45,7 @@
                             <path d="M16.1797 0.666553V6.66549H11.424C11.424 6.66549 11.4174 6.67206 11.4043 6.68522C11.4043 6.68522 11.3977 6.68522 11.3845 6.68522C11.3845 6.68522 11.3845 6.6918 11.3845 6.70495C11.3845 7.2838 11.3845 7.86922 11.3845 8.46122C11.3845 9.04006 11.3845 9.62549 11.3845 10.2175C11.3845 10.7963 11.3845 11.3818 11.3845 11.9738C11.3845 12.5526 11.3845 13.138 11.3845 13.73C11.3845 14.3089 11.3845 14.8877 11.3845 15.4666H4.7952C4.7952 14.493 4.7952 13.5195 4.7952 12.546C4.7952 11.5725 4.7952 10.599 4.7952 9.62549C4.7952 8.65198 4.7952 7.67846 4.7952 6.70495C4.7952 6.6918 4.78862 6.68522 4.77547 6.68522C4.77547 6.67206 4.76889 6.66549 4.75573 6.66549H0V0.666553H16.1797Z" fill="currentColor"/>
                         </svg>
                     </div>
-                    <button class="mobile-menu-close" id="mobile-menu-close">
+                    <button class="mobile-menu-close" id="mobile-menu-close" onclick="closeMobileMenu()">
                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M26 26L6.20101 6.20101" stroke="currentColor" stroke-width="1.5"/>
                             <path d="M6 26L25.799 6.20101" stroke="currentColor" stroke-width="1.5"/>
@@ -58,19 +58,20 @@
             <div class="mobile-menu-body">
                 <!-- 다크모드 토글 -->
                 <div class="mobile-menu-mode">
-                    <button class="mobile-theme-toggle" id="mobile-theme-toggle">
+                    <button class="mobile-theme-toggle" id="mobile-theme-toggle" onclick="toggleMobileTheme()">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M20.086 16.417C15.073 16.417 11.01 12.377 11.01 7.394C11.01 5.798 11.43 4.301 12.162 3C7.58 3.456 4 7.3 4 11.977C4 16.961 8.064 21 13.076 21C16.483 21 19.448 19.132 21 16.372C20.7 16.402 20.395 16.417 20.086 16.417Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.50096C13.5184 6.50096 14.8941 7.11648 15.8897 8.11109C16.8854 9.10665 17.5 10.4813 17.5 12.0005C17.5 13.5197 16.8844 14.8943 15.8897 15.8899C14.8941 16.8854 13.5184 17.5 12 17.5C10.4807 17.5 9.10592 16.8845 8.11027 15.8899C7.11462 14.8943 6.5 13.5197 6.5 12.0005C6.5 10.4813 7.11558 9.10665 8.11027 8.11109C9.10592 7.11553 10.4807 6.50096 12 6.50096Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M17.625 6.37498L18.7017 5.2983L19.7784 4.22163M4.22163 19.7784L5.29924 18.7008L6.37591 17.6241M19.9538 12H21.4774H23M1 12H2.52265H4.04623M17.625 17.6241L18.7017 18.7008L19.7784 19.7784M4.22163 4.22163L5.29924 5.2983L6.37591 6.37498M12.0317 4.04623V2.52265V1M12.0317 23V21.4764V19.9538" stroke="currentColor" stroke-width="1.5"/>
                         </svg>
                     </button>
                 </div>
                 
                 <!-- 네비게이션 메뉴 -->
                 <nav class="mobile-menu-nav">
-                    <a href="about.html" class="mobile-menu-link">About</a>
-                    <a href="work.html" class="mobile-menu-link">Work</a>
-                    <a href="designers.html" class="mobile-menu-link">All by Designers</a>
-                    <a href="contact.html" class="mobile-menu-link">Contact</a>
+                    <a href="about.html" class="mobile-menu-link" onclick="closeMobileMenu()">About</a>
+                    <a href="work.html" class="mobile-menu-link" onclick="closeMobileMenu()">Work</a>
+                    <a href="designers.html" class="mobile-menu-link" onclick="closeMobileMenu()">All by Designers</a>
+                    <a href="contact.html" class="mobile-menu-link" onclick="closeMobileMenu()">Contact</a>
                 </nav>
                 
                 <!-- 소셜 링크 -->
