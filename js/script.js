@@ -431,8 +431,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!element.closest('.hero-section')) {
             element.style.opacity = '0';
             element.style.transform = 'translateY(30px)';
-            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(element);
+              element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+              observer.observe(element);
         }
     });
 });
@@ -1824,17 +1824,38 @@ function initMobileMenu() {
             e.preventDefault();
             e.stopPropagation();
             
-            // 기존 테마 토글 기능과 동일하게 작동
+            // 직접 테마 변경
+            const currentTheme = document.body.getAttribute('data-theme') || 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            console.log('모바일 테마 토글:', currentTheme, '->', newTheme);
+            
+            // 테마 변경
+            document.body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            // 데스크톱 테마 토글 아이콘도 동기화
             const themeToggle = document.getElementById('theme-toggle');
             if (themeToggle) {
-                themeToggle.click(); // 기존 테마 토글 버튼 클릭 시뮬레이션
-                
-                // 모바일 테마 토글 아이콘도 동기화
-                setTimeout(() => {
-                    const isDarkMode = document.body.getAttribute('data-theme') === 'dark';
-                    updateMobileThemeIcon(mobileThemeToggle, isDarkMode ? 'light' : 'dark');
-                }, 50);
+                const desktopSvg = themeToggle.querySelector('svg');
+                if (desktopSvg) {
+                    if (newTheme === 'dark') {
+                        // 다크모드 아이콘 (달)
+                        desktopSvg.innerHTML = `
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M20.086 16.417C15.073 16.417 11.01 12.377 11.01 7.394C11.01 5.798 11.43 4.301 12.162 3C7.58 3.456 4 7.3 4 11.977C4 16.961 8.064 21 13.076 21C16.483 21 19.448 19.132 21 16.372C20.7 16.402 20.395 16.417 20.086 16.417Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                        `;
+                    } else {
+                        // 라이트모드 아이콘 (태양)
+                        desktopSvg.innerHTML = `
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.50096C13.5184 6.50096 14.8941 7.11648 15.8897 8.11109C16.8854 9.10665 17.5 10.4813 17.5 12.0005C17.5 13.5197 16.8844 14.8943 15.8897 15.8899C14.8941 16.8854 13.5184 17.5 12 17.5C10.4807 17.5 9.10592 16.8845 8.11027 15.8899C7.11462 14.8943 6.5 13.5197 6.5 12.0005C6.5 10.4813 7.11558 9.10665 8.11027 8.11109C9.10592 7.11553 10.4807 6.50096 12 6.50096Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M17.625 6.37498L18.7017 5.2983L19.7784 4.22163M4.22163 19.7784L5.29924 18.7008L6.37591 17.6241M19.9538 12H21.4774H23M1 12H2.52265H4.04623M17.625 17.6241L18.7017 18.7008L19.7784 19.7784M4.22163 4.22163L5.29924 5.2983L6.37591 6.37498M12.0317 4.04623V2.52265V1M12.0317 23V21.4764V19.9538" stroke="currentColor" stroke-width="1.5"/>
+                        `;
+                    }
+                }
             }
+            
+            // 모바일 테마 토글 아이콘도 동기화
+            updateMobileThemeIcon(mobileThemeToggle, newTheme === 'light' ? 'dark' : 'light');
         });
     }
     

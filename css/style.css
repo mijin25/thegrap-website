@@ -3051,6 +3051,7 @@ body[data-theme="dark"] .hero-section::before {
     /* 모바일 브라우저 바텀바 위까지 꽉 차도록 */
     height: 100vh;
     height: 100dvh; /* 동적 뷰포트 높이 */
+    height: calc(100vh - env(safe-area-inset-bottom, 0px)); /* 안전 영역 고려 */
     width: 100vw;
     width: 100dvw; /* 동적 뷰포트 너비 */
     background-color: var(--schemes-hero); /* #000000 - 피그마 hero 색상 */
@@ -3082,7 +3083,7 @@ body[data-theme="dark"] .hero-section::before {
     /* 모바일 브라우저 안전 영역 고려한 패딩 */
     padding: var(--spacing-8); /* 32px - 피그마 p-[16px] = spacing-8 */
     padding-top: max(var(--spacing-8), env(safe-area-inset-top, 0px));
-    padding-bottom: max(var(--spacing-8), env(safe-area-inset-bottom, 0px));
+    padding-bottom: max(var(--spacing-8), env(safe-area-inset-bottom, 0px)); /* 원래대로 복원 */
     padding-left: max(var(--spacing-8), env(safe-area-inset-left, 0px));
     padding-right: max(var(--spacing-8), env(safe-area-inset-right, 0px));
     box-sizing: border-box;
@@ -3266,6 +3267,7 @@ body[data-theme="dark"] .hero-section::before {
         height: calc(100vh - env(safe-area-inset-bottom, 0px)); /* 안전 영역 고려 */
         min-height: 100vh;
         min-height: 100dvh;
+        min-height: calc(100vh - env(safe-area-inset-bottom, 0px)); /* 안전 영역 고려 */
     }
     
     .mobile-menu-overlay:not(.active) {
@@ -3277,6 +3279,8 @@ body[data-theme="dark"] .hero-section::before {
         min-height: 100vh;
         min-height: 100dvh;
         min-height: calc(100vh - env(safe-area-inset-bottom, 0px));
+        /* 모바일에서 하단 여백을 안전 영역으로 확보 */
+        padding-bottom: max(var(--spacing-8), env(safe-area-inset-bottom, 0px));
     }
 }
 
