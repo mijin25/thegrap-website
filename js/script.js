@@ -118,6 +118,90 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(initMobileMenu, 50);
         }
         
+        // 블렌드 모드 수동 테스트 함수 (디버깅용)
+        window.testBlendMode = function() {
+            const navbar = document.querySelector('.navbar');
+            if (navbar) {
+                navbar.classList.toggle('blend-mode');
+                console.log('블렌드 모드 수동 토글:', navbar.classList.contains('blend-mode'));
+            } else {
+                console.log('navbar 요소를 찾을 수 없음');
+            }
+        };
+        
+        // 전역 함수로도 등록
+        function testBlendMode() {
+            const navbar = document.querySelector('.navbar');
+            if (navbar) {
+                navbar.classList.toggle('blend-mode');
+                console.log('블렌드 모드 수동 토글:', navbar.classList.contains('blend-mode'));
+            } else {
+                console.log('navbar 요소를 찾을 수 없음');
+            }
+        }
+        
+        // 전역 스코프에 등록
+        window.testBlendMode = testBlendMode;
+        
+        // 블렌드 모드 전역 초기화
+        function initGlobalBlendMode() {
+            console.log('블렌드 모드 초기화 시도 중...');
+            
+            // 여러 방법으로 요소 찾기
+            const navbar = document.querySelector('.navbar') || 
+                          document.querySelector('nav') || 
+                          document.querySelector('[class*="nav"]');
+            
+            const heroSection = document.querySelector('.hero-carousel-section') || 
+                               document.querySelector('#home') || 
+                               document.querySelector('[class*="hero"]');
+            
+            console.log('찾은 요소들:', {
+                navbar: navbar,
+                heroSection: heroSection,
+                navbarClass: navbar ? navbar.className : '없음',
+                heroClass: heroSection ? heroSection.className : '없음'
+            });
+            
+            if (navbar && heroSection) {
+                function handleScroll() {
+                    const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+                    const scrollY = window.scrollY;
+                    
+                    console.log('스크롤 체크:', {
+                        scrollY: scrollY,
+                        heroBottom: heroBottom,
+                        shouldBlend: scrollY > heroBottom
+                    });
+                    
+                    if (scrollY > heroBottom) {
+                        navbar.classList.add('blend-mode');
+                        console.log('블렌드 모드 활성화');
+                    } else {
+                        navbar.classList.remove('blend-mode');
+                        console.log('블렌드 모드 비활성화');
+                    }
+                }
+                
+                window.addEventListener('scroll', handleScroll, { passive: true });
+                handleScroll();
+                console.log('전역 블렌드 모드 초기화 완료');
+                return true;
+            } else {
+                console.log('요소를 찾을 수 없음 - navbar:', !!navbar, 'heroSection:', !!heroSection);
+                return false;
+            }
+        }
+        
+        // 즉시 실행
+        initGlobalBlendMode();
+        
+        // 지연 실행
+        setTimeout(initGlobalBlendMode, 100);
+        setTimeout(initGlobalBlendMode, 500);
+        setTimeout(initGlobalBlendMode, 1000);
+        
+        
         // 폰트 로딩 완료 후 폰트 스무딩 적용
         function applyFontSmoothing() {
             const navbarElement = document.querySelector('.navbar');
@@ -482,19 +566,20 @@ class Navbar {
             });
         }
         
-        // Blend mode 기능 (옵션)
+        // Blend mode 기능 (옵션) - 간단한 방법으로 교체
         if (this.options.enableBlendMode) {
-            this.initBlendMode();
+            // 즉시 블렌드 모드 초기화
+            this.initSimpleBlendMode();
         }
     }
     
-    // Blend mode 초기화
-    initBlendMode() {
+    // 간단한 블렌드 모드 초기화
+    initSimpleBlendMode() {
         const navbar = document.querySelector('.navbar');
         const heroSection = document.querySelector('.hero-carousel-section');
         
         if (navbar && heroSection) {
-            function handleScroll() {
+            function checkBlendMode() {
                 const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
                 const scrollY = window.scrollY;
                 
@@ -505,8 +590,74 @@ class Navbar {
                 }
             }
             
+            // 스크롤 이벤트 등록
+            window.addEventListener('scroll', checkBlendMode, { passive: true });
+            
+            // 초기 실행
+            checkBlendMode();
+            
+            console.log('간단한 블렌드 모드 초기화 완료');
+        }
+    }
+    
+    // Blend mode 초기화
+    initBlendMode() {
+        // 여러 방법으로 요소 찾기
+        const navbar = document.querySelector('.navbar') || document.querySelector('nav.navbar');
+        const heroSection = document.querySelector('.hero-carousel-section') || document.querySelector('#home');
+        
+        console.log('블렌드 모드 초기화:', {
+            navbar: !!navbar,
+            heroSection: !!heroSection,
+            navbarElement: navbar,
+            heroElement: heroSection
+        });
+        
+        if (navbar && heroSection) {
+            // 기존 스크롤 이벤트 리스너들을 모두 제거
+            const existingListeners = window._blendModeListeners || [];
+            existingListeners.forEach(listener => {
+                window.removeEventListener('scroll', listener);
+            });
+            
+            function handleScroll() {
+                const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+                const scrollY = window.scrollY;
+                
+                console.log('스크롤 이벤트:', {
+                    scrollY: scrollY,
+                    heroBottom: heroBottom,
+                    shouldBlend: scrollY > heroBottom
+                });
+                
+                if (scrollY > heroBottom) {
+                    navbar.classList.add('blend-mode');
+                    console.log('블렌드 모드 활성화 - 클래스 추가됨');
+                } else {
+                    navbar.classList.remove('blend-mode');
+                    console.log('블렌드 모드 비활성화 - 클래스 제거됨');
+                }
+            }
+            
+            // 새로운 리스너 등록
             window.addEventListener('scroll', handleScroll, { passive: true });
-            handleScroll(); // 초기 실행
+            
+            // 리스너를 추적하기 위해 저장
+            if (!window._blendModeListeners) {
+                window._blendModeListeners = [];
+            }
+            window._blendModeListeners.push(handleScroll);
+            
+            // 초기 실행
+            handleScroll();
+            
+            console.log('블렌드 모드 스크롤 이벤트 리스너 등록 완료');
+        } else {
+            console.log('블렌드 모드 초기화 실패 - 요소를 찾을 수 없음');
+            console.log('사용 가능한 요소들:', {
+                allNavbars: document.querySelectorAll('.navbar, nav'),
+                allHeroSections: document.querySelectorAll('.hero-carousel-section, #home, section')
+            });
         }
     }
 }

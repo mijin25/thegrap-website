@@ -330,5 +330,48 @@
     </section>
 
     <script src="js/script.js"></script>
+    
+    <!-- 블렌드 모드 강제 초기화 -->
+    <script>
+        function initBlendMode() {
+            const navbar = document.querySelector('.navbar');
+            const heroSection = document.querySelector('.hero-carousel-section');
+            
+            console.log('HTML 스크립트에서 블렌드 모드 초기화 시도:', {
+                navbar: !!navbar,
+                heroSection: !!heroSection
+            });
+            
+            if (navbar && heroSection) {
+                function handleScroll() {
+                    const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+                    const scrollY = window.scrollY;
+                    
+                    if (scrollY > heroBottom) {
+                        navbar.classList.add('blend-mode');
+                        console.log('블렌드 모드 활성화');
+                    } else {
+                        navbar.classList.remove('blend-mode');
+                        console.log('블렌드 모드 비활성화');
+                    }
+                }
+                
+                window.addEventListener('scroll', handleScroll, { passive: true });
+                handleScroll();
+                console.log('HTML 스크립트 블렌드 모드 초기화 완료');
+            }
+        }
+        
+        // DOM 로드 후 실행
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initBlendMode);
+        } else {
+            initBlendMode();
+        }
+        
+        // 지연 실행
+        setTimeout(initBlendMode, 100);
+        setTimeout(initBlendMode, 500);
+    </script>
 </body>
 </html>

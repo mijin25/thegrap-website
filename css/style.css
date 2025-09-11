@@ -372,15 +372,25 @@ body {
 }
 
 
-/* hero 영역을 벗어날 때 mix-blend-mode 적용 */
+/* hero 영역을 벗어날 때 블렌드 모드 적용 */
 .navbar.blend-mode {
-    mix-blend-mode: difference;
     /* 블렌드 모드에서 폰트 스무딩 강화 */
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale !important;
     text-rendering: optimizeLegibility !important;
     font-feature-settings: "kern" 1 !important;
     font-kerning: normal !important;
+    /* mix-blend-mode 적용 */
+    mix-blend-mode: difference !important;
+    /* 상단 고정 유지 */
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    /* z-index 조정 */
+    z-index: 1000;
+    /* 강제 적용을 위한 추가 속성 */
+    isolation: isolate;
 }
 
 /* blend mode가 적용될 때는 자동으로 색상이 반전되므로 별도 설정 불필요 */
@@ -513,6 +523,35 @@ body {
 @media (min-width: 768px) {
     .nav-icon.nav-menu-icon {
         display: none !important;
+    }
+    
+    /* 데스크톱에서 블렌드 모드 강화 */
+    .navbar.blend-mode {
+        mix-blend-mode: difference !important;
+        position: fixed !important; /* 상단 고정 유지 */
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        isolation: isolate !important;
+        z-index: 1000 !important;
+        /* 데스크톱에서 블렌드 모드가 확실히 작동하도록 추가 속성 */
+        background-color: rgba(255, 255, 255, 0.01) !important;
+        backdrop-filter: none !important;
+    }
+    
+    /* 데스크톱에서 블렌드 모드 텍스트 색상 강제 설정 */
+    .navbar.blend-mode .nav-link {
+        color: white !important;
+    }
+    
+    .navbar.blend-mode .nav-logo svg {
+        color: white !important;
+        filter: brightness(0) invert(1) !important;
+    }
+    
+    .navbar.blend-mode .nav-icon svg {
+        color: white !important;
+        filter: brightness(0) invert(1) !important;
     }
 }
 
