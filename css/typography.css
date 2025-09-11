@@ -58,6 +58,7 @@
     --caption-sm-size: var(--text-sm);      /* 14px */
     
     /* 폰트 웨이트 */
+    --weight-light: 300;
     --weight-regular: 400;
     --weight-medium: 500;
     --weight-semibold: 600;

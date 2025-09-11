@@ -527,6 +527,30 @@ body {
     opacity: 0.7;
 }
 
+/* 테마 토글 버튼 스타일 */
+.theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--schemes-on-hero); /* 히어로 영역에서는 흰색 */
+    transition: opacity 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+    opacity: 0.7;
+}
+
+.theme-toggle-btn svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+}
+
 /* blend-mode가 적용될 때는 현재 테마에 따라 색상 변환 */
 .navbar.blend-mode .nav-icon img {
     filter: brightness(0) invert(1) !important; /* blend mode에서도 흰색 유지 - mix-blend-mode가 자동 반전 */
@@ -2409,8 +2433,15 @@ body[data-theme="dark"] .hero-section::before {
         display: flex !important; /* Figma: 햄버거 메뉴 아이콘 표시 */
         align-items: center !important;
         justify-content: center !important;
-        width: var(--spacing-16) !important; /* spacing-16 (32px) */
-        height: var(--spacing-16) !important; /* spacing-16 (32px) */
+        width: 44px !important; /* 터치하기 쉽게 더 크게 */
+        height: 44px !important; /* 터치하기 쉽게 더 크게 */
+        cursor: pointer !important; /* 클릭 가능하도록 커서 설정 */
+        pointer-events: auto !important; /* 클릭 이벤트 허용 */
+        position: relative !important;
+        z-index: 1001 !important; /* 네비게이션 바보다 위에 표시 */
+        /* 터치 영역 확장 */
+        padding: 6px !important;
+        margin: -6px !important;
     }
     
     /* Figma 모바일 햄버거 메뉴 아이콘 SVG */
@@ -2422,6 +2453,26 @@ body[data-theme="dark"] .hero-section::before {
         display: block !important;
         visibility: visible !important;
         opacity: 1 !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* 부드러운 전환 애니메이션 */
+    }
+    
+    /* 햄버거 메뉴 아이콘 path 전환 애니메이션 */
+    .nav-icon.nav-menu-icon svg path {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* 모바일에서 햄버거 메뉴 버튼 강제 표시 */
+    .nav-icon.nav-menu-icon {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: flex !important;
+    }
+    
+    /* 모바일에서 햄버거 메뉴 SVG 강제 표시 */
+    .nav-icon.nav-menu-icon svg {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
     }
     
     .nav-logo {
@@ -2936,6 +2987,247 @@ body[data-theme="dark"] .hero-section::before {
 
 
 /* ========================================
+   모바일 메뉴 스타일 (피그마 디자인 기반)
+   ======================================== */
+
+/* 모바일 메뉴 오버레이 - 피그마 디자인 */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* 모바일 브라우저 바텀바 위까지 꽉 차도록 */
+    height: 100vh;
+    height: 100dvh; /* 동적 뷰포트 높이 */
+    width: 100vw;
+    width: 100dvw; /* 동적 뷰포트 너비 */
+    background-color: var(--schemes-hero); /* #000000 - 피그마 hero 색상 */
+    z-index: 99999; /* 더 높은 z-index */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* 모바일에서만 표시 */
+    display: none;
+    pointer-events: none; /* 비활성 상태에서는 클릭 방지 */
+}
+
+/* 모바일 메뉴 활성화 상태 */
+.mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+    pointer-events: auto; /* 활성 상태에서는 클릭 허용 */
+}
+
+/* 모바일 메뉴 콘텐츠 컨테이너 */
+.mobile-menu-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* 모바일 브라우저 안전 영역 고려한 패딩 */
+    padding: var(--spacing-8); /* 32px - 피그마 p-[16px] = spacing-8 */
+    padding-top: max(var(--spacing-8), env(safe-area-inset-top, 0px));
+    padding-bottom: max(var(--spacing-8), env(safe-area-inset-bottom, 0px));
+    padding-left: max(var(--spacing-8), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--spacing-8), env(safe-area-inset-right, 0px));
+    box-sizing: border-box;
+}
+
+/* 모바일 메뉴 헤더 */
+.mobile-menu-header {
+    flex-shrink: 0;
+}
+
+/* 모바일 메뉴 네비게이션 바 */
+.mobile-menu-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: var(--spacing-5); /* 20px - 피그마 min-h-px */
+}
+
+/* 모바일 메뉴 로고 */
+.mobile-menu-logo {
+    display: flex;
+    align-items: center;
+    height: 2.125rem; /* 34px - 피그마 h-8 */
+}
+
+.mobile-menu-logo svg {
+    width: 140px; /* 피그마 w-56 = 224px → 모바일에 맞게 조정 */
+    height: 2.125rem; /* 34px */
+    color: var(--schemes-on-hero); /* #ffffff - 피그마 on-hero 색상 */
+    /* 다크모드에서만 흰색으로 변환 */
+    filter: brightness(0) invert(1);
+}
+
+/* 모바일 메뉴 닫기 버튼 */
+.mobile-menu-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--spacing-16); /* 32px - 피그마 size-9 */
+    height: var(--spacing-16); /* 32px */
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--schemes-on-hero); /* #ffffff */
+    transition: opacity 0.3s ease;
+}
+
+.mobile-menu-close:hover {
+    opacity: 0.7;
+}
+
+.mobile-menu-close svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+}
+
+/* 모바일 메뉴 바디 */
+.mobile-menu-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-10); /* 40px - 피그마 gap-10 */
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: var(--spacing-9) 0; /* 36px - 피그마 py-9 */
+}
+
+/* 모바일 메뉴 모드 토글 */
+.mobile-menu-mode {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* 모바일 테마 토글 버튼 */
+.mobile-theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--spacing-16); /* 32px */
+    height: var(--spacing-16); /* 32px */
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--schemes-on-hero); /* #ffffff */
+    transition: opacity 0.2s ease;
+}
+
+.mobile-theme-toggle:hover {
+    opacity: 0.7;
+}
+
+.mobile-theme-toggle svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    stroke-width: 1.5;
+}
+
+/* 모바일 메뉴 네비게이션 */
+.mobile-menu-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-5); /* 20px - 피그마 gap-5 */
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    height: 360px; /* 피그마 h-[360px] */
+}
+
+/* 모바일 메뉴 링크 - 피그마 디자인 */
+.mobile-menu-link {
+    font-family: 'Dingklix', 'PP Neue Montreal', sans-serif; /* 피그마 font-['Dingklix:Light',_sans-serif] */
+    font-size: var(--text-6xl); /* 60px - 피그마 text-[60px] */
+    font-weight: var(--weight-light); /* Light - 더 얇게 */
+    line-height: 1; /* 피그마 leading-[0] */
+    color: var(--schemes-on-hero); /* #ffffff */
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    transition: opacity 0.3s ease;
+    /* 피그마 not-italic */
+    font-style: normal;
+    /* 더 얇게 보이도록 폰트 렌더링 최적화 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1;
+    font-kerning: normal;
+}
+
+.mobile-menu-link:hover {
+    opacity: 0.7;
+}
+
+/* 모바일 메뉴 푸터 */
+.mobile-menu-footer {
+    display: flex;
+    gap: var(--spacing-4); /* 16px - 피그마 gap-4 */
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+}
+
+/* 모바일 메뉴 소셜 링크 - 피그마 디자인 */
+.mobile-menu-social {
+    font-family: 'PP Neue Montreal', sans-serif; /* 피그마 font-['PP_Neue_Montreal:Medium',_sans-serif] */
+    font-size: var(--text-xl); /* 20px - 피그마 text-[20px] */
+    font-weight: var(--weight-emphasized); /* Medium */
+    line-height: 1.1; /* 피그마 leading-[1.1] */
+    color: var(--schemes-on-hero); /* #ffffff */
+    text-decoration: none;
+    white-space: nowrap; /* 피그마 text-nowrap */
+    transition: opacity 0.3s ease;
+    /* 피그마 not-italic */
+    font-style: normal;
+}
+
+.mobile-menu-social:hover {
+    opacity: 0.7;
+}
+
+/* 데스크톱에서 모바일 메뉴 숨기기 */
+@media (min-width: 768px) {
+    .mobile-menu-overlay {
+        display: none !important;
+    }
+}
+
+/* 모바일에서만 모바일 메뉴 표시 */
+@media (max-width: 767px) {
+    .mobile-menu-overlay {
+        display: block;
+        /* 모바일 브라우저 바텀바 위까지 꽉 차도록 */
+        height: 100vh;
+        height: 100dvh; /* 동적 뷰포트 높이 */
+        height: calc(100vh - env(safe-area-inset-bottom, 0px)); /* 안전 영역 고려 */
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+    
+    .mobile-menu-overlay:not(.active) {
+        display: none;
+    }
+    
+    /* 모바일 메뉴 콘텐츠도 전체 화면 활용 */
+    .mobile-menu-content {
+        min-height: 100vh;
+        min-height: 100dvh;
+        min-height: calc(100vh - env(safe-area-inset-bottom, 0px));
+    }
+}
+
+/* ========================================
    공통 스크롤 인터랙션 클래스
    ======================================== */
 
@@ -3116,3 +3408,83 @@ body[data-theme="dark"] .hero-section::before {
 /* 호버 시 텍스트 효과 제거 */
 
 /* 호버 시 카드 상승 효과 제거 */
+
+/* ========================================
+   모바일 메뉴 테마 전환 대응
+   ======================================== */
+
+/* 라이트 테마 */
+[data-theme="light"] .mobile-menu-overlay {
+    background-color: var(--schemes-hero-light, #ffffff);
+}
+
+[data-theme="light"] .mobile-menu-link {
+    color: var(--schemes-text-light, #000000);
+}
+
+[data-theme="light"] .mobile-menu-link:hover {
+    color: var(--schemes-text-light-hover, #666666);
+}
+
+[data-theme="light"] .mobile-menu-close svg path {
+    fill: var(--schemes-text-light, #000000);
+}
+
+[data-theme="light"] .mobile-menu-close svg {
+    stroke: var(--schemes-text-light, #000000);
+}
+
+[data-theme="light"] .mobile-menu-logo svg {
+    color: var(--schemes-text-light, #000000);
+    filter: none; /* 라이트모드에서는 필터 제거 */
+}
+
+[data-theme="light"] .mobile-menu-footer-text {
+    color: var(--schemes-text-light, #000000);
+}
+
+[data-theme="light"] .mobile-theme-toggle {
+    color: var(--schemes-text-light, #000000);
+}
+
+[data-theme="light"] .mobile-menu-social {
+    color: var(--schemes-text-light, #000000);
+}
+
+/* 다크 테마 (기본값) */
+[data-theme="dark"] .mobile-menu-overlay {
+    background-color: var(--schemes-hero, #000000);
+}
+
+[data-theme="dark"] .mobile-menu-link {
+    color: var(--schemes-text, #ffffff);
+}
+
+[data-theme="dark"] .mobile-menu-link:hover {
+    color: var(--schemes-text-hover, #cccccc);
+}
+
+[data-theme="dark"] .mobile-menu-close svg path {
+    fill: var(--schemes-text, #ffffff);
+}
+
+[data-theme="dark"] .mobile-menu-close svg {
+    stroke: var(--schemes-text, #ffffff);
+}
+
+[data-theme="dark"] .mobile-menu-logo svg {
+    color: var(--schemes-text, #ffffff);
+    filter: brightness(0) invert(1); /* 다크모드에서는 흰색으로 변환 */
+}
+
+[data-theme="dark"] .mobile-menu-footer-text {
+    color: var(--schemes-text, #ffffff);
+}
+
+[data-theme="dark"] .mobile-theme-toggle {
+    color: var(--schemes-text, #ffffff);
+}
+
+[data-theme="dark"] .mobile-menu-social {
+    color: var(--schemes-text, #ffffff);
+}
