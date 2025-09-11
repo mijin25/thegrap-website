@@ -11,6 +11,20 @@
     
     <link rel="stylesheet" href="css/typography.css">
     <link rel="stylesheet" href="css/style.css">
+    
+    <!-- 폰트 로딩 확인 스크립트 -->
+    <script>
+        // Dingklix 폰트 로딩 확인
+        document.fonts.ready.then(() => {
+            console.log('모든 폰트 로딩 완료');
+            const dingklixLoaded = document.fonts.check('300 16px Dingklix');
+            console.log('Dingklix 폰트 로딩 상태:', dingklixLoaded);
+            
+            if (!dingklixLoaded) {
+                console.warn('Dingklix 폰트가 로드되지 않았습니다. fallback 폰트를 사용합니다.');
+            }
+        });
+    </script>
     <!-- PP Neue Montreal 웹폰트는 CSS @font-face로 로드 -->
     
     <!-- Google Analytics -->
