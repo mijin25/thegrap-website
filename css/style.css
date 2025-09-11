@@ -617,7 +617,9 @@ body {
 /* 히어로 캐러셀 섹션 */
 .hero-carousel-section {
     position: relative;
+    height: 100vh; /* 기본 뷰포트 높이 */
     height: 100dvh; /* 동적 뷰포트 높이 - 브라우저 UI 대응 */
+    height: calc(100vh - env(safe-area-inset-bottom, 0px)); /* 안전 영역 고려 */
     min-height: 100vh; /* fallback */
     width: 100vw;
     margin-left: calc(-50vw + 50%);
@@ -2583,7 +2585,9 @@ body[data-theme="dark"] .hero-section::before {
     
     /* 모바일 히어로 캐러셀 섹션 */
     .hero-carousel-section {
+        height: 100vh; /* 기본 뷰포트 높이 */
         height: 100dvh; /* 동적 뷰포트 높이 사용 - 모바일 브라우저 UI 고려 */
+        height: calc(100vh - env(safe-area-inset-bottom, 0px)); /* 안전 영역 고려 */
         min-height: 100vh; /* fallback */
         width: 100%;
         margin-left: 0;
@@ -3049,7 +3053,7 @@ body[data-theme="dark"] .hero-section::before {
     right: 0;
     bottom: 0;
     /* 모바일 브라우저 바텀바 위까지 꽉 차도록 */
-    height: 100vh;
+    height: 100vh; /* 기본 뷰포트 높이 */
     height: 100dvh; /* 동적 뷰포트 높이 */
     height: calc(100vh - env(safe-area-inset-bottom, 0px)); /* 안전 영역 고려 */
     width: 100vw;
@@ -3262,7 +3266,7 @@ body[data-theme="dark"] .hero-section::before {
     .mobile-menu-overlay {
         display: block;
         /* 모바일 브라우저 바텀바 위까지 꽉 차도록 */
-        height: 100vh;
+        height: 100vh; /* 기본 뷰포트 높이 */
         height: 100dvh; /* 동적 뷰포트 높이 */
         height: calc(100vh - env(safe-area-inset-bottom, 0px)); /* 안전 영역 고려 */
         min-height: 100vh;
