@@ -1,3 +1,117 @@
+// SVG 아이콘 자동 로드 시스템
+class SvgIconLoader {
+    constructor() {
+        this.iconCache = new Map(); // 아이콘 캐시
+    }
+    
+    // SVG 파일을 비동기로 로드하고 캐시
+    async loadSvgIcon(iconPath, options = {}) {
+        const cacheKey = `${iconPath}_${JSON.stringify(options)}`;
+        
+        // 캐시에서 확인
+        if (this.iconCache.has(cacheKey)) {
+            return this.iconCache.get(cacheKey);
+        }
+        
+        try {
+            const response = await fetch(iconPath);
+            if (!response.ok) {
+                throw new Error(`SVG 로드 실패: ${response.status}`);
+            }
+            
+            let svgContent = await response.text();
+            
+            // 옵션에 따른 SVG 수정
+            if (options.width) {
+                svgContent = svgContent.replace(/width="[^"]*"/, `width="${options.width}"`);
+            }
+            if (options.height) {
+                svgContent = svgContent.replace(/height="[^"]*"/, `height="${options.height}"`);
+            }
+            if (options.strokeColor) {
+                svgContent = svgContent.replace(/stroke="[^"]*"/g, `stroke="${options.strokeColor}"`);
+            }
+            if (options.rotate) {
+                svgContent = svgContent.replace(/<svg/, `<svg style="transform: rotate(${options.rotate}deg); display: block; margin: auto;"`);
+            }
+            
+            // 캐시에 저장
+            this.iconCache.set(cacheKey, svgContent);
+            return svgContent;
+            
+        } catch (error) {
+            console.error('SVG 아이콘 로드 오류:', error);
+            return null;
+        }
+    }
+    
+    // 버튼 아이콘 업데이트
+    async updateButtonIcons() {
+        const buttonIcons = document.querySelectorAll('.btn-icon svg');
+        const iconPath = 'assets/icon_arrow-right.svg';
+        
+        for (const svg of buttonIcons) {
+            const svgContent = await this.loadSvgIcon(iconPath, {
+                width: '24',
+                height: '24',
+                strokeColor: 'currentColor'
+            });
+            
+            if (svgContent) {
+                svg.outerHTML = svgContent;
+            }
+        }
+    }
+    
+    // 히어로 커스텀 커서 아이콘 미리 로드 (즉시 반응을 위해)
+    async preloadHeroCursorIcons() {
+        const iconPath = 'assets/icon_arrow-right.svg';
+        
+        // 캐시에 미리 로드 (비동기이지만 페이지 로드 시 실행)
+        await this.loadSvgIcon(iconPath, {
+            width: '36',
+            height: '36',
+            strokeColor: 'currentColor'
+        });
+        
+        await this.loadSvgIcon(iconPath, {
+            width: '36',
+            height: '36',
+            strokeColor: 'currentColor',
+            rotate: '180'
+        });
+        
+        console.log('히어로 커서 아이콘 미리 로드 완료');
+    }
+    
+    // 캐시된 SVG로 즉시 히어로 커서 아이콘 표시
+    showHeroCursorIcon(direction) {
+        const customCursor = document.querySelector('.custom-cursor');
+        if (!customCursor) return;
+        
+        const cacheKey = `assets/icon_arrow-right.svg_${JSON.stringify({
+            width: '36',
+            height: '36',
+            strokeColor: 'currentColor',
+            rotate: direction === 'prev' ? '180' : '0'
+        })}`;
+        
+        const svgContent = this.iconCache.get(cacheKey);
+        if (svgContent) {
+            customCursor.innerHTML = svgContent; // 즉시 표시 (캐시에서)
+        } else {
+            // 캐시에 없으면 기본 화살표 표시
+            const fallbackSvg = direction === 'prev' 
+                ? '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(180deg); display: block; margin: auto;"><path d="M4 12.0039H20" stroke="currentColor" stroke-width="1.5"/><path d="M13 5L20.0036 12L13 19" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>'
+                : '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: block; margin: auto;"><path d="M4 12.0039H20" stroke="currentColor" stroke-width="1.5"/><path d="M13 5L20.0036 12L13 19" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>';
+            customCursor.innerHTML = fallbackSvg;
+        }
+    }
+}
+
+// 전역 SVG 로더 인스턴스
+window.svgIconLoader = new SvgIconLoader();
+
 // 폰트 로딩 확인 및 처리
 document.fonts.ready.then(() => {
     console.log('폰트 로딩 완료');
@@ -131,6 +245,17 @@ class RevealUp {
 
 // Navbar 컴포넌트 자동 초기화
 document.addEventListener('DOMContentLoaded', function() {
+    // SVG 아이콘 자동 업데이트
+    if (window.svgIconLoader) {
+        window.svgIconLoader.updateButtonIcons().then(() => {
+            console.log('버튼 아이콘 자동 업데이트 완료');
+        });
+        
+        window.svgIconLoader.preloadHeroCursorIcons().then(() => {
+            console.log('히어로 커서 아이콘 미리 로드 완료');
+        });
+    }
+    
     // navbar-container가 있으면 컴포넌트로 렌더링
     const navbarContainer = document.getElementById('navbar-container');
     if (navbarContainer) {
@@ -488,6 +613,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // 패럴랙스 효과 제거됨 - 히어로 섹션은 정적
 
+// Logo 컴포넌트 클래스
+class Logo {
+    constructor(options = {}) {
+        this.options = {
+            link: options.link || 'index.html',
+            alt: options.alt || 'The Grap',
+            className: options.className || 'logo',
+            size: options.size || 'default' // 'default', 'small', 'large'
+        };
+    }
+    
+    render() {
+        return `
+            <div class="logo-container">
+                <a href="${this.options.link}">
+                    <img src="assets/logo.svg" alt="${this.options.alt}" class="${this.options.className}">
+                </a>
+            </div>
+        `;
+    }
+}
+
 // Navbar 컴포넌트
 class Navbar {
     constructor(options = {}) {
@@ -499,49 +646,72 @@ class Navbar {
                 { text: 'Contact', link: '#' }
             ],
             enableBlendMode: options.enableBlendMode !== false, // 기본값 true
+            isMobileMenu: options.isMobileMenu || false, // 모바일 메뉴용 플래그
             ...options
         };
     }
     
     render() {
-        return `
-            <nav class="navbar">
-                <div class="nav-container">
-                    <div class="nav-left">
-                        <div class="nav-logo">
-                            <a href="${this.options.logoLink}">
-                                <img src="assets/logo.svg" alt="The Grap" class="logo">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="nav-right">
-                        <div class="nav-menu">
-                            ${this.options.menuItems.map(item => 
-                                `<a href="${item.link}" class="nav-link js-flip">
-                                    <span class="m-flip_item">${item.text}</span>
-                                    <span class="m-flip_item">${item.text}</span>
-                                </a>`
-                            ).join('')}
-                        </div>
-                        <div class="nav-icon">
-                            <div class="theme-toggle-container">
-                                <button id="theme-toggle" class="theme-toggle-btn">
-                                    <svg id="theme-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M20.086 16.417C15.073 16.417 11.01 12.377 11.01 7.394C11.01 5.798 11.43 4.301 12.162 3C7.58 3.456 4 7.3 4 11.977C4 16.961 8.064 21 13.076 21C16.483 21 19.448 19.132 21 16.372C20.7 16.402 20.395 16.417 20.086 16.417Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                                    </svg>
-                                </button>
+        if (this.options.isMobileMenu) {
+            // 모바일 메뉴용 네비게이션 바 (닫기 버튼만)
+            return `
+                <nav class="navbar mobile-menu-navbar">
+                    <div class="nav-container">
+                        <div class="nav-left">
+                            <div class="nav-logo">
+                                ${new Logo({ link: this.options.logoLink }).render()}
                             </div>
                         </div>
-                        <div class="nav-icon nav-menu-icon" id="nav-menu-icon" onclick="openMobileMenu()">
-                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M2 11H30" stroke="currentColor" stroke-width="1.5"/>
-                                <path d="M2 21H30" stroke="currentColor" stroke-width="1.5"/>
-                            </svg>
+                        <div class="nav-right">
+                            <div class="nav-icon nav-menu-icon" id="mobile-menu-close" onclick="closeMobileMenu()">
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2 11H30" stroke="currentColor" stroke-width="1.5" class="menu-line menu-line-1"/>
+                                    <path d="M2 21H30" stroke="currentColor" stroke-width="1.5" class="menu-line menu-line-2"/>
+                                </svg>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </nav>
-        `;
+                </nav>
+            `;
+        } else {
+            // 기본 네비게이션 바
+            return `
+                <nav class="navbar">
+                    <div class="nav-container">
+                        <div class="nav-left">
+                            <div class="nav-logo">
+                                ${new Logo({ link: this.options.logoLink }).render()}
+                            </div>
+                        </div>
+                        <div class="nav-right">
+                            <div class="nav-menu">
+                                ${this.options.menuItems.map(item => 
+                                    `<a href="${item.link}" class="nav-link js-flip">
+                                        <span class="m-flip_item">${item.text}</span>
+                                        <span class="m-flip_item">${item.text}</span>
+                                    </a>`
+                                ).join('')}
+                            </div>
+                            <div class="nav-icon">
+                                <div class="theme-toggle-container">
+                                    <button id="theme-toggle" class="theme-toggle-btn">
+                                        <svg id="theme-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M20.086 16.417C15.073 16.417 11.01 12.377 11.01 7.394C11.01 5.798 11.43 4.301 12.162 3C7.58 3.456 4 7.3 4 11.977C4 16.961 8.064 21 13.076 21C16.483 21 19.448 19.132 21 16.372C20.7 16.402 20.395 16.417 20.086 16.417Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="nav-icon nav-menu-icon" id="nav-menu-icon" onclick="openMobileMenu()">
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2 11H30" stroke="currentColor" stroke-width="1.5" class="menu-line menu-line-1"/>
+                                    <path d="M2 21H30" stroke="currentColor" stroke-width="1.5" class="menu-line menu-line-2"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            `;
+        }
     }
     
     // 테마 아이콘 업데이트 함수
@@ -585,11 +755,10 @@ class Navbar {
             // 테마 토글 이벤트
             const self = this; // this 컨텍스트 보존
             themeToggle.addEventListener('click', function() {
-                const heroSection = document.querySelector('.hero-section');
-                
-                // 히어로 영역에 페이드 효과 추가
-                if (heroSection) {
-                    heroSection.classList.add('theme-transitioning');
+                // 테마 전환 시 히어로 영역에 전환 효과 추가
+                const heroCarouselSection = document.querySelector('.hero-carousel-section');
+                if (heroCarouselSection) {
+                    heroCarouselSection.classList.add('theme-transitioning');
                 }
                 
                 isDarkMode = !isDarkMode;
@@ -604,10 +773,10 @@ class Navbar {
                     localStorage.setItem('theme', 'light');
                 }
                 
-                // 페이드 효과 제거 (전환 완료 후)
+                // 전환 효과 제거 (전환 완료 후)
                 setTimeout(() => {
-                    if (heroSection) {
-                        heroSection.classList.remove('theme-transitioning');
+                    if (heroCarouselSection) {
+                        heroCarouselSection.classList.remove('theme-transitioning');
                     }
                 }, 300); // 0.3초 후 제거
             });
@@ -1252,7 +1421,7 @@ function initHeroCarousel() {
         }
     }
     
-    // 슬라이드 표시 함수 - Design Fever 스타일 즉시 전환
+    // 슬라이드 표시 함수 - 즉시 전환 최적화
     function showSlide(index) {
         if (isTransitioning || index === currentSlide) {
             console.log(`슬라이드 전환 건너뜀: ${currentSlide} → ${index} (전환중: ${isTransitioning})`);
@@ -1285,7 +1454,7 @@ function initHeroCarousel() {
         
         console.log(`슬라이드 전환 완료: 현재 슬라이드 ${currentSlide + 1}`);
         
-        // 자연스러운 전환 완료 (0.8초)
+        // 전환 완료 시간 단축 (0.8초 → 0.3초)
         setTimeout(() => {
             isTransitioning = false;
             // 수동 전환이 아닌 경우에만 자동 슬라이드 재시작
@@ -1293,7 +1462,7 @@ function initHeroCarousel() {
                 restartAutoSlide();
             }
             isManualTransition = false; // 플래그 리셋
-        }, 800);
+        }, 300);
     }
     
     // 다음 슬라이드
@@ -1413,6 +1582,7 @@ function initHeroCarousel() {
         stopAutoSlide: stopAutoSlide
     };
 }
+
 
 // 히어로 커스텀 커서 기능
 function initHeroCustomCursor() {
@@ -1536,15 +1706,19 @@ function initHeroCustomCursor() {
                     const sectionWidth = heroWidth / 3;
                     
                     if (relativeX < sectionWidth && currentDirection !== 'prev') {
-                        // 좌측 영역 (이전) - View 커스텀 커서 스타일 적용
+                        // 좌측 영역 (이전) - 캐시된 SVG 즉시 표시
                         currentDirection = 'prev';
                         customCursor.classList.add('hero-nav-cursor');
-                        customCursor.innerHTML = '<svg width="36" height="36" viewBox="4 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(180deg); display: block; margin: auto;"><path d="M6 12.0039H22" stroke="currentColor" stroke-width="1.5"/><path d="M15 5L22.0036 12L15 19" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>';
+                        if (window.svgIconLoader) {
+                            window.svgIconLoader.showHeroCursorIcon('prev');
+                        }
                     } else if (relativeX > sectionWidth * 2 && currentDirection !== 'next') {
-                        // 우측 영역 (다음) - View 커스텀 커서 스타일 적용
+                        // 우측 영역 (다음) - 캐시된 SVG 즉시 표시
                         currentDirection = 'next';
                         customCursor.classList.add('hero-nav-cursor');
-                        customCursor.innerHTML = '<svg width="36" height="36" viewBox="4 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: block; margin: auto;"><path d="M6 12.0039H22" stroke="currentColor" stroke-width="1.5"/><path d="M15 5L22.0036 12L15 19" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>';
+                        if (window.svgIconLoader) {
+                            window.svgIconLoader.showHeroCursorIcon('next');
+                        }
                     } else if (relativeX >= sectionWidth && relativeX <= sectionWidth * 2 && currentDirection !== 'center') {
                         // 중앙 영역 (클릭 비활성화) - 기본 커스텀 커서
                         currentDirection = 'center';
@@ -1617,49 +1791,29 @@ function initHeroCustomCursor() {
         }
     });
     
-    // 좌측 영역 클릭 이벤트 - Design Fever 스타일 즉시 전환
+    // 좌측 영역 클릭 이벤트 - 즉시 반응 최적화
     leftArea.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
         
-        // navbar 영역과 겹치는지 확인
-        const navbar = document.querySelector('.navbar');
-        let isInNavbarArea = false;
-        
-        if (navbar) {
-            const navbarRect = navbar.getBoundingClientRect();
-            isInNavbarArea = e.clientY >= navbarRect.top && e.clientY <= navbarRect.bottom;
-            console.log('좌측 영역 navbar 체크:', {
-                clickY: e.clientY,
-                navbarTop: navbarRect.top,
-                navbarBottom: navbarRect.bottom,
-                isInNavbarArea: isInNavbarArea
-            });
-        }
-        
-        // navbar 영역 체크 임시 비활성화 - 디버깅용
-        // if (isInNavbarArea) {
-        //     console.log('좌측 영역 navbar 영역에서 클릭 - 슬라이드 전환 차단');
-        //     return; // navbar 영역에서는 슬라이드 전환하지 않음
-        // }
-        
         console.log('좌측 영역 클릭 - 이전 슬라이드로 이동', e);
         
-        // 클릭 시 커스텀 커서 크기 축소 효과
+        // 커스텀 커서 즉시 축소 효과 (동기적으로 실행)
         const customCursor = document.querySelector('.custom-cursor');
         if (customCursor) {
-            // 클릭 효과 클래스 추가 (hero-nav-cursor 클래스는 유지)
+            // 클릭 효과 클래스 즉시 추가
             customCursor.classList.add('click-effect');
+            // CSS transition 완료 후 클래스 제거 (0.2초 + 여유시간)
             setTimeout(() => {
                 customCursor.classList.remove('click-effect');
-            }, 300); // CSS transition 0.2s + 여유시간 0.1s
+            }, 300);
         }
         
+        // 슬라이드 전환 즉시 실행 (딜레이 없음)
         if (window.heroCarousel && window.heroCarousel.prevSlide) {
-            // 자동 슬라이드 중지
             window.heroCarousel.stopAutoSlide();
             window.heroCarousel.prevSlide();
-            console.log('이전 슬라이드 실행됨');
+            console.log('이전 슬라이드 즉시 실행됨');
         } else {
             console.log('heroCarousel 또는 prevSlide 함수를 찾을 수 없음', window.heroCarousel);
         }
@@ -1672,42 +1826,29 @@ function initHeroCustomCursor() {
         console.log('중앙 영역 클릭 - 슬라이드 전환 없음');
     });
     
-    // 우측 영역 클릭 이벤트 - Design Fever 스타일 즉시 전환
+    // 우측 영역 클릭 이벤트 - 즉시 반응 최적화
     rightArea.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
         
-        // navbar 영역과 겹치는지 확인
-        const navbar = document.querySelector('.navbar');
-        let isInNavbarArea = false;
-        
-        if (navbar) {
-            const navbarRect = navbar.getBoundingClientRect();
-            isInNavbarArea = e.clientY >= navbarRect.top && e.clientY <= navbarRect.bottom;
-        }
-        
-        if (isInNavbarArea) {
-            console.log('navbar 영역에서 클릭 - 슬라이드 전환 차단');
-            return; // navbar 영역에서는 슬라이드 전환하지 않음
-        }
-        
         console.log('우측 영역 클릭 - 다음 슬라이드로 이동', e);
         
-        // 클릭 시 커스텀 커서 크기 축소 효과
+        // 커스텀 커서 즉시 축소 효과 (동기적으로 실행)
         const customCursor = document.querySelector('.custom-cursor');
         if (customCursor) {
-            // 클릭 효과 클래스 추가
+            // 클릭 효과 클래스 즉시 추가
             customCursor.classList.add('click-effect');
+            // CSS transition 완료 후 클래스 제거 (0.2초 + 여유시간)
             setTimeout(() => {
                 customCursor.classList.remove('click-effect');
-            }, 300); // CSS transition 0.2s + 여유시간 0.1s
+            }, 300);
         }
         
+        // 슬라이드 전환 즉시 실행 (딜레이 없음)
         if (window.heroCarousel && window.heroCarousel.nextSlide) {
-            // 자동 슬라이드 중지
             window.heroCarousel.stopAutoSlide();
             window.heroCarousel.nextSlide();
-            console.log('다음 슬라이드 실행됨');
+            console.log('다음 슬라이드 즉시 실행됨');
         } else {
             console.log('heroCarousel 또는 nextSlide 함수를 찾을 수 없음', window.heroCarousel);
         }
@@ -1756,23 +1897,48 @@ let mobileMenuOverlay, mobileMenuClose, mobileMenuLinks;
 
 // 로고는 이제 정적 HTML로 처리됨 - JavaScript 함수 제거
 
-// 햄버거 메뉴 아이콘을 닫기 아이콘으로 전환
+// 햄버거 메뉴 아이콘을 닫기 아이콘으로 전환 (애니메이션)
 function toggleMenuIcon(isOpen) {
-    const menuIcon = document.querySelector('#nav-menu-icon svg');
-    if (!menuIcon) return;
+    const menuIcon = document.querySelector('#nav-menu-icon');
+    const mobileMenuCloseIcon = document.getElementById('mobile-menu-close');
     
     if (isOpen) {
-        // 닫기 아이콘으로 전환
-        menuIcon.innerHTML = `
-            <path d="M26 26L6.20101 6.20101" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M6 26L25.799 6.20101" stroke="currentColor" stroke-width="1.5"/>
-        `;
+        // 닫기 아이콘으로 전환 - CSS 애니메이션과 정확한 path 변경 조합
+        if (menuIcon) {
+            menuIcon.classList.add('menu-open');
+            // 약간의 지연 후 정확한 X 모양으로 변경
+            setTimeout(() => {
+                const line1 = menuIcon.querySelector('.menu-line-1');
+                const line2 = menuIcon.querySelector('.menu-line-2');
+                if (line1) line1.setAttribute('d', 'M26 26L6.20101 6.20101');
+                if (line2) line2.setAttribute('d', 'M6 26L25.799 6.20101');
+            }, 150); // 0.3초 애니메이션의 중간 지점에서 path 변경
+        }
+        if (mobileMenuCloseIcon) {
+            mobileMenuCloseIcon.classList.add('menu-open');
+            setTimeout(() => {
+                const line1 = mobileMenuCloseIcon.querySelector('.menu-line-1');
+                const line2 = mobileMenuCloseIcon.querySelector('.menu-line-2');
+                if (line1) line1.setAttribute('d', 'M26 26L6.20101 6.20101');
+                if (line2) line2.setAttribute('d', 'M6 26L25.799 6.20101');
+            }, 150);
+        }
     } else {
-        // 햄버거 메뉴 아이콘으로 전환 (2줄, 10px 간격)
-        menuIcon.innerHTML = `
-            <path d="M2 11H30" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M2 21H30" stroke="currentColor" stroke-width="1.5"/>
-        `;
+        // 햄버거 메뉴 아이콘으로 전환 - 즉시 원래 path로 복원
+        if (menuIcon) {
+            menuIcon.classList.remove('menu-open');
+            const line1 = menuIcon.querySelector('.menu-line-1');
+            const line2 = menuIcon.querySelector('.menu-line-2');
+            if (line1) line1.setAttribute('d', 'M2 11H30');
+            if (line2) line2.setAttribute('d', 'M2 21H30');
+        }
+        if (mobileMenuCloseIcon) {
+            mobileMenuCloseIcon.classList.remove('menu-open');
+            const line1 = mobileMenuCloseIcon.querySelector('.menu-line-1');
+            const line2 = mobileMenuCloseIcon.querySelector('.menu-line-2');
+            if (line1) line1.setAttribute('d', 'M2 11H30');
+            if (line2) line2.setAttribute('d', 'M2 21H30');
+        }
     }
 }
 
@@ -1871,8 +2037,21 @@ function toggleMobileTheme() {
 function initMobileMenu() {
     mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
     const mobileMenuToggle = document.querySelector('#nav-menu-icon');
-    mobileMenuClose = document.querySelector('.mobile-menu-close');
+    mobileMenuClose = document.getElementById('mobile-menu-close');
     mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+    
+    // 모바일 네비게이션 바 컴포넌트 렌더링
+    const mobileNavbarContainer = document.getElementById('mobile-navbar-container');
+    if (mobileNavbarContainer) {
+        const mobileNavbar = new Navbar({
+            logoLink: 'index.html',
+            menuItems: [], // 모바일 메뉴에서는 메뉴 아이템 없음
+            enableBlendMode: true,
+            isMobileMenu: true // 모바일 메뉴용 플래그
+        });
+        mobileNavbarContainer.innerHTML = mobileNavbar.render();
+        mobileNavbar.init();
+    }
     
     if (!mobileMenuOverlay || !mobileMenuToggle) {
         console.log('모바일 메뉴 요소를 찾을 수 없음:', {

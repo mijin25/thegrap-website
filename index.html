@@ -39,20 +39,8 @@
     <!-- 모바일 메뉴 오버레이 -->
     <div id="mobile-menu-overlay" class="mobile-menu-overlay">
         <div class="mobile-menu-content">
-            <!-- 모바일 메뉴 헤더 -->
-            <div class="mobile-menu-header">
-                <div class="mobile-menu-navbar">
-                    <div class="mobile-menu-logo" id="mobile-menu-logo">
-                        <img src="assets/logo.svg" alt="The Grap" class="logo">
-                    </div>
-                    <button class="mobile-menu-close" id="mobile-menu-close" onclick="closeMobileMenu()">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M26 26L6.20101 6.20101" stroke="currentColor" stroke-width="1.5"/>
-                            <path d="M6 26L25.799 6.20101" stroke="currentColor" stroke-width="1.5"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
+            <!-- 모바일 네비게이션 바 컴포넌트로 동적 렌더링 -->
+            <div id="mobile-navbar-container"></div>
             
             <!-- 모바일 메뉴 콘텐츠 -->
             <div class="mobile-menu-body">
@@ -68,10 +56,12 @@
                 
                 <!-- 네비게이션 메뉴 -->
                 <nav class="mobile-menu-nav">
-                    <a href="#" class="mobile-menu-link" onclick="closeMobileMenu()">About</a>
-                    <a href="#" class="mobile-menu-link" onclick="closeMobileMenu()">Work</a>
-                    <a href="#" class="mobile-menu-link" onclick="closeMobileMenu()">All by Designers</a>
-                    <a href="#" class="mobile-menu-link" onclick="closeMobileMenu()">Contact</a>
+                    <div class="mobile-menu-links">
+                        <a href="#" class="mobile-menu-link" onclick="closeMobileMenu()">About</a>
+                        <a href="#" class="mobile-menu-link" onclick="closeMobileMenu()">Work</a>
+                        <a href="#" class="mobile-menu-link" onclick="closeMobileMenu()">All by Designers</a>
+                        <a href="#" class="mobile-menu-link" onclick="closeMobileMenu()">Contact</a>
+                    </div>
                 </nav>
                 
                 <!-- 소셜 링크 -->
@@ -113,7 +103,7 @@
                                 <span class="btn-text">Learn More</span>
                                 <div class="btn-icon">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M4 12.0039H19.5" stroke="currentColor" stroke-width="1.5"/>
+                                        <path d="M4 12.0039H20" stroke="currentColor" stroke-width="1.5"/>
                                         <path d="M13 5L20.0036 12L13 19" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
                                     </svg>
                                 </div>
@@ -150,7 +140,7 @@
                                 <span class="btn-text">Learn More</span>
                                 <div class="btn-icon">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M4 12.0039H19.5" stroke="currentColor" stroke-width="1.5"/>
+                                        <path d="M4 12.0039H20" stroke="currentColor" stroke-width="1.5"/>
                                         <path d="M13 5L20.0036 12L13 19" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
                                     </svg>
                                 </div>
@@ -189,7 +179,7 @@
                                 <span class="btn-text">Learn More</span>
                                 <div class="btn-icon">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M4 12.0039H19.5" stroke="currentColor" stroke-width="1.5"/>
+                                        <path d="M4 12.0039H20" stroke="currentColor" stroke-width="1.5"/>
                                         <path d="M13 5L20.0036 12L13 19" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
                                     </svg>
                                 </div>
@@ -252,10 +242,10 @@
                     <span class="btn-text">All Projects</span>
                     <div class="btn-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 12.0039H21" stroke="currentColor" stroke-width="1.5"/>
-                            <path d="M14 5L21.0036 12L14 19" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                            <path d="M4 12.0039H20" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M13 5L20.0036 12L13 19" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
                         </svg>
-                </div>
+                    </div>
                 </button>
             </div>
         </div>
@@ -301,23 +291,20 @@
     <section class="footer-section">
         <div class="footer-container">
             <div class="footer-header">
-                <h2 class="scroll-reveal-down scroll-reveal-delay-1">We shape moments,<br>build connections,<br>and create what matters.</h2>
-                <div style="display: flex; justify-content: flex-end; width: 100%;" class="scroll-reveal-down scroll-reveal-delay-2">
+                <h2 class="text-display-4 scroll-reveal-down">We shape moments,<br>build connections,<br>and create what matters.</h2>
+                <div style="display: flex; justify-content: flex-end; width: 100%;" class="scroll-reveal-down">
                     <button class="btn btn-large">
                         <span class="btn-text">Let's connect</span>
-                        <div class="btn-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5 12.0039H21" stroke="currentColor" stroke-width="1.5"/>
-                                <path d="M14 5L21.0036 12L14 19" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
+                    <div class="btn-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 12.0039H20" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M13 5L20.0036 12L13 19" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
                     </button>
                 </div>
             </div>
             <div class="footer-content">
-                <div class="footer-logo scroll-reveal-down scroll-reveal-delay-2" id="footer-logo">
-                    <img src="assets/logo.svg" alt="The Grap" class="logo">
-                </div>
                 <div class="footer-bar">
                     <p>©2025. All right reserved</p>
                     <div class="footer-links">

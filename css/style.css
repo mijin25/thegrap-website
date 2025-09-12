@@ -191,7 +191,7 @@ body {
     
     /* 커스텀 커서 변수 */
     --cursor-size-default: 1rem; /* 16px - 기본 크기 */
-    --cursor-size-hover: 6rem; /* 96px - 호버 크기 */
+    --cursor-size-hover: 7rem; /* 112px - 호버 크기 */
     --cursor-color: var(--brand-lime-light); /* 브랜드 컬러 직접 참조 */
     --cursor-text-color: var(--schemes-on-primary); /* #000000 */
     --cursor-font-size: var(--spacing-07); /* 24px */
@@ -241,6 +241,18 @@ body {
     filter: brightness(0) invert(1); /* 다크모드에서 흰색 */
     transition: filter 0.3s ease;
     display: block;
+}
+
+/* 로고 컨테이너 스타일 */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-container a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
 }
 
 /* 라이트모드에서 로고 색상 */
@@ -482,7 +494,7 @@ body {
     display: block;
     position: relative;
     top: 0;
-    transition: top 0.2s ease-out 0s; /* 웹스토리보이 원본 방식 */
+    transition: top 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0s; /* 탄력 있는 애니메이션 */
     white-space: nowrap; /* 텍스트 줄바꿈 방지 */
     line-height: 1.3; /* 텍스트와 토글 버튼 정렬 맞추기 */
 }
@@ -527,7 +539,7 @@ body {
     display: block;
     position: relative;
     top: 0;
-    transition: top 0.2s ease-out 0s; /* 웹스토리보이 원본 방식 */
+    transition: top 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0s; /* 탄력 있는 애니메이션 */
     white-space: nowrap; /* 텍스트 줄바꿈 방지 */
     line-height: 1.3; /* 텍스트와 토글 버튼 정렬 맞추기 */
 }
@@ -635,6 +647,8 @@ body {
 
 .theme-toggle-btn:hover {
     opacity: 0.7;
+    transform: translateY(-4px) scale(1.1); /* 호버 시 위로 4px 점프 + 10% 확대 */
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* 탄성 애니메이션 */
 }
 
 .theme-toggle-btn svg {
@@ -1144,6 +1158,23 @@ body[data-theme="dark"] .hero-carousel-section::before {
 /* 히어로 영역에서만 색상 조정 */
 .hero-cta-pagination-block .btn .btn-icon::before {
     background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 12.0039H22' stroke='%23ffffff' stroke-width='1.5'/%3E%3Cpath d='M15 5L22.0036 12L15 19' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+    transform: translate(-50%, -50%) scale(0) !important; /* 초기 상태: 숨김 */
+    opacity: 0 !important; /* 초기 상태: 투명 */
+}
+
+/* 히어로 영역 CTA 버튼 호버 효과 - 디자인 시스템과 동일 */
+.hero-cta-pagination-block .btn:hover::after {
+    transform: translate3d(0%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+    opacity: 1;
+}
+
+.hero-cta-pagination-block .btn:hover .btn-icon svg {
+    transform: translate3d(100%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+}
+
+.hero-cta-pagination-block .btn:hover .btn-icon::before {
+    transform: translate(-50%, -50%) scale3d(1, 1, 1);
+    opacity: 1;
 }
 
 
@@ -1153,11 +1184,12 @@ body[data-theme="dark"] .hero-carousel-section::before {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 0.5px; /* 중앙 정렬을 위해 약간 오프셋 */
-    width: calc(100% - 1px); /* 화살표 아이콘보다 1px 짧게 */
+    left: 1px; /* 중앙 정렬을 위해 약간 오프셋 */
+    width: calc(100% - 2px); /* 화살표 아이콘보다 2px 짧게 */
     height: 1.5px; /* 히어로 영역은 btn-small이므로 1.5px */
     transform: translate3d(-100%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
     transform-style: preserve-3d;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     opacity: 0;
 }
 
@@ -1221,9 +1253,28 @@ body[data-theme="dark"] .hero-section::before {
     transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 테마 전환 시 히어로 영역에 페이드 효과 추가 */
-.hero-section.theme-transitioning {
-    opacity: 0.7;
+/* 테마 전환 시 히어로 영역 배경 어둡게 효과 */
+.hero-carousel-section {
+    position: relative;
+}
+
+.hero-carousel-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3); /* 전환 시 30% 오버레이 */
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* 테마 전환 시에만 어두워짐 */
+.hero-carousel-section.theme-transitioning::before {
+    opacity: 1;
 }
 
 .hero-background {
@@ -1622,19 +1673,19 @@ body[data-theme="dark"] .hero-section::before {
 .hero-carousel-section .custom-cursor.click-effect,
 .hero-carousel-section .custom-cursor.hero-nav-cursor.click-effect,
 .hero-carousel-section .custom-cursor.hero-cursor.hero-nav-cursor.click-effect {
-    transform: translate(-50%, -50%) scale(0.9) !important; /* 10% 축소 */
+    transform: translate(-50%, -50%) scale(0.9) !important; /* 10% 축소로 복원 */
     background-color: var(--brand-lime-light) !important;
     z-index: 999999 !important;
-    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; /* 0.2초로 복원 */
 }
 
 /* hero-nav-cursor와 click-effect가 함께 있을 때 더 강력한 선택자 */
 .custom-cursor.hero-nav-cursor.click-effect {
-    transform: translate(-50%, -50%) scale(0.9) !important; /* 10% 축소 */
+    transform: translate(-50%, -50%) scale(0.9) !important; /* 10% 축소로 복원 */
     background-color: var(--brand-lime-light) !important;
     z-index: 999999 !important;
     mix-blend-mode: var(--cursor-blend-mode-hover) !important;
-    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; /* 0.2초로 복원 */
 }
 
 /* 모바일에서 커스텀 커서 숨기기 */
@@ -2044,7 +2095,7 @@ body[data-theme="dark"] .hero-section::before {
 }
 
 .footer-header h2 {
-    font-size: var(--display-5-size); /* 72px 데스크톱, 36px 모바일 - display-5 스타일 */
+    font-size: var(--display-4-size); /* 96px 데스크톱, 48px 모바일 - display-4 스타일 */
     font-weight: var(--weight-emphasized);
     line-height: var(--line-height-display);
     font-family: var(--font-family);
@@ -2134,6 +2185,11 @@ body[data-theme="dark"] .hero-section::before {
     opacity: 1 !important;
     visibility: visible !important;
     display: inline-block !important;
+}
+
+/* 푸터 링크 버튼 텍스트 크기 통일 */
+.footer-links .btn .btn-text {
+    font-size: var(--text-xl) !important; /* 카피라이트와 동일한 크기로 통일 */
 }
 
 .footer-links a:hover {
@@ -2327,11 +2383,11 @@ body[data-theme="dark"] .hero-section::before {
     max-width: 100%;
 }
 
-/* Small 버튼 언더라인 - 1.5px, 화살표 아이콘보다 1px 짧게 */
+/* Small 버튼 언더라인 - 1.5px, 화살표 아이콘보다 2px 짧게 */
 .btn-small::after {
     height: 1.5px;
-    width: calc(100% - 1px); /* 화살표 아이콘보다 1px 짧게 */
-    left: 0.5px; /* 중앙 정렬을 위해 약간 오프셋 */
+    width: calc(100% - 2px); /* 화살표 아이콘보다 2px 짧게 */
+    left: 1px; /* 중앙 정렬을 위해 약간 오프셋 */
 }
 
 /* Medium 버튼 언더라인 - 2px (기본값) */
@@ -2339,11 +2395,11 @@ body[data-theme="dark"] .hero-section::before {
     height: 2px;
 }
 
-/* Large 버튼 언더라인 - 3px, 화살표 아이콘보다 1px 짧게 */
+/* Large 버튼 언더라인 - 3px, 화살표 아이콘보다 2px 짧게 */
 .btn-large::after {
     height: 3px;
-    width: calc(100% - 1px); /* 화살표 아이콘보다 1px 짧게 */
-    left: 0.5px; /* 중앙 정렬을 위해 약간 오프셋 */
+    width: calc(100% - 2px); /* 화살표 아이콘보다 2px 짧게 */
+    left: 1px; /* 중앙 정렬을 위해 약간 오프셋 */
 }
 
 /* 버튼 호버 시 하단 라인 나타남 */
@@ -2559,7 +2615,7 @@ body[data-theme="dark"] .hero-section::before {
 
 /* 버튼 활성 상태 */
 .btn:active {
-    transform: scale(0.98);
+    transform: none;
 }
 
 /* 버튼 비활성 상태 */
@@ -2693,6 +2749,8 @@ body[data-theme="dark"] .hero-section::before {
         left: 0 !important;
         right: 0 !important;
         z-index: 1000 !important;
+        height: auto !important; /* 모바일에서 자동 높이로 변경 */
+        min-height: calc(2.125rem + var(--spacing-8) * 2) !important; /* 34px + 16px * 2 = 66px */
         padding: var(--spacing-8) !important; /* Figma: p-[16px] = spacing-8 (모바일에서 16px) */
         background: transparent !important;
         width: 100vw !important;
@@ -2751,22 +2809,59 @@ body[data-theme="dark"] .hero-section::before {
         margin: -6px !important;
     }
     
-    /* Figma 모바일 햄버거 메뉴 아이콘 SVG */
-    .nav-icon.nav-menu-icon svg {
-        width: 32px !important; /* 원본 SVG 파일 크기 (32x32) */
-        height: 32px !important; /* 원본 SVG 파일 크기 (32x32) */
-        color: white !important; /* 히어로 영역에서 흰색 */
-        stroke: currentColor !important; /* SVG stroke 색상을 currentColor로 설정 */
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* 부드러운 전환 애니메이션 */
-    }
+/* Figma 모바일 햄버거 메뉴 아이콘 SVG */
+.nav-icon.nav-menu-icon svg {
+    width: 32px !important; /* 원본 SVG 파일 크기 (32x32) */
+    height: 32px !important; /* 원본 SVG 파일 크기 (32x32) */
+    color: white !important; /* 히어로 영역에서 흰색 */
+    stroke: currentColor !important; /* SVG stroke 색상을 currentColor로 설정 */
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* 부드러운 전환 애니메이션 */
+}
+
+
+/* 햄버거 메뉴 아이콘 애니메이션 - 2개 라인으로 X 버튼 만들기 */
+.nav-icon.nav-menu-icon svg .menu-line {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+}
+
+/* 햄버거 메뉴 상태 (기본) */
+.nav-icon.nav-menu-icon svg .menu-line-1 {
+    transform-origin: 16px 11px; /* 첫 번째 라인의 실제 위치 */
+}
+
+.nav-icon.nav-menu-icon svg .menu-line-2 {
+    transform-origin: 16px 21px; /* 두 번째 라인의 실제 위치 */
+}
+
+/* X 버튼 상태 (메뉴 열림) - JavaScript path 변경과 CSS 애니메이션 조합 */
+.nav-icon.nav-menu-icon.menu-open svg .menu-line-1,
+.nav-icon.nav-menu-icon.menu-open svg .menu-line-2 {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 모바일 메뉴 닫기 아이콘도 동일한 애니메이션 적용 */
+.mobile-menu-navbar .nav-icon.nav-menu-icon svg .menu-line {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+}
+
+.mobile-menu-navbar .nav-icon.nav-menu-icon svg .menu-line-1 {
+    transform-origin: 16px 11px; /* 첫 번째 라인의 실제 위치 */
+}
+
+.mobile-menu-navbar .nav-icon.nav-menu-icon svg .menu-line-2 {
+    transform-origin: 16px 21px; /* 두 번째 라인의 실제 위치 */
+}
+
+.mobile-menu-navbar .nav-icon.nav-menu-icon.menu-open svg .menu-line-1,
+.mobile-menu-navbar .nav-icon.nav-menu-icon.menu-open svg .menu-line-2 {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
     
-    /* 햄버거 메뉴 아이콘 path 전환 애니메이션 */
-    .nav-icon.nav-menu-icon svg path {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
     
     /* 모바일에서 햄버거 메뉴 버튼 강제 표시 */
     .nav-icon.nav-menu-icon {
@@ -3168,7 +3263,7 @@ body[data-theme="dark"] .hero-section::before {
     
     /* Footer 텍스트 모바일 최적화 */
     .footer-header h2 {
-        font-size: var(--display-5-size); /* 72px 데스크톱, 36px 모바일 - display-5 스타일 */
+        font-size: var(--display-4-size); /* 96px 데스크톱, 48px 모바일 - display-4 스타일 */
         line-height: 1; /* 피그마: leading-none */
     }
     
@@ -3177,6 +3272,22 @@ body[data-theme="dark"] .hero-section::before {
         flex-direction: column !important; /* 피그마: 세로 배치 */
         gap: var(--spacing-4) !important; /* 16px - 피그마 gap-4 */
         align-items: flex-start !important;
+        opacity: 1 !important; /* 떨림 방지를 위해 초기 opacity 고정 */
+        transform: none !important; /* 떨림 방지를 위해 transform 제거 */
+    }
+    
+    /* 모바일에서 카피라이트를 링크들 아래로 이동 */
+    .footer-bar {
+        flex-direction: column !important;
+    }
+    
+    .footer-bar p {
+        order: 2; /* 카피라이트를 맨 아래로 */
+        margin-top: var(--spacing-24); /* 링크들과 카피라이트 사이 간격 추가 - 모바일에서 더 크게 */
+    }
+    
+    .footer-links {
+        order: 1; /* 링크들을 위로 */
     }
     
     .footer-bar p,
@@ -3184,6 +3295,8 @@ body[data-theme="dark"] .hero-section::before {
         font-size: var(--text-xl); /* 20px 데스크탑, 18px 모바일 - 16px 이상 보장 */
         opacity: 1 !important;
         visibility: visible !important;
+        transform: none !important; /* 떨림 방지 */
+        transition: none !important; /* 애니메이션 제거 */
     }
     
     /* 모바일 푸터 하단 레이아웃 변경 - 데스크탑과 다르게 */
@@ -3222,11 +3335,13 @@ body[data-theme="dark"] .hero-section::before {
     
     .footer-links {
         display: flex !important;
-        flex-direction: row !important; /* 링크들 가로 배치 */
-        gap: var(--spacing-4) !important; /* 16px - 가로 배치에 적합한 간격 */
+        flex-direction: column !important; /* 링크들 세로 배치 */
+        gap: var(--spacing-4) !important; /* 16px - 세로 배치에 적합한 간격 */
         align-items: flex-start !important;
         opacity: 1 !important;
         visibility: visible !important;
+        transform: none !important; /* 떨림 방지를 위해 transform 제거 */
+        transition: none !important; /* 애니메이션 완전 제거 */
     }
     
     .footer-links .btn {
@@ -3234,9 +3349,10 @@ body[data-theme="dark"] .hero-section::before {
         justify-content: flex-start !important;
     }
     
-    .footer-links .btn .btn-text {
-        text-align: left !important;
-    }
+.footer-links .btn .btn-text {
+    text-align: left !important;
+    font-size: var(--text-xl) !important; /* 카피라이트와 동일한 크기로 통일 */
+}
     
 }
 
@@ -3335,79 +3451,124 @@ body[data-theme="dark"] .hero-section::before {
     display: flex;
     flex-direction: column;
     justify-content: flex-start; /* 상단 정렬로 변경 */
-    /* 모바일 브라우저 안전 영역 고려한 패딩 */
-    padding: var(--spacing-8); /* 32px - 피그마 p-[16px] = spacing-8 */
-    padding-top: max(var(--spacing-8), env(safe-area-inset-top, 0px));
-    padding-bottom: var(--spacing-8); /* 바텀바 전까지 콘텐츠 렌더링 */
-    padding-left: max(var(--spacing-8), env(safe-area-inset-left, 0px));
-    padding-right: max(var(--spacing-8), env(safe-area-inset-right, 0px));
+    /* 모바일 브라우저 안전 영역 고려한 패딩 - 네비게이션 바는 자체 패딩 있음 */
+    padding: 0; /* 모든 패딩 제거 - 네비게이션 바가 자체 패딩을 가짐 */
+    padding-top: max(0px, env(safe-area-inset-top, 0px)); /* 안전 영역만 고려 */
+    padding-bottom: 0; /* 이중 패딩 제거 - mobile-menu-body에서 처리 */
+    padding-left: max(0px, env(safe-area-inset-left, 0px)); /* 안전 영역만 고려 */
+    padding-right: max(0px, env(safe-area-inset-right, 0px)); /* 안전 영역만 고려 */
     box-sizing: border-box;
 }
 
 /* 모바일 메뉴 헤더 */
 .mobile-menu-header {
     flex-shrink: 0;
+    padding: 0; /* 네비게이션 바와 동일한 패딩을 위해 제거 */
 }
 
-/* 모바일 메뉴 네비게이션 바 */
+/* 모바일 메뉴 네비게이션 바 - 기본 네비게이션 바와 완전히 동일한 스타일 */
 .mobile-menu-navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    min-height: var(--spacing-5); /* 20px - 피그마 min-h-px */
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    z-index: auto !important;
+    background: transparent !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: calc(2.125rem + var(--spacing-8) * 2) !important;
+    padding: var(--spacing-8) !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    /* 기본 네비게이션 바와 동일한 mix-blend-mode */
+    mix-blend-mode: difference !important;
 }
 
-/* 모바일 메뉴 로고 */
-.mobile-menu-logo {
-    display: flex;
-    align-items: center;
-    height: 2.125rem; /* 34px - 피그마 h-8 */
+/* 모바일 메뉴 네비게이션 바의 nav-container도 기본과 동일하게 */
+.mobile-menu-navbar .nav-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    min-height: 2.125rem !important; /* 34px - 로고 높이와 동일 */
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
-.mobile-menu-logo svg,
-.mobile-menu-logo-svg {
+/* 모바일 메뉴 네비게이션 바의 nav-left, nav-right도 기본과 동일하게 */
+.mobile-menu-navbar .nav-left,
+.mobile-menu-navbar .nav-right {
+    display: flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+    height: 2.125rem !important; /* 34px - 로고 높이와 동일하여 완전한 대칭 */
+}
+
+/* 모바일 메뉴 로고 - 기본 네비게이션 바 로고 스타일 재사용 */
+.mobile-menu-navbar .nav-logo {
+    display: flex;
+    align-items: center;
+    height: 2.125rem; /* 34px - 기본 네비게이션 바와 동일 */
+}
+
+.mobile-menu-navbar .nav-logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    height: 100%;
+}
+
+.mobile-menu-navbar .nav-logo img,
+.mobile-menu-navbar .nav-logo svg {
     width: 96px; /* 피그마 디자인: 96px */
     height: 24px; /* 피그마 디자인: 24px */
-    color: var(--schemes-on-hero); /* #ffffff - 피그마 on-hero 색상 */
-    /* 다크모드에서만 흰색으로 변환 */
+    object-fit: contain;
     filter: brightness(0) invert(1);
+    color: white !important;
 }
 
-/* 모바일 메뉴 닫기 버튼 */
-.mobile-menu-close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--spacing-16); /* 32px - 피그마 size-9 */
-    height: var(--spacing-16); /* 32px */
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--schemes-on-hero); /* #ffffff - 기본값 */
-    transition: opacity 0.3s ease;
+/* 모바일 메뉴 닫기 아이콘 - 기본 햄버거 메뉴 아이콘과 완전히 동일한 스타일 */
+.mobile-menu-navbar .nav-icon.nav-menu-icon {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 44px !important; /* 기본 햄버거 메뉴와 동일 */
+    height: 44px !important; /* 기본 햄버거 메뉴와 동일 */
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 1001 !important;
+    padding: 6px !important; /* 기본 햄버거 메뉴와 동일 */
+    margin: -6px !important; /* 기본 햄버거 메뉴와 동일 */
+    /* 대칭 정렬을 위한 추가 설정 */
+    flex-shrink: 0 !important;
 }
 
-.mobile-menu-close:hover {
-    opacity: 0.7;
+.mobile-menu-navbar .nav-icon.nav-menu-icon svg {
+    width: 32px !important;
+    height: 32px !important;
+    color: white !important;
+    stroke: currentColor !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.mobile-menu-close svg {
-    width: 100%;
-    height: 100%;
-    stroke: currentColor;
-    color: currentColor;
-}
 
-/* 모바일 메뉴 바디 */
+/* 모바일 메뉴 닫기 버튼 - 이제 컴포넌트로 처리되므로 기본 nav-icon 스타일 사용 */
+
+/* 모바일 메뉴 바디 - 피그마 디자인에 맞춰 간격 조정 */
 .mobile-menu-body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-10); /* 40px - 피그마 gap-10 */
+    gap: var(--spacing-20); /* 40px - 피그마 디자인에 맞춰 간격 복원 */
     align-items: flex-start;
     justify-content: flex-end; /* 하단 정렬로 변경 */
-    padding: var(--spacing-9) 0; /* 36px - 피그마 py-9 */
+    padding: var(--spacing-8) var(--spacing-8) max(var(--spacing-8), env(safe-area-inset-bottom, 0px)) var(--spacing-8); /* 바텀바 직전까지 그려지도록 조정 */
     margin-top: auto; /* 상단 여백을 자동으로 최대화하여 하단으로 밀어냄 */
 }
 
@@ -3434,6 +3595,29 @@ body[data-theme="dark"] .hero-section::before {
 
 .mobile-theme-toggle:hover {
     opacity: 0.7;
+    transform: translateY(-4px) scale(1.1); /* 호버 시 위로 4px 점프 + 10% 확대 */
+    transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* 탄성 애니메이션 */
+}
+
+.mobile-theme-toggle:active {
+    transform: none !important; /* 클릭 시 스케일 효과 제거 */
+}
+
+.mobile-theme-toggle:focus {
+    transform: none !important; /* 포커스 시에도 스케일 효과 제거 */
+}
+
+.mobile-theme-toggle:focus:active {
+    transform: none !important; /* 포커스 + 활성 상태에서도 스케일 효과 제거 */
+}
+
+/* 모든 클릭 관련 상태에서 스케일 효과 제거 */
+.mobile-theme-toggle:active,
+.mobile-theme-toggle:focus,
+.mobile-theme-toggle:focus:active,
+.mobile-theme-toggle:focus-visible:active {
+    transform: none !important;
+    scale: 1 !important;
 }
 
 .mobile-theme-toggle svg {
@@ -3451,13 +3635,21 @@ body[data-theme="dark"] .hero-section::before {
     align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
-    height: 360px; /* 피그마 h-[360px] */
+    height: auto; /* 고정 높이 제거 - 자동 높이로 변경 */
+}
+
+/* 모바일 메뉴 링크 컨테이너 - 피그마 nav 컨테이너와 동일 */
+.mobile-menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8); /* 16px - 피그마 gap-8과 동일 */
+    width: 100%;
 }
 
 /* 모바일 메뉴 링크 - 피그마 디자인 */
 .mobile-menu-link {
     font-family: var(--font-family-en); /* 디자인 시스템 폰트 사용 */
-    font-size: var(--heading-1-size); /* 36px - 올바른 디자인 시스템 변수 사용 */
+    font-size: var(--display-6-size); /* display-6 사이즈로 변경 */
     font-weight: var(--weight-regular); /* 400 - 디자인 시스템 weight 사용 */
     line-height: var(--line-height-heading); /* 1.1 - 디자인 시스템 line-height 사용 */
     color: var(--schemes-on-hero); /* #ffffff */
@@ -3536,7 +3728,7 @@ body[data-theme="dark"] .hero-section::before {
         min-height: 100dvh;
         min-height: calc(100vh - env(safe-area-inset-bottom, 0px));
         /* 모바일에서 바텀바 전까지 콘텐츠 렌더링 */
-        padding-bottom: var(--spacing-8);
+        padding-bottom: 0; /* 이중 패딩 제거 */
     }
 }
 
@@ -3646,6 +3838,7 @@ body[data-theme="dark"] .hero-section::before {
     transition-delay: 0.3s; /* 초기 딜레이 추가 */
 }
 
+
 .scroll-reveal-down.revealed {
     opacity: 1;
     transform: translateY(0);
@@ -3739,22 +3932,16 @@ body[data-theme="dark"] .hero-section::before {
     color: var(--schemes-text-light-hover, #666666);
 }
 
-[data-theme="light"] .mobile-menu-close {
-    color: var(--schemes-text-light, #000000);
-}
+/* 모바일 메뉴 닫기 버튼 테마 스타일 - 이제 컴포넌트로 처리되므로 제거 */
 
-[data-theme="light"] .mobile-menu-close svg path {
-    fill: var(--schemes-text-light, #000000);
-}
-
-[data-theme="light"] .mobile-menu-close svg {
-    stroke: var(--schemes-text-light, #000000);
-    color: var(--schemes-text-light, #000000);
-}
-
-[data-theme="light"] .mobile-menu-logo svg {
-    color: var(--schemes-text-light, #000000);
-    filter: none; /* 라이트모드에서는 필터 제거 */
+[data-theme="light"] .mobile-menu-logo svg,
+[data-theme="light"] .mobile-menu-logo-svg,
+[data-theme="light"] .mobile-menu-logo img,
+[data-theme="light"] .mobile-menu-logo .logo {
+    color: var(--schemes-text-light, #000000) !important;
+    filter: none !important; /* 라이트모드에서는 필터 제거 - 검은색 로고 표시 */
+    stroke: var(--schemes-text-light, #000000) !important;
+    fill: var(--schemes-text-light, #000000) !important;
 }
 
 [data-theme="light"] .mobile-menu-footer-text {
@@ -3782,20 +3969,11 @@ body[data-theme="dark"] .hero-section::before {
     color: var(--schemes-text-hover, #cccccc);
 }
 
-[data-theme="dark"] .mobile-menu-close {
-    color: var(--schemes-text, #ffffff);
-}
+/* 모바일 메뉴 닫기 버튼 다크 테마 스타일 - 이제 컴포넌트로 처리되므로 제거 */
 
-[data-theme="dark"] .mobile-menu-close svg path {
-    fill: var(--schemes-text, #ffffff);
-}
-
-[data-theme="dark"] .mobile-menu-close svg {
-    stroke: var(--schemes-text, #ffffff);
-    color: var(--schemes-text, #ffffff);
-}
-
-[data-theme="dark"] .mobile-menu-logo svg {
+[data-theme="dark"] .mobile-menu-logo svg,
+[data-theme="dark"] .mobile-menu-logo img,
+[data-theme="dark"] .mobile-menu-logo .logo {
     color: var(--schemes-text, #ffffff);
     filter: brightness(0) invert(1); /* 다크모드에서는 흰색으로 변환 */
 }
